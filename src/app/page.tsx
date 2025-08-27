@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-	return <div>ssakssak-commit</div>;
+  return <div>ssakssak-commit</div>;
 }
