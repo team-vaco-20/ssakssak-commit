@@ -20,7 +20,6 @@ import {
 type ComboboxProps = { children: React.ReactNode };
 
 type ListType = {
-  id: string;
   value: string;
 };
 
@@ -47,7 +46,7 @@ export function ComboboxPopover({ children, items }: Props) {
               <CommandGroup>
                 {items.map((i) => (
                   <CommandItem
-                    key={i.id}
+                    key={i.value}
                     value={i.value}
                     onSelect={(value) => {
                       setSelected(
