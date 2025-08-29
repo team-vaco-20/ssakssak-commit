@@ -1,6 +1,14 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Label } from "@/app/ui/common/label";
+
+interface InputFieldProps {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+}
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -18,4 +26,13 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-export { Input };
+function InputField({ id, label, placeholder }: InputFieldProps) {
+  return (
+    <div className="grid w-full items-center gap-3">
+      <Label htmlFor={id}>{label}</Label>
+      <Input id={id} placeholder={placeholder} />
+    </div>
+  );
+}
+
+export { Input, InputField };
