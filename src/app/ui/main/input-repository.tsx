@@ -60,7 +60,7 @@ const InputRepository = ({ onBranchesFetched }: InputRepositoryProps) => {
         placeholder="https://github.com/{리포지토리 소유자}/{리포지토리 이름}"
       />
 
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      {error ? <ErrorMessage message={`${error}`}></ErrorMessage> : null}
     </div>
   );
 };

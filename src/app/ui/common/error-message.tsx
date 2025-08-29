@@ -1,9 +1,9 @@
 type Props = {
-  children: string;
+  message: string;
 };
 
-function ErrorMessage({ children }: Props) {
-  return <div className="text-[#FF0000]">{children}</div>;
+function ErrorMessage({ message }: Props) {
+  return <div className="text-[#FF0000]">{message}</div>;
 }
 
 export default ErrorMessage;
