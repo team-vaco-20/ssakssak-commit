@@ -25,7 +25,7 @@ type ListType = {
 
 type Props = ComboboxProps & { items: ListType[] };
 
-export function ComboboxPopover({ children, items }: Props) {
+const ComboboxPopover = ({ children, items }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<ListType | null>(null);
 
@@ -44,10 +44,10 @@ export function ComboboxPopover({ children, items }: Props) {
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
-                {items.map((i) => (
+                {items.map((item) => (
                   <CommandItem
-                    key={i.value}
-                    value={i.value}
+                    key={item.value}
+                    value={item.value}
                     onSelect={(value) => {
                       setSelected(
                         items.find((priority) => priority.value === value) ||
@@ -56,7 +56,7 @@ export function ComboboxPopover({ children, items }: Props) {
                       setOpen(false);
                     }}
                   >
-                    {i.value}
+                    {item.value}
                   </CommandItem>
                 ))}
               </CommandGroup>
@@ -66,4 +66,6 @@ export function ComboboxPopover({ children, items }: Props) {
       </Popover>
     </div>
   );
-}
+};
+
+export default ComboboxPopover;

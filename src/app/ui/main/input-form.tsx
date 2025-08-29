@@ -4,7 +4,7 @@ import { useState } from "react";
 import { InputField } from "@/app/ui/common/input";
 import { Label } from "@/app/ui/common/label";
 import { Textarea } from "@/app/ui/common/textarea";
-import { ComboboxPopover } from "@/app/ui/common/combobox";
+import ComboboxPopover from "@/app/ui/common/combobox";
 import InputRepository from "@/app/ui/main/input-repository";
 import { Button } from "../common/button";
 import Link from "next/link";
