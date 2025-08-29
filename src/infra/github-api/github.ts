@@ -1,19 +1,41 @@
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 import { BranchName } from "@/app/types/branch";
+import NotFoundError from "@/errors/not-found-error";
+import { GITHUB_REPOSITORY_ERROR_MESSAGES } from "@/constants/error-messages";
+import { GITHUB_API } from "@/constants/github-api";
 
-const getBranchNames = async (owner: string, repositoryName: string) => {
+const { HEADERS, ENDPOINTS } = GITHUB_API;
+const { X_GITHUB_API_VERSION, VERSION } = HEADERS;
+
+const getBranches = async (
+  owner: string,
+  repositoryName: string,
+): Promise<BranchName[]> => {
   const octokit = new Octokit();
-  const response = await octokit.request("GET /repos/{owner}/{repo}/branches", {
-    owner: owner,
-    repo: repositoryName,
-    headers: {
-      "X-Github-Api-Version": "2022-11-28",
-    },
-  });
+  try {
+    const response = await octokit.request(ENDPOINTS.BRANCH.LIST, {
+      owner: owner,
+      repo: repositoryName,
+      headers: {
+        [X_GITHUB_API_VERSION]: VERSION,
+      },
+    });
 
-  const branchNames: BranchName[] = response.data.map((branch) => branch.name);
+    const branches: BranchName[] = response.data.map(
+      (branch: { name: string }) => branch.name,
+    );
 
-  return branchNames;
+    return branches;
+  } catch (error) {
+    if (error instanceof RequestError) {
+      if (error.status === 404) {
+        throw new NotFoundError({
+          message: GITHUB_REPOSITORY_ERROR_MESSAGES.NOT_FOUND,
+        });
+      }
+    }
+    throw error;
+  }
 };
 
-export { getBranchNames };
+export { getBranches };

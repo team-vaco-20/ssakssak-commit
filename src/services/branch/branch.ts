@@ -1,11 +1,14 @@
-import { getBranchNames } from "@/infra/github-api/github";
+import { BranchName } from "@/app/types/branch";
+import { getBranches } from "@/infra/github-api/github";
 import parseRepositoryUrl from "@/lib/parse-repository-url";
 
-const getRepositoryBranchNames = async (repositoryUrl: string) => {
+const getRepositoryBranches = async (
+  repositoryUrl: string,
+): Promise<BranchName[]> => {
   const { owner, repositoryName } = parseRepositoryUrl(repositoryUrl);
-  const branchNames = await getBranchNames(owner, repositoryName);
+  const branches: BranchName[] = await getBranches(owner, repositoryName);
 
-  return branchNames;
+  return branches;
 };
 
-export { getRepositoryBranchNames };
+export { getRepositoryBranches };

@@ -1,1 +1,3 @@
-export type BranchName = string;
+type BranchName = string;
+
+export type { BranchName };
