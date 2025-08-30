@@ -1,9 +1,6 @@
-type CommitBoxProps = {
-  id: string;
-  message: string;
-};
+import { CommitInfo } from "@/app/types/commit";
 
-function CommitBox({ id, message }: CommitBoxProps) {
+function CommitBox({ id, message }: CommitInfo) {
   return (
     <>
       <div className="mb-3 min-h-[40px] rounded-[10px] border-2 border-gray-500 px-4 py-2">
