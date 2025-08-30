@@ -17,68 +17,46 @@ import {
   PopoverTrigger,
 } from "@/app/ui/common/popover";
 
-type Status = {
+type ComboboxProps = { children: React.ReactNode };
+
+type ListType = {
   value: string;
-  label: string;
 };
 
-const statuses: Status[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-  },
-  {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-  },
-];
+type Props = ComboboxProps & { items: ListType[] };
 
-export function ComboboxPopover() {
+const ComboboxPopover = ({ children, items }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
-    null,
-  );
+  const [selected, setSelected] = React.useState<ListType | null>(null);
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Status</p>
+      <p className="text-muted-foreground text-sm">{children}</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-[150px] justify-start">
-            {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+          <Button variant="outline" className="w-auto justify-start">
+            {selected ? <>{selected.value}</> : <>+ {children} 선택</>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0" side="right" align="start">
           <Command>
-            <CommandInput placeholder="Change status..." />
+            <CommandInput placeholder={`Change ${children}...`} />
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
-                {statuses.map((status) => (
+                {items.map((item) => (
                   <CommandItem
-                    key={status.value}
-                    value={status.value}
+                    key={item.value}
+                    value={item.value}
                     onSelect={(value) => {
-                      setSelectedStatus(
-                        statuses.find((priority) => priority.value === value) ||
+                      setSelected(
+                        items.find((priority) => priority.value === value) ||
                           null,
                       );
                       setOpen(false);
                     }}
                   >
-                    {status.label}
+                    {item.value}
                   </CommandItem>
                 ))}
               </CommandGroup>
@@ -88,4 +66,6 @@ export function ComboboxPopover() {
       </Popover>
     </div>
   );
-}
+};
+
+export default ComboboxPopover;
