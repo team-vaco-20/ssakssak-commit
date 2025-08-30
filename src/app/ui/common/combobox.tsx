@@ -50,8 +50,7 @@ const ComboboxPopover = ({ children, items }: Props) => {
                     value={item.value}
                     onSelect={(value) => {
                       setSelected(
-                        items.find((priority) => priority.value === value) ||
-                          null,
+                        items.find((item) => item.value === value) || null,
                       );
                       setOpen(false);
                     }}
