@@ -1,11 +1,11 @@
-import Header from "../ui/analysis-page/header";
-import SummaryBox from "../ui/analysis-page/summary-box";
-import CommitChanges from "../ui/analysis-page/commit-changes";
-import DiagramBox from "../ui/analysis-page/diagram-box";
-import CommitList from "../ui/analysis-page/commit-list";
-import RequirementList from "../ui/analysis-page/requirement-list";
+import Header from "../ui/report-view/header";
+import SummaryBox from "../ui/report-view/summary-box";
+import CommitChanges from "../ui/report-view/commit-changes";
+import DiagramBox from "../ui/report-view/diagram-box";
+import CommitList from "../ui/report-view/commit-list";
+import RequirementList from "../ui/report-view/requirement-list";
 
-function AnalyzePage() {
+function reportViewPage() {
   return (
     <div className="flex min-h-screen w-screen flex-col bg-gray-50 px-[10%] break-words break-keep whitespace-normal">
       <div className="mt-4 mb-6 flex w-full flex-col rounded-[20px] border-2 border-gray-500 bg-white shadow-md">
@@ -35,4 +35,4 @@ function AnalyzePage() {
   );
 }
 
-export default AnalyzePage;
+export default reportViewPage;
