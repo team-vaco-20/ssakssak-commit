@@ -22,6 +22,11 @@ function ReportForm() {
       const repositoryUrl = String(formData.get("repositoryUrl") || "").trim();
       const branch = String(formData.get("branch") || "").trim();
 
+      if (!repositoryUrl || !branch) {
+        setErrorMessage("리포지토리 URL과 브랜치를 모두 선택해 주세요.");
+        return;
+      }
+
       const response = await fetch("/reports", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
