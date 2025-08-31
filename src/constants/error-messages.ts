@@ -4,10 +4,8 @@ const VALIDATION_ERROR_MESSAGES = {
 
 const GITHUB_REPOSITORY_ERROR_MESSAGES = {
   INVALID_URL:
-    "유효한 GitHub 저장소 URL을 입력해주세요. (예: https://github.com/owner/repository.git)",
+    "유효한 GitHub 저장소 URL을 입력해주세요. (예: https://github.com/리포지토리 소유자/리포지토리 이름(.git))",
   NOT_FOUND: "존재하지 않거나 접근할 수 없는 Repository입니다.",
-  INVALID_REPO_PATH:
-    "레포지토리 URL은 반드시 'github.com/owner/repo' 형태여야 합니다.",
 };
 
 export { VALIDATION_ERROR_MESSAGES, GITHUB_REPOSITORY_ERROR_MESSAGES };
