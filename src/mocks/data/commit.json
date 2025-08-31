@@ -1,0 +1,38 @@
+[
+  {
+    "sha": "e22a084dc6c27a8fbd946e96368525bf78b94307",
+    "author": "524hhhhhh",
+    "date": "2025-08-29T13:19:52Z",
+    "message": "✨feat: 로딩 페이지 UI 작업",
+    "files": [
+      {
+        "filename": "src/app/loading/page.tsx",
+        "status": "added",
+        "patch": "import Spinner from \"@/app/ui/common/spinner\";\n\nconst LoadingPage = () => {\n  return (\n    <div className=\"flex min-h-screen flex-col items-center justify-center\">\n      <Spinner />\n      <p className=\"pt-10 text-[48px]\">Loading</p>\n      <p className=\"text-[24px]\">리포트 결과를 분석 중입니다...</p>\n    </div>\n  );\n};\n\nexport default LoadingPage;"
+      },
+      {
+        "filename": "src/app/ui/common/spinner.tsx",
+        "status": "added",
+        "patch": "const Spinner = () => {\n  return (\n    <div role=\"status\">\n      <svg\n        aria-hidden=\"true\"\n        className=\"h-40 w-40 animate-spin fill-black text-gray-200\"\n        viewBox=\"0 0 100 101\"\n        fill=\"none\"\n        xmlns=\"http://www.w3.org/2000/svg\"\n      >\n        <path\n          d=\"M100 50.5908C100 78.2051 ...\"\n          fill=\"currentColor\"\n        />\n        <path\n          d=\"M93.9676 39.0409C96.393 ...\"\n          fill=\"currentFill\"\n        />\n      </svg>\n      <span className=\"sr-only\">Loading...</span>\n    </div>\n  );\n};\n\nexport default Spinner;"
+      }
+    ]
+  },
+  {
+    "sha": "a326b26a9737f8ec35422606246df29b5e2e2e8c",
+    "author": "524hhhhhh",
+    "date": "2025-08-29T13:09:29Z",
+    "message": "✨feat: 메인 페이지 UI 작업 및 리포지토리 유효성 검증 추가",
+    "files": [
+      {
+        "filename": "src/app/page.tsx",
+        "status": "modified",
+        "patch": "-export default function Home() {\n-  return <div>ssakssak-commit</div>;\n-}\n+import Inputform from \"@/app/ui/main/input-form\";\n+import Header from \"@/app/ui/common/header\";\n+\n+const Page = () => {\n+  return (\n+    <div className=\"px-[10%]\">\n+      <Header>ssakssack commit</Header>\n+      <Inputform />\n+    </div>\n+  );\n+};\n+\n+export default Page;"
+      },
+      {
+        "filename": "src/app/ui/main/input-repository.tsx",
+        "status": "added",
+        "patch": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/app/ui/common/button\";\nimport { Input } from \"@/app/ui/common/input\";\nimport { Label } from \"@/app/ui/common/label\";\nimport ErrorMessage from \"@/app/ui/common/error-message\";\n\nconst GITHUB_REPOSITORY_REGEX =\n  /^(https:\\/\\/github\\.com\\/[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+(\\.git)?\\/?$|git@github\\.com:[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-])$/;\n\nconst InputRepository = ({ onBranchesFetched }) => {\n  const [repositoryUrl, setRepositoryUrl] = useState(\"\");\n  const [error, setError] = useState(null);\n\n  const validateUrl = (url) => GITHUB_REPOSITORY_REGEX.test(url);\n\n  const handleClick = async () => {\n    if (!validateUrl(repositoryUrl)) {\n      setError(\"유효한 리포지토리 URL이 아닙니다.\");\n      return;\n    }\n    setError(null);\n    try {\n      const res = await fetch(`/api/branches/repositoryUrl=${encodeURIComponent(repositoryUrl)}`);\n      if (!res.ok) throw new Error(\"브랜치 조회 실패\");\n      const data = await res.json();\n      onBranchesFetched(data);\n    } catch (err) {\n      console.error(err);\n      setError(\"브랜치를 불러오는 중 오류가 발생했습니다.\");\n    }\n  };\n\n  return (\n    <div id=\"repositoryUrl\" className=\"grid w-full gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label>리포지토리 URL</Label>\n        <Button onClick={handleClick} type=\"button\">\n          제출\n        </Button>\n      </div>\n      <Input\n        id=\"repository\"\n        required\n        onChange={(e) => setRepositoryUrl(e.target.value)}\n        placeholder=\"https://github.com/{리포지토리 소유자}/{리포지토리 이름}\"\n      />\n      {error ? <ErrorMessage message={error} /> : null}\n    </div>\n  );\n};\n\nexport default InputRepository;"
+      }
+    ]
+  }
+]
