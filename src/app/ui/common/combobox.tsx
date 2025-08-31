@@ -18,16 +18,19 @@ import {
 } from "@/app/ui/common/popover";
 
 type ComboboxProps = { children: React.ReactNode };
+type ListType = { value: string };
 
-type ListType = {
-  value: string;
+type Props = ComboboxProps & {
+  items: ListType[];
+  value: string | null;
+  onValueChange: (value: string | null) => void;
 };
 
-type Props = ComboboxProps & { items: ListType[] };
-
-const ComboboxPopover = ({ children, items }: Props) => {
+const ComboboxPopover = ({ children, items, value, onValueChange }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<ListType | null>(null);
+  const selected = value
+    ? (items.find((i) => i.value === value) ?? null)
+    : null;
 
   return (
     <div className="flex items-center space-x-4">
@@ -49,9 +52,7 @@ const ComboboxPopover = ({ children, items }: Props) => {
                     key={item.value}
                     value={item.value}
                     onSelect={(value) => {
-                      setSelected(
-                        items.find((item) => item.value === value) || null,
-                      );
+                      onValueChange(value || null);
                       setOpen(false);
                     }}
                   >

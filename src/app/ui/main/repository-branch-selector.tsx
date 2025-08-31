@@ -16,6 +16,7 @@ import ComboboxPopover from "@/app/ui/common/combobox";
 function RepositoryBranchSelector() {
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
   const [branches, setBranches] = useState<BranchList[]>([]);
+  const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const isValidateRepositoryUrl = (url: string) => {
@@ -64,13 +65,22 @@ function RepositoryBranchSelector() {
 
       <Input
         required
+        value={repositoryUrl}
         onChange={(e) => setRepositoryUrl(e.target.value)}
         placeholder="https://github.com/{리포지토리 소유자}/{리포지토리 이름}"
       />
 
       {branches.length > 0 && (
-        <ComboboxPopover items={branches}>브랜치</ComboboxPopover>
+        <ComboboxPopover
+          items={branches}
+          value={selectedBranch}
+          onValueChange={setSelectedBranch}
+        >
+          브랜치
+        </ComboboxPopover>
       )}
+      <input type="hidden" name="repositoryUrl" value={repositoryUrl}></input>
+      <input type="hidden" name="branch" value={selectedBranch ?? ""}></input>
 
       {error ? <ErrorMessage message={`${error}`}></ErrorMessage> : null}
     </div>

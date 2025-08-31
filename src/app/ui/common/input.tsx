@@ -5,6 +5,7 @@ import { Label } from "@/app/ui/common/label";
 
 interface InputFieldProps {
   id: string;
+  name: string;
   label: string;
   type?: string;
   placeholder?: string;
