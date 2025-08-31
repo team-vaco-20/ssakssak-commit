@@ -1,6 +1,6 @@
 import { Octokit, RequestError } from "octokit";
 import { Endpoints } from "@octokit/types";
-import { CommitDetail, CommitFile } from "@/app/types/githubCommit";
+import { CommitDetail, CommitFile } from "@/app/types/commit";
 import NotFoundError from "@/errors/not-found-error";
 import { GITHUB_REPOSITORY_ERROR_MESSAGES } from "@/constants/error-messages";
 

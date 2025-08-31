@@ -1,4 +1,4 @@
-import { CommitDetail } from "@/app/types/githubCommit";
+import { CommitDetail } from "@/app/types/commit";
 import { getCommits } from "@/infra/github-api/commits";
 
 export const getAllCommits = async (
