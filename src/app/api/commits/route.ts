@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAllCommits } from "@/services/commit/commit";
 import AppError from "@/errors/app-error";
+import { GITHUB_API } from "@/constants/github-api";
 
-async function GET(req: NextRequest) {
+async function POST(req: NextRequest) {
   try {
-    const url = req.nextUrl;
-    const owner = url.searchParams.get("owner") || "defaultOwner";
-    const repositoryName = url.searchParams.get("repo") || "defaultRepo";
-    const branch = url.searchParams.get("branch") || "main";
+    const body = await req.json();
+
+    const owner = body.owner || GITHUB_API.DEFAULTS.DEFAULT_OWNER;
+    const repositoryName = body.repo || GITHUB_API.DEFAULTS.DEFAULT_REPO;
+    const branch = body.branch || GITHUB_API.DEFAULTS.DEFAULT_BRANCH;
 
     const commits = await getAllCommits(owner, repositoryName, branch);
     return NextResponse.json(commits);
@@ -19,4 +21,4 @@ async function GET(req: NextRequest) {
   }
 }
 
-export { GET };
+export { POST };
