@@ -4,10 +4,8 @@ const VALIDATION_ERROR_MESSAGES = {
 
 const GITHUB_REPOSITORY_ERROR_MESSAGES = {
   INVALID_URL:
-    "유효한 GitHub 리포지토리 URL을 입력해주세요. (예: https://github.com/owner/repository.git)",
-  NOT_FOUND: "존재하지 않거나 접근할 수 없는 리포지토리입니다.",
-  INVALID_REPO_PATH:
-    "리포지토리 URL은 반드시 'github.com/owner/repo' 형태여야 합니다.",
+    "유효한 GitHub 리포지토리 URL을 입력해주세요. \n (예: https://github.com/owner/repository(.git), owner: 리포지토리 소유자, repository: 리포지토리 이름)",
+  NOT_FOUND: "존재하지 않거나 접근할 수 없는 Repository입니다.",
 };
 
 const SYSTEM_ERROR_MESSAGES = {
@@ -15,8 +13,13 @@ const SYSTEM_ERROR_MESSAGES = {
   NETWORK: "네트워크 에러가 발생했습니다.",
 };
 
+const MERMAID_ERROR_MESSAGES = {
+  MERMAID_RENDER_ERROR: "다이어그램을 렌더링하는 중 오류가 발생했습니다.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
   SYSTEM_ERROR_MESSAGES,
+  MERMAID_ERROR_MESSAGES,
 };
