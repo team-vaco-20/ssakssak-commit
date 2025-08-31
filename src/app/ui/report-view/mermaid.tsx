@@ -1,7 +1,7 @@
 "use client";
 
 import parse from "html-react-parser";
-import useRenderMermaid from "@/hooks/useRenderMermaid";
+import useRenderMermaid from "@/app/ui/report-view/useRenderMermaid";
 import { MermaidProps } from "@/app/types/mermaid";
 
 export function Mermaid({ chart, title, description, config }: MermaidProps) {
