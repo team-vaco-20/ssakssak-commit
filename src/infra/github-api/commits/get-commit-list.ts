@@ -2,6 +2,7 @@ import { Octokit, RequestError } from "octokit";
 import { Endpoints } from "@octokit/types";
 import NotFoundError from "@/errors/not-found-error";
 import { GITHUB_API } from "@/constants/github-api";
+import { GITHUB_REPOSITORY_ERROR_MESSAGES } from "@/constants/error-messages";
 
 type ListCommitsResponse =
   Endpoints["GET /repos/{owner}/{repo}/commits"]["response"]["data"];
@@ -20,9 +21,10 @@ const getGithubCommitList = async (
   let allCommits: SimpleCommit[] = [];
   let page = 1;
   let responseData: ListCommitsResponse = [];
+  let pagesRemaining = true;
 
   try {
-    do {
+    while (pagesRemaining) {
       const response = await octokit.request(
         GITHUB_API.ENDPOINTS.COMMITS.LIST,
         {
@@ -38,14 +40,17 @@ const getGithubCommitList = async (
 
       responseData = response.data;
 
-      const commits = responseData.map((commit) => ({
-        sha: commit.sha,
-        date: commit.commit.author?.date || "",
-      }));
-
-      allCommits = allCommits.concat(commits);
-      page += 1;
-    } while (responseData.length > 0);
+      if (responseData.length === 0) {
+        pagesRemaining = false;
+      } else {
+        const commits = responseData.map((commit) => ({
+          sha: commit.sha,
+          date: commit.commit.author?.date || "",
+        }));
+        allCommits = allCommits.concat(commits);
+        page += 1;
+      }
+    }
 
     allCommits.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -55,7 +60,7 @@ const getGithubCommitList = async (
   } catch (error) {
     if (error instanceof RequestError && error.status === 404) {
       throw new NotFoundError({
-        message: "GitHub repository not found.",
+        message: GITHUB_REPOSITORY_ERROR_MESSAGES.NOT_FOUND,
       });
     }
     throw error;

@@ -38,20 +38,22 @@ const getGithubCommitDetails = async (
           ),
       );
 
+      const files = filteredFiles
+        ? filteredFiles.map(
+            (file): CommitFile => ({
+              filename: file.filename,
+              status: file.status as CommitFile["status"],
+              patch: file.patch ?? null,
+            }),
+          )
+        : null;
+
       return {
         sha,
         author: commitDetail.commit.author?.name || "Unknown",
         date: commitDetail.commit.author?.date || "",
         message: commitDetail.commit.message,
-        files: filteredFiles
-          ? filteredFiles.map(
-              (file): CommitFile => ({
-                filename: file.filename,
-                status: file.status as CommitFile["status"],
-                patch: file.patch ?? null,
-              }),
-            )
-          : null,
+        files,
       };
     }),
   );
