@@ -1,14 +1,14 @@
-import Inputform from "@/app/ui/main/input-form";
+import ReportForm from "@/app/ui/main/report-form";
 import Header from "@/app/ui/common/header";
 
-const Page = () => {
+function HomePage() {
   return (
     <div className="px-[10%]">
       <Header>ssakssack commit</Header>
 
-      <Inputform />
+      <ReportForm />
     </div>
   );
-};
+}
 
-export default Page;
+export default HomePage;
