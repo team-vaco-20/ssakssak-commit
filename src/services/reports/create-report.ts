@@ -2,7 +2,7 @@ import { CommitDetail } from "@/app/types/commit";
 import { getGithubCommitList } from "@/infra/github-api/commits/get-commit-list";
 import { getGithubCommitDetails } from "@/infra/github-api/commits/get-commit-details";
 
-const creaeteReport = async (
+const createReport = async (
   owner: string,
   repositoryName: string,
   branch: string,
@@ -20,4 +20,4 @@ const creaeteReport = async (
   return commitDetails;
 };
 
-export { creaeteReport };
+export { createReport };
