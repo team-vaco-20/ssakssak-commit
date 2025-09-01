@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllCommits } from "@/services/commit/commit";
+import { creaeteReport } from "@/services/reports/create-report";
 import AppError from "@/errors/app-error";
 import { GITHUB_API } from "@/constants/github-api";
 
@@ -11,7 +11,7 @@ async function POST(req: NextRequest) {
     const repositoryName = body.repo || GITHUB_API.DEFAULTS.DEFAULT_REPO;
     const branch = body.branch || GITHUB_API.DEFAULTS.DEFAULT_BRANCH;
 
-    const commits = await getAllCommits(owner, repositoryName, branch);
+    const commits = await creaeteReport(owner, repositoryName, branch);
     return NextResponse.json(commits);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unexpected error";
