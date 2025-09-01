@@ -19,13 +19,13 @@ function RepositoryBranchSelector() {
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const isValidateRepositoryUrl = (url: string) => {
+  const isValidRepositoryUrl = (url: string) => {
     return GITHUB_REPOSITORY_RULES.REPOSITORY_REGEX.test(url);
   };
 
   const handleFetchedBranches = async () => {
     setError(null);
-    if (!isValidateRepositoryUrl(repositoryUrl.trim())) {
+    if (!isValidRepositoryUrl(repositoryUrl.trim())) {
       setError(GITHUB_REPOSITORY_ERROR_MESSAGES.INVALID_URL);
       return;
     }

@@ -26,7 +26,7 @@ type Props = ComboboxProps & {
   onValueChange: (value: string | null) => void;
 };
 
-const ComboboxPopover = ({ children, items, value, onValueChange }: Props) => {
+function ComboboxPopover({ children, items, value, onValueChange }: Props) {
   const [open, setOpen] = React.useState(false);
   const selected = value
     ? (items.find((i) => i.value === value) ?? null)
@@ -66,6 +66,6 @@ const ComboboxPopover = ({ children, items, value, onValueChange }: Props) => {
       </Popover>
     </div>
   );
-};
+}
 
 export default ComboboxPopover;
