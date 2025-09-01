@@ -60,7 +60,10 @@ function ReportForm() {
       <RepositoryBranchSelector />
       <Button type="submit">리포트 생성</Button>
       {errorMessage ? (
-        <ErrorMessage message={`${errorMessage}`}></ErrorMessage>
+        <ErrorMessage
+          className="whitespace-normal"
+          message={`${errorMessage}`}
+        ></ErrorMessage>
       ) : null}
     </form>
   );

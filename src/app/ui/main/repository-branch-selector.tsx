@@ -82,7 +82,12 @@ function RepositoryBranchSelector() {
       <input type="hidden" name="repositoryUrl" value={repositoryUrl}></input>
       <input type="hidden" name="branch" value={selectedBranch ?? ""}></input>
 
-      {error ? <ErrorMessage message={`${error}`}></ErrorMessage> : null}
+      {error ? (
+        <ErrorMessage
+          className="whitespace-pre-wrap"
+          message={`${error}`}
+        ></ErrorMessage>
+      ) : null}
     </div>
   );
 }
