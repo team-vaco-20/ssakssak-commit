@@ -8,6 +8,7 @@ type ListCommitsResponse =
 
 type SimpleCommit = {
   sha: string;
+  date: string;
 };
 
 const getGithubCommitList = async (
@@ -26,10 +27,12 @@ const getGithubCommitList = async (
         GITHUB_API.ENDPOINTS.COMMITS.LIST,
         {
           owner,
-          repository: repositoryName,
+          repo: repositoryName,
           sha: branch,
           per_page: GITHUB_API.DEFAULTS.PER_PAGE,
           page,
+          sort: "author-date",
+          direction: "asc",
         },
       );
 
@@ -37,11 +40,16 @@ const getGithubCommitList = async (
 
       const commits = responseData.map((commit) => ({
         sha: commit.sha,
+        date: commit.commit.author?.date || "",
       }));
 
       allCommits = allCommits.concat(commits);
       page += 1;
     } while (responseData.length > 0);
+
+    allCommits.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 
     return allCommits;
   } catch (error) {

@@ -8,7 +8,7 @@ type CommitDetailResponse =
 
 const getGithubCommitDetails = async (
   owner: string,
-  repository: string,
+  repo: string,
   shas: string[],
 ): Promise<CommitDetail[]> => {
   const octokit = new Octokit();
@@ -18,7 +18,7 @@ const getGithubCommitDetails = async (
       const { data: commitDetail }: { data: CommitDetailResponse } =
         await octokit.request(GITHUB_API.ENDPOINTS.COMMITS.DETAIL, {
           owner,
-          repository,
+          repo,
           sha,
         });
 
