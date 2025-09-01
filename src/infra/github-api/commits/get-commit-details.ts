@@ -3,6 +3,13 @@ import { Endpoints } from "@octokit/types";
 import { CommitDetail, CommitFile } from "@/app/types/commit";
 import { GITHUB_API } from "@/constants/github-api";
 
+const excludedFiles = [
+  "package.json",
+  "package-lock.json",
+  ".gitignore",
+  /\.md$/,
+];
+
 type CommitDetailResponse =
   Endpoints["GET /repos/{owner}/{repo}/commits/{ref}"]["response"]["data"];
 
@@ -22,19 +29,29 @@ const getGithubCommitDetails = async (
           sha,
         });
 
+      const filteredFiles = commitDetail.files?.filter(
+        (file) =>
+          !excludedFiles.some((excludedFile) =>
+            typeof excludedFile === "string"
+              ? file.filename === excludedFile
+              : excludedFile.test(file.filename),
+          ),
+      );
+
       return {
         sha,
         author: commitDetail.commit.author?.name || "Unknown",
         date: commitDetail.commit.author?.date || "",
         message: commitDetail.commit.message,
-        files:
-          commitDetail.files?.map(
-            (file): CommitFile => ({
-              filename: file.filename,
-              status: file.status as CommitFile["status"],
-              patch: file.patch ?? null,
-            }),
-          ) ?? null,
+        files: filteredFiles
+          ? filteredFiles.map(
+              (file): CommitFile => ({
+                filename: file.filename,
+                status: file.status as CommitFile["status"],
+                patch: file.patch ?? null,
+              }),
+            )
+          : null,
       };
     }),
   );
