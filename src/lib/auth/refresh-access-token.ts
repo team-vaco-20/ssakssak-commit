@@ -1,9 +1,7 @@
 import { TOKEN_ERROR_MESSAGES } from "@/constants/error-messages";
+import { GITHUB_API } from "@/constants/github-api";
 
 const refreshAccessToken = async (refreshToken: string) => {
-  const Authorization_Server_URL =
-    "https://github.com/login/oauth/access_token";
-
   try {
     const params = new URLSearchParams({
       client_id: process.env.GITHUB_CLIENT_ID!,
@@ -12,7 +10,7 @@ const refreshAccessToken = async (refreshToken: string) => {
       refresh_token: refreshToken,
     });
 
-    const response = await fetch(Authorization_Server_URL, {
+    const response = await fetch(GITHUB_API.OAUTH.Authorization_Server_URL, {
       method: "POST",
       headers: {
         Accept: "application/json",

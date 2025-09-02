@@ -8,6 +8,9 @@ const GITHUB_API = {
       LIST: "GET /repos/{owner}/{repo}/branches",
     },
   },
+  OAUTH: {
+    Authorization_Server_URL: "https://github.com/login/oauth/access_token",
+  },
 };
 
 export { GITHUB_API };
