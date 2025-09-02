@@ -1,17 +1,13 @@
-import AuthSection from "@/app/ui/sign/auth-section";
-import HeaderSection from "@/app/ui/sign/header-section";
+import Header from "@/app/ui/common/header";
+import AuthSection from "@/app/ui/login/auth-section";
 
 function LoginPage() {
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-30">
-      <HeaderSection title={"로그인"} />
+      <Header style="fixed top-0">ssakssak commit</Header>
 
-      <AuthSection
-        title={"로그인"}
-        message={"계정이 없으신가요?"}
-        linkLabel={"회원가입"}
-        linkHref={"/signup"}
-      ></AuthSection>
+      <AuthSection title={"Login"} label={"GitHub로 로그인하기"}></AuthSection>
+      <AuthSection title={"Sign up"} label={"GitHub로 시작하기"}></AuthSection>
     </div>
   );
 }

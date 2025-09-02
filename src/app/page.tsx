@@ -4,7 +4,7 @@ import Header from "@/app/ui/common/header";
 function HomePage() {
   return (
     <div className="px-[10%]">
-      <Header>ssakssack commit</Header>
+      <Header style={""}>ssakssack commit</Header>
 
       <ReportForm />
     </div>
