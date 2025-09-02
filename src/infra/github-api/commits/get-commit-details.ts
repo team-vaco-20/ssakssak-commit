@@ -2,13 +2,8 @@ import { Octokit } from "octokit";
 import { Endpoints } from "@octokit/types";
 import { CommitDetail, CommitFile } from "@/app/types/commit";
 import { GITHUB_API } from "@/constants/github-api";
-
-const excludedFiles = [
-  "package.json",
-  "package-lock.json",
-  ".gitignore",
-  /\.md$/,
-];
+import { EXCLUDED_FILES_LIST } from "@/constants/file-filters";
+import { shouldExcludeFile } from "@/lib/file-filter";
 
 type CommitDetailResponse =
   Endpoints["GET /repos/{owner}/{repo}/commits/{ref}"]["response"]["data"];
@@ -30,12 +25,7 @@ const getGithubCommitDetails = async (
         });
 
       const filteredFiles = commitDetail.files?.filter(
-        (file) =>
-          !excludedFiles.some((excludedFile) =>
-            typeof excludedFile === "string"
-              ? file.filename === excludedFile
-              : excludedFile.test(file.filename),
-          ),
+        (file) => !shouldExcludeFile(file.filename, EXCLUDED_FILES_LIST),
       );
 
       if (!filteredFiles || filteredFiles.length === 0) {
@@ -56,7 +46,7 @@ const getGithubCommitDetails = async (
         date: commitDetail.commit.author?.date || "",
         message: commitDetail.commit.message,
         files,
-      };
+      } as CommitDetail;
     }),
   );
 
