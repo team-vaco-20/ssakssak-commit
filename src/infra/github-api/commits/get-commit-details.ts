@@ -21,7 +21,7 @@ const getGithubCommitDetails = async (
   const octokit = new Octokit();
 
   const commitDetails = await Promise.all(
-    shas.map(async (sha) => {
+    shas.map(async (sha): Promise<CommitDetail | null> => {
       const { data: commitDetail }: { data: CommitDetailResponse } =
         await octokit.request(GITHUB_API.ENDPOINTS.COMMITS.DETAIL, {
           owner,
@@ -38,15 +38,17 @@ const getGithubCommitDetails = async (
           ),
       );
 
-      const files = filteredFiles
-        ? filteredFiles.map(
-            (file): CommitFile => ({
-              filename: file.filename,
-              status: file.status as CommitFile["status"],
-              patch: file.patch ?? null,
-            }),
-          )
-        : null;
+      if (!filteredFiles || filteredFiles.length === 0) {
+        return null;
+      }
+
+      const files = filteredFiles.map(
+        (file): CommitFile => ({
+          filename: file.filename,
+          status: file.status as CommitFile["status"],
+          patch: file.patch ?? null,
+        }),
+      );
 
       return {
         sha,
@@ -58,7 +60,9 @@ const getGithubCommitDetails = async (
     }),
   );
 
-  return commitDetails;
+  return commitDetails.filter(
+    (commit): commit is CommitDetail => commit !== null,
+  );
 };
 
 export { getGithubCommitDetails };
