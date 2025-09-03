@@ -14,9 +14,8 @@ const initializeGitHubToken = (
     token.accessTokenExpires = account.expires_at * 1000;
   }
 
-  const githubProfile = profile as GitHubProfile;
-  token.userName = githubProfile?.login;
-  token.userId = String(githubProfile.id);
+  token.userName = profile?.login;
+  token.userId = String(profile.id);
 
   return token;
 };
