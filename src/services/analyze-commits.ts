@@ -1,5 +1,5 @@
 import { Commit } from "@/app/types/commit";
-import { MAX_TOKENS_PER_BATCH } from "@/constants/open-ai";
+import { TOKEN_LIMITS } from "@/constants/open-ai";
 import chunkCommitsByTokens from "@/infra/openai-api/chunk-commits-by-tokens";
 import {
   analyzeCommitBatch,
@@ -19,7 +19,10 @@ const getAnalysisResult = async (
   commits: Commit[],
   repositoryDescription: string | undefined,
 ) => {
-  const commitBatches = chunkCommitsByTokens(commits, MAX_TOKENS_PER_BATCH);
+  const commitBatches = chunkCommitsByTokens(
+    commits,
+    TOKEN_LIMITS.MAX_TOKENS_PER_BATCH,
+  );
   const resultPerBatch = await processCommitBatches(
     commitBatches,
     repositoryDescription,

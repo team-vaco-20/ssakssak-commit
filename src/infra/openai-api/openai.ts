@@ -9,7 +9,7 @@ import {
   COMMIT_ANALYSIS_INSTRUCTIONS,
   REPORT_ANALYSIS_INSTRUCTIONS,
 } from "./instructions";
-import { OPENAI_MODEL, MAX_OUTPUT_TOKENS } from "@/constants/open-ai";
+import { OPENAI_MODEL, TOKEN_LIMITS } from "@/constants/open-ai";
 
 const client = new OpenAI();
 const INPUT_TEXT_CONTENT_TYPE = "input_text";
@@ -35,7 +35,7 @@ const analyzeCommitBatch = async (
 
   const result = await client.responses.create({
     model: OPENAI_MODEL,
-    max_output_tokens: MAX_OUTPUT_TOKENS,
+    max_output_tokens: TOKEN_LIMITS.MAX_OUTPUT_TOKENS,
     instructions: COMMIT_ANALYSIS_INSTRUCTIONS,
     input: [
       {

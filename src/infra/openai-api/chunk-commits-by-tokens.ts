@@ -1,5 +1,5 @@
 import { Commit } from "@/app/types/commit";
-import { AVERAGE_CHARS_PER_TOKEN } from "@/constants/open-ai";
+import { TOKEN_LIMITS } from "@/constants/open-ai";
 import { logger } from "@/lib/logger";
 
 const chunkCommitsByTokens = (
@@ -52,7 +52,7 @@ const chunkCommitsByTokens = (
 export default chunkCommitsByTokens;
 
 function estimateTokenCount(text: string): number {
-  const roughTokenCount = text.length / AVERAGE_CHARS_PER_TOKEN;
+  const roughTokenCount = text.length / TOKEN_LIMITS.AVERAGE_CHARS_PER_TOKEN;
   const estimatedTokenCount = Math.ceil(roughTokenCount);
 
   return estimatedTokenCount;
