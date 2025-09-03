@@ -17,7 +17,7 @@ function ReportForm() {
     try {
       setErrorMessage(null);
       const formData = new FormData(e.currentTarget);
-      const title = String(formData.get("title") || "").trim();
+      const reportTitle = String(formData.get("title") || "").trim();
       const requirements = String(formData.get("requirements") || "").trim();
       const repositoryUrl = String(formData.get("repositoryUrl") || "").trim();
       const branch = String(formData.get("branch") || "").trim();
@@ -27,10 +27,15 @@ function ReportForm() {
         return;
       }
 
-      const response = await fetch("/reports", {
+      const response = await fetch("/api/reports", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, requirements, repositoryUrl, branch }),
+        body: JSON.stringify({
+          reportTitle,
+          requirements,
+          repositoryUrl,
+          branch,
+        }),
       });
 
       if (!response.ok) {
