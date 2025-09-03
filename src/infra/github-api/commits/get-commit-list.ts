@@ -35,6 +35,7 @@ const getGithubCommitList = async (
       allCommits,
       owner,
       repositoryName,
+      branch,
       octokit,
     );
   } catch (error) {
@@ -51,41 +52,46 @@ const filterBranchSpecificCommits = async (
   commits: SimpleCommit[],
   owner: string,
   repositoryName: string,
+  branchName: string,
   octokit: Octokit,
 ): Promise<SimpleCommit[]> => {
   if (commits.length === 0) return commits;
 
-  const { data: repoData } = await octokit.request(
-    "GET /repos/{owner}/{repo}",
-    {
-      owner,
-      repo: repositoryName,
-    },
-  );
+  try {
+    const { data: repoData } = await octokit.request(
+      "GET /repos/{owner}/{repo}",
+      {
+        owner,
+        repo: repositoryName,
+      },
+    );
 
-  const { data: latestMainCommit } = await octokit.request(
-    "GET /repos/{owner}/{repo}/commits/{ref}",
-    {
-      owner,
-      repo: repositoryName,
-      ref: repoData.default_branch,
-    },
-  );
+    const { data: compareData } = await octokit.request(
+      "GET /repos/{owner}/{repo}/compare/{basehead}",
+      {
+        owner,
+        repo: repositoryName,
+        basehead: `${repoData.default_branch}...${branchName}`,
+      },
+    );
 
-  const mainBranchLatestDate = new Date(
-    latestMainCommit.commit.author?.date || "",
-  );
+    const branchOnlyCommitShas = new Set(
+      compareData.commits.map((commit) => commit.sha),
+    );
 
-  const branchSpecificCommits = commits.filter((commit) => {
-    const commitDate = new Date(commit.date);
-    return commitDate > mainBranchLatestDate;
-  });
+    const branchSpecificCommits = commits.filter((commit) =>
+      branchOnlyCommitShas.has(commit.sha),
+    );
 
-  if (branchSpecificCommits.length === 0) {
-    return commits.slice(-10);
+    if (branchSpecificCommits.length === 0) {
+      return commits.slice(-10);
+    }
+
+    return branchSpecificCommits;
+  } catch (error) {
+    console.warn("브랜치 비교에 실패했습니다. 전체 커밋을 반환합니다.", error);
+    return commits;
   }
-
-  return branchSpecificCommits;
 };
 
 const getAllCommits = async (
