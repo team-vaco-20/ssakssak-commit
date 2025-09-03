@@ -1,4 +1,4 @@
-import { getRepositoryBranches } from "@/services/branch/branch";
+import { getBranchList } from "@/services/branch/get-branch-list";
 import { NextRequest, NextResponse } from "next/server";
 import { validateRepositoryUrl } from "@/lib/validators/repository-url";
 import AppError from "@/errors/app-error";
@@ -11,7 +11,7 @@ const handleGetBranches = async function GET(
     const repositoryUrl: string = validateRepositoryUrl(
       request.nextUrl.searchParams,
     );
-    const branches: BranchName[] = await getRepositoryBranches(repositoryUrl);
+    const branches: BranchName[] = await getBranchList(repositoryUrl);
 
     return NextResponse.json({ branches });
   } catch (error) {

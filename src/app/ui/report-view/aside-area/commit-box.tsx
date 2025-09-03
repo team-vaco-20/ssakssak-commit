@@ -1,4 +1,4 @@
-import { CommitInfo } from "@/app/types/commit";
+import { CommitInfo } from "@/app/types/mock_commitInfo";
 
 function CommitBox({ id, message }: CommitInfo) {
   return (
