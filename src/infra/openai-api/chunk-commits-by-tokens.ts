@@ -1,5 +1,6 @@
 import { Commit } from "@/app/types/commit";
 import { AVERAGE_CHARS_PER_TOKEN } from "@/constants/open-ai";
+import { logger } from "@/lib/logger";
 
 const chunkCommitsByTokens = (
   commits: Commit[],
@@ -36,6 +37,14 @@ const chunkCommitsByTokens = (
   if (currentBatch.length > 0) {
     batches.push(currentBatch);
   }
+
+  logger.info(
+    {
+      batchCount: batches.length,
+      commitCount: commits.length,
+    },
+    `커밋 ${commits.length}개를 ${batches.length}개의 배치로 분할 완료`,
+  );
 
   return batches;
 };
