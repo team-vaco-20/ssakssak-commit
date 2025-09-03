@@ -28,7 +28,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
   • 필수 최소 구성(각 커밋):
     • code-diff: 1개 이상
     • explanation: 1개 이상
-    • diagram: 0개 이상(선택). 단, 아래 트리거 조건을 충족하면 반드시 포함해야 한다.
+    • diagram: 1개 이상.
 
   • diagram 생성 판단 체크리스트(고려):
     • 패치에 흐름/분기/검증/에러 처리 로직이 추가/변경됨 → flowchart 고려
@@ -67,7 +67,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
 
   • 요청/응답 처리: app.get(, app.post(, router., req., res., NextResponse., Response.json(, export const GET =, export async function POST(, new Request(
   • 외부/내부 API 호출: fetch(, axios., octokit., client.request(
-  • 상태코드/에러 처리: .status(, throw, try { / catch, return NextResponse.json(, if , switch 
+  • 상태코드/에러 처리: .status(, throw, try { / catch, return NextResponse.json(, if , switch
   • 검증/분기 로직: guard, validate(, zod, schema.parse(
   • 클래스 관련: class , interface , extends , implements , constructor(
 
