@@ -24,10 +24,18 @@ const TOKEN_ERROR_MESSAGES = {
     "리프레시 토큰이 존재하지 않아 갱신할 수 없습니다.",
 };
 
+const AUTH_ERROR_MESSAGES = {
+  INVALID_PROVIDER: "지원하지 않는 OAuth 공급자입니다.",
+  INVALID_REDIRECT_URL: "허용되지 않은 redirect URL입니다.",
+  INTERNAL_ERROR: "내부 오류로 인해 요청이 실패했습니다.",
+  UNKNOWN: "로그인 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
   SYSTEM_ERROR_MESSAGES,
   MERMAID_ERROR_MESSAGES,
   TOKEN_ERROR_MESSAGES,
+  AUTH_ERROR_MESSAGES,
 };

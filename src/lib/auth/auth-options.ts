@@ -24,9 +24,16 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
+  pages: {
+    signIn: "/login",
+    error: "/auth/error",
+  },
   callbacks: {
-    async jwt({ token, account, profile }) {
-      if (account && profile) {
+    async signIn({ account, profile }) {
+      if (account?.provider !== "github") {
+        return "/auth/error?code=INVALID_PROVIDER";
+      }
+      try {
         const githubProfile = profile as GitHubProfile;
         const email =
           githubProfile.email ??
@@ -39,6 +46,14 @@ const authOptions: NextAuthOptions = {
           avatarUrl: githubProfile.avatar_url ?? null,
         });
 
+        return true;
+      } catch {
+        return "/auth/error?code=INTERNAL_ERROR";
+      }
+    },
+
+    async jwt({ token, account, profile }) {
+      if (account && profile) {
         return initializeGitHubToken(token, account, profile as GitHubProfile);
       }
 
