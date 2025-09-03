@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "@/app/ui/common/header";
 import AuthSection from "@/app/ui/login/auth-section";
 import AuthSwitch from "@/app/ui/login/auth-switch";
+import Image from "next/image";
 
 function LoginPage() {
   const [hasAccount, setHasAccount] = useState(false);
@@ -11,7 +12,8 @@ function LoginPage() {
   const authCopy = hasAccount
     ? {
         title: "Login",
-        description: "Welcome back! ⛳️\n🛣️ 당신의 커밋 여정을 이어가세요.\n ",
+        description:
+          "Welcome back!\n프로젝트의 커밋 흐름과 변화를 계속 추적해 보세요.\n ",
         label: "GitHub로 로그인하기",
       }
     : {
@@ -38,7 +40,12 @@ function LoginPage() {
               onToggle={() => setHasAccount((prev) => !prev)}
             />
           </section>
-          <div>이미지 영역</div>
+          <Image
+            src={"/login.svg"}
+            width={600}
+            height={600}
+            alt={"ssakssak-commit"}
+          />
         </div>
       </main>
     </div>
