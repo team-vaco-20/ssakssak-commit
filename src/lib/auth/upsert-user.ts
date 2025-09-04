@@ -21,11 +21,9 @@ const upsertUser = ({ githubId, email, name, avatarUrl }: UpsertUserParams) => {
     update: {
       ...baseData,
       avatar_url: avatarUrl ?? undefined,
-      updated_at: new Date(),
     },
     create: {
       ...baseData,
-      user_id: crypto.randomUUID(),
       github_id: githubId,
       avatar_url: avatarUrl ?? null,
     },
