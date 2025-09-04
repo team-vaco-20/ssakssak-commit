@@ -1,14 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import MonacoEditor, { OnMount } from "@monaco-editor/react";
-import * as monaco from "monaco-editor";
+import MonacoEditor from "@monaco-editor/react";
 import type { MonacoFileViewerProps } from "@/app/types/monaco";
-import {
-  getStatusTagStyle,
-  getHighlightClassName,
-  getHighlightColor,
-} from "@/lib/monacoUtils";
+import { getStatusTagStyle } from "@/lib/monacoUtils";
+import { useMonacoEditorDecorations } from "@/hooks/useMonacoEditorDecorations";
 
 const MonacoFileViewer = ({
   filename,
@@ -18,44 +13,11 @@ const MonacoFileViewer = ({
   highlights,
   readonly = true,
 }: MonacoFileViewerProps) => {
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
-  const decorationsRef =
-    useRef<monaco.editor.IEditorDecorationsCollection | null>(null);
-
-  const handleEditorMount: OnMount = (editor, monacoInstance) => {
-    editorRef.current = editor;
-
-    const decorations: monaco.editor.IModelDeltaDecoration[] = highlights.map(
-      (highlight) => ({
-        range: new monacoInstance.Range(
-          highlight.startLine,
-          1,
-          highlight.endLine,
-          code.split("\n")[highlight.endLine - 1]?.length + 1 || 1,
-        ),
-        options: {
-          isWholeLine: true,
-          className: getHighlightClassName(fileStatus),
-          minimap: {
-            color: getHighlightColor(fileStatus),
-            position: monacoInstance.editor.MinimapPosition.Inline,
-          },
-          overviewRuler: {
-            color: getHighlightColor(fileStatus),
-            position: monacoInstance.editor.OverviewRulerLane.Right,
-          },
-        },
-      }),
-    );
-
-    decorationsRef.current = editor.createDecorationsCollection(decorations);
-  };
-
-  useEffect(() => {
-    return () => {
-      decorationsRef.current?.clear();
-    };
-  }, []);
+  const { handleEditorMount } = useMonacoEditorDecorations({
+    code,
+    highlights,
+    fileStatus,
+  });
 
   return (
     <div className="overflow-hidden rounded border border-gray-200">
@@ -67,6 +29,7 @@ const MonacoFileViewer = ({
           {fileStatus}
         </span>
       </div>
+
       <MonacoEditor
         height="400px"
         language={language}
