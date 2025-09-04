@@ -1,13 +1,13 @@
-import { Commit } from "@/app/types/commit";
+import { CommitDetail } from "@/app/types/commit";
 import { TOKEN_LIMITS } from "@/constants/open-ai";
 import { logger } from "@/lib/logger";
 
 const chunkCommitsByTokens = (
-  commits: Commit[],
+  commits: CommitDetail[],
   maxTokensPerBatch: number,
-): Commit[][] => {
-  const batches: Commit[][] = [];
-  let currentBatch: Commit[] = [];
+): CommitDetail[][] => {
+  const batches: CommitDetail[][] = [];
+  let currentBatch: CommitDetail[] = [];
   let currentBatchTokenCount = 0;
 
   for (const commit of commits) {

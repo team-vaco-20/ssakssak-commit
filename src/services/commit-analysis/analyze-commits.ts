@@ -1,4 +1,4 @@
-import { Commit } from "@/app/types/commit";
+import { CommitDetail } from "@/app/types/commit";
 import { TOKEN_LIMITS, REQUEST_INPUT_INTRO_MESSAGE } from "@/constants/open-ai";
 import chunkCommitsByTokens from "@/services/commit-analysis/helpers/chunk-commits-by-tokens";
 import {
@@ -26,7 +26,7 @@ const { COMMIT_ANALYSIS_REQUEST, OVERALL_ANALYSIS_REQUEST } =
   REQUEST_INPUT_INTRO_MESSAGE;
 
 const getAnalysisResult = async (
-  commits: Commit[],
+  commits: CommitDetail[],
   repositoryDescription: string | undefined,
 ) => {
   const commitBatches = chunkCommitsByTokens(
@@ -67,7 +67,7 @@ const getAnalysisResult = async (
 };
 
 const analyzeCommitBatches = async (
-  commitBatches: Commit[][],
+  commitBatches: CommitDetail[][],
   repositoryDescription?: string,
 ) => {
   return Promise.all(
@@ -90,7 +90,7 @@ const analyzeCommitBatches = async (
 };
 
 const requestCommitAnalysis = async (
-  batch: Commit[],
+  batch: CommitDetail[],
   repositoryDescription?: string,
 ) => {
   const inputContent = createInputBlocks({

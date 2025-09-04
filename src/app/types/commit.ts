@@ -3,18 +3,18 @@ type CommitInfo = {
   message: string;
 };
 
-type CommitFile = {
+interface CommitFile {
   filename: string;
   status: string;
-  patch: string;
-};
+  patch: string | null;
+}
 
-type Commit = {
+interface CommitDetail {
   sha: string;
   author: string;
   date: string;
   message: string;
-  files: CommitFile[];
-};
+  files: CommitFile[] | null;
+}
 
-export type { CommitInfo, CommitFile, Commit };
+export type { CommitInfo, CommitFile, CommitDetail };
