@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import testCommits from "@/mocks/data/long-commit.json";
-import getAnalysisResult from "@/services/analyze-commits/analyze-commits";
+import getAnalysisResult from "@/services/commit-analysis/analyze-commits";
 import { Commit } from "@/app/types/commit";
 
 const testOpenAi = async function GET() {
