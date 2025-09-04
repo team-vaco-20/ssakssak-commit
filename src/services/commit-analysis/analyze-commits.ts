@@ -27,7 +27,7 @@ const { COMMIT_ANALYSIS_REQUEST, OVERALL_ANALYSIS_REQUEST } =
 
 const getAnalysisResult = async (
   commits: CommitDetail[],
-  repositoryDescription: string | undefined,
+  repositoryOverview: string | undefined,
 ) => {
   const commitBatches = chunkCommitsByTokens(
     commits,
@@ -35,7 +35,7 @@ const getAnalysisResult = async (
   );
   const resultPerBatch = await analyzeCommitBatches(
     commitBatches,
-    repositoryDescription,
+    repositoryOverview,
   );
 
   const mergedResults = resultPerBatch.flatMap((result) => result.commits);
@@ -68,7 +68,7 @@ const getAnalysisResult = async (
 
 const analyzeCommitBatches = async (
   commitBatches: CommitDetail[][],
-  repositoryDescription?: string,
+  repositoryOverview?: string,
 ) => {
   return Promise.all(
     commitBatches.map(async (batch, index) => {
@@ -77,7 +77,7 @@ const analyzeCommitBatches = async (
         `배치 ${index + 1}/${commitBatches.length} 분석 시작`,
       );
 
-      const result = await requestCommitAnalysis(batch, repositoryDescription);
+      const result = await requestCommitAnalysis(batch, repositoryOverview);
 
       logger.info(
         { batchIndex: index, commitCount: batch.length },
@@ -91,12 +91,12 @@ const analyzeCommitBatches = async (
 
 const requestCommitAnalysis = async (
   batch: CommitDetail[],
-  repositoryDescription?: string,
+  repositoryOverview?: string,
 ) => {
   const inputContent = createInputBlocks({
     intro: COMMIT_ANALYSIS_REQUEST,
     payload: batch,
-    repositoryDescription: repositoryDescription,
+    repositoryOverview: repositoryOverview,
   });
 
   return await structuredTextGenerator({
@@ -110,12 +110,12 @@ const requestCommitAnalysis = async (
 
 const evaluateCommitSummaries = async (
   extractedCommitSummaries: ExtractedCommitSummaries[],
-  repositoryDescription?: string,
+  repositoryOverview?: string,
 ) => {
   const inputContent = createInputBlocks({
     intro: OVERALL_ANALYSIS_REQUEST,
     payload: extractedCommitSummaries,
-    repositoryDescription: repositoryDescription,
+    repositoryOverview: repositoryOverview,
   });
 
   return await structuredTextGenerator({
