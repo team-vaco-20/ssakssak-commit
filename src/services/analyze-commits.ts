@@ -82,13 +82,13 @@ const processCommitBatches = async (
 const sortMergedResultsByCommitDate = (
   merged: AnalyzedCommitSchema[],
 ): CommitAnalysesSchema => {
-  const sortedList = [...merged].sort((a, b) => {
-    const ta = new Date(a.commitDate).getTime();
-    const tb = new Date(b.commitDate).getTime();
-    if (ta !== tb) {
-      return ta - tb;
+  const sortedList = [...merged].sort((commitA, commitB) => {
+    const commitTimeA = new Date(commitA.commitDate).getTime();
+    const commitTimeB = new Date(commitB.commitDate).getTime();
+    if (commitTimeA !== commitTimeB) {
+      return commitTimeA - commitTimeB;
     }
-    return a.commitId.localeCompare(b.commitId);
+    return commitA.commitId.localeCompare(commitB.commitId);
   });
 
   return { commits: sortedList };
