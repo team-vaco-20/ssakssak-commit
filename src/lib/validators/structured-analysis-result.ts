@@ -68,7 +68,7 @@ const commitAnalysesSchema = z.object({
   commits: z.array(analyzedCommitSchema).min(1),
 });
 
-const analysisReportSchema = z
+const overallAnalysisSchema = z
   .object({
     reportTitle: z.string(),
     reportSummary: z.string(),
@@ -76,4 +76,4 @@ const analysisReportSchema = z
   })
   .strict();
 
-export { analysisReportSchema, commitAnalysesSchema, analyzedCommitSchema };
+export { overallAnalysisSchema, commitAnalysesSchema, analyzedCommitSchema };
