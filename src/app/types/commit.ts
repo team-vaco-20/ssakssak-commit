@@ -1,3 +1,8 @@
+type CommitInfo = {
+  id: string;
+  message: string;
+};
+
 interface CommitFile {
   filename: string;
   status: string;
@@ -12,4 +17,4 @@ interface CommitDetail {
   files: CommitFile[] | null;
 }
 
-export type { CommitFile, CommitDetail };
+export type { CommitInfo, CommitFile, CommitDetail };
