@@ -1,10 +1,12 @@
 type HeaderProps = {
-  style: string;
+  className: string;
   children: React.ReactNode;
 };
 
-const Header = ({ style, children }: HeaderProps) => {
-  return <header className={`py-5 text-[32px] ${style}`}>{children}</header>;
+const Header = ({ className, children }: HeaderProps) => {
+  return (
+    <header className={`py-5 text-[32px] ${className}`}>{children}</header>
+  );
 };
 
 export default Header;

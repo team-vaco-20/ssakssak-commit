@@ -18,7 +18,7 @@ function AuthErrorPage() {
 
   return (
     <div className="flex h-screen items-center justify-center gap-30 bg-[#F4F0E6]">
-      <Header style="fixed top-0">ssakssak commit</Header>
+      <Header className="fixed top-0">ssakssak commit</Header>
 
       <main className="mx-auto flex min-h-screen w-full max-w-5xl items-center px-4">
         <div className="grid w-full gap-8 rounded-3xl bg-white p-8 shadow-xl md:grid-cols-2 md:p-12">
@@ -33,6 +33,7 @@ function AuthErrorPage() {
               리포트 생성 페이지로 이동
             </Button>
           </section>
+
           <Image
             src={"/error-cat.svg"}
             width={600}

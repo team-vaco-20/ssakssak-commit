@@ -26,12 +26,7 @@ function AuthSection({
         className="hover:gray-80 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black shadow-sm hover:text-white"
         onClick={() => signIn("github", { callbackUrl })}
       >
-        <Image
-          src={"/github-mark.svg"}
-          width={20}
-          height={20}
-          alt={"Github"}
-        ></Image>
+        <Image src={"/github-mark.svg"} width={20} height={20} alt={"Github"} />
 
         <span className="whitespace-nowrap">{label}</span>
       </Button>
