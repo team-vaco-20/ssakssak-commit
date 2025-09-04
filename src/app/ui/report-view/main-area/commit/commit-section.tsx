@@ -1,31 +1,54 @@
-// ui/report-view/layout/main-area/commit-section.tsx
-
-import mockdata from "@/mocks/data/report.json";
-import KeyChanges from "@/app/ui/report-view/main-area/commit/key-changes";
-import AnalysisSummary from "@/app/ui/report-view/main-area/commit/analysis-summary";
+import mockdata from "@/mocks/data/openAi.json";
+import { Analysis } from "@/app/types/commit";
+import CodeDiff from "@/app/ui/report-view/main-area/commit/code-diff";
 import DiagramBox from "@/app/ui/report-view/main-area/commit/diagram-box";
+import Explanation from "@/app/ui/report-view/main-area/commit/explanation";
 
 function CommitSection() {
-  return (
-    <section
-      aria-labelledby="details-title"
-      className="mx-auto mt-2 flex w-[95%] flex-grow flex-col rounded-[10px] border-2 border-gray-500 bg-white p-4 shadow-sm"
-    >
-      <div className="mb-3 ml-2 flex items-center justify-between">
-        <span className="text-xl font-bold">
-          선택한 커밋에 대한 요약 & 분석
-        </span>
-        <div className="ml-4 flex gap-4 text-sm text-gray-700">
-          <span>#{mockdata.mockCommit.commitId}</span>
-          <span>{mockdata.mockCommit.commitMessage}</span>
-        </div>
-      </div>
-      <div className="mb-3 border-[1px] border-gray-300"></div>
+  const commits = mockdata.result.commits;
 
-      <AnalysisSummary />
-      <KeyChanges />
-      <DiagramBox />
-    </section>
+  return (
+    <div>
+      <div className="space-y-8">
+        {commits.map((commit) => {
+          const analyses = commit.analyses as Analysis[];
+
+          const explanation = analyses.filter((a) => a.type === "explanation");
+          const codeDiffs = analyses.filter((a) => a.type === "code-diff");
+          const diagrams = analyses.filter((a) => a.type === "diagram");
+
+          return (
+            <div
+              key={commit.commitId}
+              className="rounded border bg-white p-4 shadow"
+            >
+              <header className="border-b bg-gray-50 px-6 py-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h2 className="mb-2 text-lg font-semibold text-gray-900">
+                      💬 {commit.commitMessage}
+                    </h2>
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                      <span>👤 {commit.author}</span>
+                      <span>
+                        🕐 {new Date(commit.commitDate).toLocaleString()}
+                      </span>
+                      <span className="rounded bg-gray-200 px-2 py-1 font-mono text-xs">
+                        {commit.commitId.substring(0, 7)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </header>
+
+              <Explanation data={explanation} />
+              <CodeDiff data={codeDiffs} />
+              <DiagramBox data={diagrams} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

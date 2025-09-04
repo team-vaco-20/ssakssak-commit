@@ -4,13 +4,13 @@ interface AnalysisSummaryProps {
   data: Analysis[];
 }
 
-function DiagramBox({ data }: AnalysisSummaryProps) {
+function Explanation({ data }: AnalysisSummaryProps) {
   return (
-    <div className="min-h-[200px] rounded-[10px] border-2 border-gray-500 p-2">
+    <div className="mb-4 min-h-[150px] rounded-[10px] border-2 border-gray-500 p-2">
       {data.map((item, index) => (
         <div key={index}>
           <p className="mb-1 ml-2 text-lg font-bold">
-            다이어그램: {item.title}
+            요약 & 분석: {item.title}
           </p>
           <div className="border-[1px] border-gray-300"></div>
           <p key={index} className="ml-2 text-lg">
@@ -22,4 +22,4 @@ function DiagramBox({ data }: AnalysisSummaryProps) {
   );
 }
 
-export default DiagramBox;
+export default Explanation;
