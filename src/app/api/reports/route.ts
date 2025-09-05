@@ -16,7 +16,6 @@ async function POST(request: NextRequest) {
 
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {
-    console.log(error);
     const message = error instanceof Error ? error.message : "Unexpected error";
     const status = error instanceof AppError ? error.status : 500;
 

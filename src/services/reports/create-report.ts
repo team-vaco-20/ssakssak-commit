@@ -29,11 +29,18 @@ const createReport = async (
     repositoryOverview,
   );
 
-  if (reportTitle) {
-    commitAnalysisResults.reportTitle = reportTitle;
-  }
+  const commitsWithLink = commitAnalysisResults.commits.map((commit) => ({
+    ...commit,
+    commitLink: repositoryUrl.replace(/\/$/, "") + `/commit/${commit.commitId}`,
+  }));
 
-  return commitAnalysisResults;
+  return {
+    ...commitAnalysisResults,
+    reportTitle: reportTitle || commitAnalysisResults.reportTitle,
+    repositoryUrl,
+    branch,
+    commits: commitsWithLink,
+  };
 };
 
 export { createReport };

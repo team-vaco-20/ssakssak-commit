@@ -98,6 +98,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
 
     • 노드 ID는 알파벳·숫자만 사용
     • 화살표는 Mermaid 문법에 맞는 것만 사용 (--> , -->|텍스트| , -.-> , --o , --x)
+    • '[' 사용했으면 반드시 ']'로 닫아주어야 함
 
   2. sequenceDiagram 기본 문법
     sequenceDiagram
@@ -130,6 +131,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
     • 일부 클래스만 누락하지 않는다
 
 <code-diff>
+  • codeDiffSummary: 핵심 변경사항에 대한 2줄 정도의 구체적인 설명,
   • path : 파일 경로
   • code : 핵심 변경이 포함된 스니펫
   • language : 사용된 언어
