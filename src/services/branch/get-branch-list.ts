@@ -1,0 +1,15 @@
+import { BranchName } from "@/app/types/branch";
+import { getGithubBranchList } from "@/infra/github-api/branches/get-branch-list";
+import parseRepositoryUrl from "@/lib/parse-repository-url";
+
+const getBranchList = async (repositoryUrl: string): Promise<BranchName[]> => {
+  const { owner, repositoryName } = parseRepositoryUrl(repositoryUrl);
+  const branches: BranchName[] = await getGithubBranchList(
+    owner,
+    repositoryName,
+  );
+
+  return branches;
+};
+
+export { getBranchList };
