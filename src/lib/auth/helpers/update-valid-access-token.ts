@@ -1,6 +1,6 @@
 import { JWT } from "next-auth/jwt";
-import refreshAccessToken from "@/lib/auth/refresh-access-token";
 import { TOKEN_ERROR_MESSAGES } from "@/constants/error-messages";
+import refreshAccessToken from "@/lib/auth/helpers/refresh-access-token";
 
 const updateValidAccessToken = async (token: JWT) => {
   try {

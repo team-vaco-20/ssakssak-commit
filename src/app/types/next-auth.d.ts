@@ -5,6 +5,7 @@ declare module "next-auth" {
     user: {
       name?: string | null;
       id?: string | null;
+      githubId?: string | null;
     } & DefaultSession["user"];
     accessToken?: string;
   }
@@ -12,10 +13,11 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
+    userId: string | null;
+    githubId?: string;
+    userName: string | null;
     accessToken?: string;
     refreshToken?: string;
     accessTokenExpires?: number;
-    userName: string | null;
-    userId: string | null;
   }
 }

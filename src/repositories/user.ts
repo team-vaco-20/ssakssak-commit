@@ -30,4 +30,10 @@ const upsertUser = ({ githubId, email, name, avatarUrl }: UpsertUserParams) => {
   });
 };
 
-export default upsertUser;
+const findUserIdByGithubId = async (githubId: bigint) => {
+  return prisma.users.findUnique({
+    where: { github_id: githubId },
+    select: { user_id: true },
+  });
+};
+export { upsertUser, findUserIdByGithubId };
