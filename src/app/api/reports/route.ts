@@ -2,19 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { createReport } from "@/services/reports/create-report";
 import AppError from "@/errors/app-error";
 
-async function POST(req: NextRequest) {
+async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
-    const { reportTitle, repositoryOverview, repositoryUrl } = body;
+    const body = await request.json();
+    const { reportTitle, repositoryOverview, repositoryUrl, branch } = body;
 
     const result = await createReport(
       reportTitle,
       repositoryOverview,
       repositoryUrl,
+      branch,
     );
 
-    return NextResponse.json({ result });
+    return NextResponse.json({ result }, { status: 200 });
   } catch (error) {
+    console.log(error);
     const message = error instanceof Error ? error.message : "Unexpected error";
     const status = error instanceof AppError ? error.status : 500;
 

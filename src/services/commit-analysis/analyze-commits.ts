@@ -25,7 +25,7 @@ const { MAX_OUTPUT_TOKENS_OVERALL, MAX_OUTPUT_TOKENS_PER_BATCH } = TOKEN_LIMITS;
 const { COMMIT_ANALYSIS_REQUEST, OVERALL_ANALYSIS_REQUEST } =
   REQUEST_INPUT_INTRO_MESSAGE;
 
-const getAnalysisResult = async (
+const getAnalysisResults = async (
   commits: CommitDetail[],
   repositoryOverview: string | undefined,
 ) => {
@@ -60,7 +60,7 @@ const getAnalysisResult = async (
     {
       title: overallResult.reportTitle,
     },
-    `전체 리포트 생성 완료: "${overallResult.reportTitle}"`,
+    "리포트 생성 완료",
   );
 
   return { ...overallResult, ...sortedMergedResults };
@@ -127,4 +127,4 @@ const evaluateCommitSummaries = async (
   });
 };
 
-export default getAnalysisResult;
+export default getAnalysisResults;
