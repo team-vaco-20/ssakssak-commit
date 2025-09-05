@@ -1,12 +1,14 @@
-import mockdata from "@/mocks/data/report.json";
+import mockdata from "@/mocks/data/openAi.json";
 
 function Header() {
   return (
-    <header className="flex h-[4rem] items-center px-4">
-      <h1 className="p-3 text-2xl font-bold">
-        {mockdata.mockTitle.reportTitle}
-      </h1>
-    </header>
+    <div className="mx-auto max-w-7xl space-y-8 p-6">
+      <header className="border-b pb-4">
+        <h1 className="mb-10 text-3xl font-bold text-gray-900">
+          🧪 {mockdata.result.reportTitle}
+        </h1>
+      </header>
+    </div>
   );
 }
 

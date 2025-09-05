@@ -1,4 +1,4 @@
-import { MonacoFileViewer } from "./MonacoFileViewer";
+import { MonacoFileViewer } from "@/app/ui/report-view/monaco-file/MonacoFileViewer";
 import type { AnalysisData } from "@/app/types/monaco";
 import { getStatusIcon } from "@/lib/util/monacoUtils";
 
