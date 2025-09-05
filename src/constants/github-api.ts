@@ -18,6 +18,9 @@ const GITHUB_API = {
     DEFAULT_OWNER: "defaultOwner",
     DEFAULT_REPO: "defaultRepo",
   },
+  OAUTH: {
+    Authorization_Server_URL: "https://github.com/login/oauth/access_token",
+  },
 };
 
 export { GITHUB_API };

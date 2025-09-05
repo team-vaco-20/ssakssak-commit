@@ -3,10 +3,9 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 type TextButtonProps = {
-  href: string;
+  onClick: () => void;
   children: string;
 };
 
@@ -62,11 +61,11 @@ function Button({
   );
 }
 
-function TextButton({ href, children }: TextButtonProps) {
+function TextButton({ onClick, children }: TextButtonProps) {
   return (
-    <Link href={href} className={`text-blue-600`}>
+    <div className={`text-[#FFA229] hover:text-[#C58F08]`} onClick={onClick}>
       {children}
-    </Link>
+    </div>
   );
 }
 
