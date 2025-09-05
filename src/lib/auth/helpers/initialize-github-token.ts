@@ -15,7 +15,7 @@ const initializeGitHubToken = (
   }
 
   token.userName = profile?.login;
-  token.userId = String(profile.id);
+  token.githubId = String(profile.id);
 
   return token;
 };
