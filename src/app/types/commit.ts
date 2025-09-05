@@ -33,11 +33,6 @@ interface CommitDetail {
   author: string;
   changeSummary: string;
   commitConclusion: string;
-  // sha: string;
-  // author: string;
-  // date: string;
-  // message: string;
-  // files: CommitFile[] | null;
 }
 
 interface RequirementCheck {

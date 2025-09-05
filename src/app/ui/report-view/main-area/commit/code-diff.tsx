@@ -10,9 +10,11 @@ function CodeDiff({ data }: AnalysisSummaryProps) {
     <div className="mb-4 min-h-[150px] p-2">
       {data.map((item, index) => (
         <div key={index}>
-          <p className="mb-1 ml-2 text-lg font-bold">변경 사항: {item.title}</p>
-          <div className="border-[1px]"></div>
-          <p key={index} className="mt-2 mb-2 bg-yellow-50 px-2 py-2 shadow-sm">
+          <p className="mb-2 text-base font-semibold text-gray-800">
+            변경 사항: {item.title}
+          </p>
+          <div className="mb-4 h-px bg-gray-200"></div>
+          <p key={index} className="text-sm leading-relaxed text-gray-700">
             {item.description}
           </p>
 

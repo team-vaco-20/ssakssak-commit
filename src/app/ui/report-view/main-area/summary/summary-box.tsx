@@ -2,10 +2,14 @@ import mockdata from "@/mocks/data/openAi.json";
 
 function SummaryBox() {
   return (
-    <div className="mx-auto mb-3 min-h-[150px] w-[95%] border-gray-500 p-2">
-      <p className="ml-2 text-xl font-bold"> 전체 분석 및 요약</p>
-      <div className="mt-[1px] border-[1px] border-gray-300"></div>
-      <p className="text-lg">{mockdata.result.reportSummary}</p>
+    <div className="mx-auto mb-6 w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+      <p className="mb-2 text-xl font-semibold text-gray-800">
+        📊 전체 분석 및 요약
+      </p>
+      <div className="mb-4 h-px bg-gray-200"></div>
+      <p className="text-base leading-relaxed text-gray-700">
+        {mockdata.result.reportSummary}
+      </p>
     </div>
   );
 }

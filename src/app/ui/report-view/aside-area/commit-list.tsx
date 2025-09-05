@@ -4,8 +4,10 @@ import mockdata from "@/mocks/data/openAi.json";
 function CommitList() {
   return (
     <div className="mb-4 flex min-h-[250px] flex-col">
-      <p className="mb-3 text-center text-2xl">커밋 리스트</p>
-      <div className="mb-3 border-[1px] border-gray-300"></div>
+      <p className="mb-4 text-center text-lg font-semibold text-gray-800">
+        📌 커밋 리스트
+      </p>
+      <div className="mb-4 h-px bg-gray-200" />
       {mockdata.result.commits.map((commit) => (
         <CommitBox
           key={commit.commitId}
