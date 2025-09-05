@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 type FileStatus =
   | "added"
   | "modified"
@@ -9,7 +11,6 @@ type FileStatus =
 interface Highlight {
   startLine: number;
   endLine: number;
-  reason: string;
 }
 
 interface FileData {
@@ -37,6 +38,15 @@ interface MonacoFileViewerProps extends MonacoFileBaseProps {
   readOnly?: boolean;
 }
 
+interface MonacoAutoHeightProps {
+  code: string;
+  lineHeight?: number;
+  padding?: number;
+  minHeight?: number;
+  maxHeight?: number;
+  children: (height: number) => ReactNode;
+}
+
 export type {
   FileStatus,
   Highlight,
@@ -44,4 +54,5 @@ export type {
   AnalysisData,
   MonacoFileViewerProps,
   MonacoFileBaseProps,
+  MonacoAutoHeightProps,
 };
