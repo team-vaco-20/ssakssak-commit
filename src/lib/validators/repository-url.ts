@@ -9,7 +9,7 @@ const { INVALID_URL } = GITHUB_REPOSITORY_ERROR_MESSAGES;
 const { REPOSITORY_REGEX } = GITHUB_REPOSITORY_RULES;
 
 const repositoryUrlSchema = z.strictObject({
-  repositoryUrl: z.string().regex(REPOSITORY_REGEX, { error: INVALID_URL }),
+  repositoryUrl: z.string().regex(REPOSITORY_REGEX, { message: INVALID_URL }),
 });
 
 const validateRepositoryUrl = (searchParams: URLSearchParams): string => {

@@ -7,7 +7,7 @@ import { GITHUB_API } from "@/constants/github-api";
 const { HEADERS, ENDPOINTS } = GITHUB_API;
 const { X_GITHUB_API_VERSION, VERSION } = HEADERS;
 
-const getBranches = async (
+const getGithubBranchList = async (
   owner: string,
   repositoryName: string,
 ): Promise<BranchName[]> => {
@@ -38,4 +38,4 @@ const getBranches = async (
   }
 };
 
-export { getBranches };
+export { getGithubBranchList };

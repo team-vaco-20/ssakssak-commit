@@ -31,11 +31,22 @@ const AUTH_ERROR_MESSAGES = {
   UNKNOWN: "로그인 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
 };
 
+const OPENAI_ERROR_MESSAGES = {
+  ZOD_VALIDATION_FAILED: "모델 출력이 스키마와 일치하지 않습니다.",
+  RESPONSE_CREATION_FAILED: "OpenAI 응답 생성에 실패했습니다.",
+  MODEL_REFUSAL: "모델이 요청을 거절했습니다. 요청 내용을 점검하세요.",
+  OUTPUT_TEXT_NOT_FOUND:
+    "모델 응답에서 output_text를 찾지 못했습니다. prompt/형식 지시 또는 zod 포맷 설정을 점검하세요.",
+  INCOMPLETE_DUE_TO_MAX_TOKENS:
+    "모델 응답이 출력 토큰 한도(max_output_tokens)로 잘렸습니다. max_output_tokens 값을 늘리거나 배치 크기를 줄여주세요.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
   SYSTEM_ERROR_MESSAGES,
   MERMAID_ERROR_MESSAGES,
+  OPENAI_ERROR_MESSAGES,
   TOKEN_ERROR_MESSAGES,
   AUTH_ERROR_MESSAGES,
 };
