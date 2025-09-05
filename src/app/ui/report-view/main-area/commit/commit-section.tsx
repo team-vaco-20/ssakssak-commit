@@ -1,12 +1,13 @@
-import mockdata from "@/mocks/data/openAi.json";
-import { Analysis } from "@/app/types/commit";
+import { CommitDetail, Analysis } from "@/app/types/commit";
 import CodeDiff from "@/app/ui/report-view/main-area/commit/code-diff";
 import DiagramBox from "@/app/ui/report-view/main-area/commit/diagram-box";
 import Explanation from "@/app/ui/report-view/main-area/commit/explanation";
 
-function CommitSection() {
-  const commits = mockdata.commits;
+interface CommitSectionProps {
+  commits: CommitDetail[];
+}
 
+function CommitSection({ commits }: CommitSectionProps) {
   return (
     <div className="space-y-6">
       {commits.map((commit) => {

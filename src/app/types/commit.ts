@@ -34,6 +34,7 @@ interface CommitDetail {
   author: string;
   commitLink: string;
   changeSummary: string;
+  analyses: Analysis[];
   commitConclusion: string;
 }
 
