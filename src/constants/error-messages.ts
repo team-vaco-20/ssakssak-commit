@@ -41,6 +41,11 @@ const OPENAI_ERROR_MESSAGES = {
     "모델 응답이 출력 토큰 한도(max_output_tokens)로 잘렸습니다. max_output_tokens 값을 늘리거나 배치 크기를 줄여주세요.",
 };
 
+const PROVIDER_MESSAGES = {
+  CONTEXT_OUTSIDE_PROVIDER:
+    "이 훅은 해당 Provider 내부에서만 사용할 수 있습니다.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
@@ -49,4 +54,5 @@ export {
   OPENAI_ERROR_MESSAGES,
   TOKEN_ERROR_MESSAGES,
   AUTH_ERROR_MESSAGES,
+  PROVIDER_MESSAGES,
 };
