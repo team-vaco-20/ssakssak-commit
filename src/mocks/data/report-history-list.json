@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "reportTitle": "UX 리서치 주간 보고서",
+    "repositoryOverview": "사용자 인터뷰 및 사용성 테스트 결과 요약"
+  },
+  {
+    "id": "2",
+    "reportTitle": "마케팅 캠페인 성과 보고서",
+    "repositoryOverview": "전환율, 클릭률, 도달률 분석"
+  },
+  {
+    "id": "3",
+    "reportTitle": "기술 블로그 성과 리포트",
+    "repositoryOverview": "게시글 조회수, 공유수, 독자 반응 분석"
+  },
+  {
+    "id": "4",
+    "reportTitle": "분기별 재무 분석 보고서",
+    "repositoryOverview": "매출, 비용, 순이익 요약 및 그래프"
+  },
+  {
+    "id": "5",
+    "reportTitle": "고객 만족도 조사 보고서",
+    "repositoryOverview": "설문조사 기반 고객 만족도 결과"
+  },
+  {
+    "id": "6",
+    "reportTitle": "신제품 베타 테스트 보고서",
+    "repositoryOverview": "사용자 피드백과 주요 개선사항"
+  },
+  {
+    "id": "7",
+    "reportTitle": "경쟁사 비교 분석 보고서",
+    "repositoryOverview": "주요 경쟁사 제품 성능 및 시장 점유율 비교"
+  },
+  {
+    "id": "8",
+    "reportTitle": "팀 생산성 분석 리포트",
+    "repositoryOverview": "개발 주기, PR 리뷰 시간, 배포 횟수 통계"
+  },
+  {
+    "id": "9",
+    "reportTitle": "서비스 장애 현황 보고서",
+    "repositoryOverview": "최근 3개월간 장애 원인 및 대응 현황"
+  },
+  {
+    "id": "10",
+    "reportTitle": "보안 점검 보고서",
+    "repositoryOverview": "취약점 점검 결과 및 조치 현황"
+  }
+]
