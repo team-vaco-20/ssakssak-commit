@@ -20,7 +20,7 @@ function ReportForm() {
     try {
       setErrorMessage(null);
       const formData = new FormData(e.currentTarget);
-      const reportTitle = String(formData.get("title") || "").trim();
+      const reportTitle = String(formData.get("reportTitle") || "").trim();
       const repositoryOverview = String(
         formData.get("repositoryOverview") || "",
       ).trim();
@@ -67,8 +67,8 @@ function ReportForm() {
   return (
     <form onSubmit={handleSubmit} className="mb-10 flex w-full flex-col gap-10">
       <InputField
-        id="title"
-        name={"title"}
+        id="reportTitle"
+        name={"reportTitle"}
         label={"리포트명"}
         placeholder={"생성할 리포트명을 입력해 주세요."}
       />
