@@ -6,14 +6,13 @@ interface AnalysisSummaryProps {
 
 function Explanation({ data }: AnalysisSummaryProps) {
   return (
-    <div className="mb-4 min-h-[150px] rounded-[10px] border-gray-500 p-2">
+    <div className="space-y-8">
       {data.map((item, index) => (
         <div key={index}>
-          <p className="mb-1 ml-2 text-lg font-bold">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             요약 & 분석: {item.title}
-          </p>
-          <div className="border-[1px] border-gray-300"></div>
-          <p key={index} className="ml-2 text-lg">
+          </h3>
+          <p className="text-base leading-relaxed text-gray-700">
             {item.description}
           </p>
         </div>

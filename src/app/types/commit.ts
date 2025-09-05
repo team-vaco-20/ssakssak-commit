@@ -49,6 +49,8 @@ interface ReportData {
   commits: CommitDetail[];
   reportConclusion: string;
   requirementsCheck: RequirementCheck[];
+  repositoryUrl: string;
+  branch: string;
 }
 
 export type {

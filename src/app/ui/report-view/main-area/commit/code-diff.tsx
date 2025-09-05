@@ -7,14 +7,13 @@ interface AnalysisSummaryProps {
 
 function CodeDiff({ data }: AnalysisSummaryProps) {
   return (
-    <div className="mb-4 min-h-[150px] p-2">
+    <div className="space-y-8">
       {data.map((item) => (
         <div key={item.title}>
-          <p className="mb-2 text-base font-semibold text-gray-800">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             변경 사항: {item.title}
-          </p>
-          <div className="mb-4 h-px bg-gray-200"></div>
-          <p className="text-sm leading-relaxed text-gray-700">
+          </h3>
+          <p className="mb-4 text-sm leading-relaxed text-gray-700">
             {item.description}
           </p>
 
@@ -27,9 +26,9 @@ function CodeDiff({ data }: AnalysisSummaryProps) {
                 language={file.language}
                 highlights={file.highlights}
               />
-              <div className="mt-4 flex items-center space-x-2 border-t border-gray-200 pt-2">
-                <span>➡️</span>
-                <p className="rounded-md bg-purple-50 p-2 text-sm font-medium text-purple-800 shadow-sm">
+              <div className="mt-4 flex items-center space-x-2 pt-2">
+                <span className="text-sm text-gray-500">➡️</span>
+                <p className="rounded-md bg-purple-50 p-2 text-sm font-medium text-purple-800">
                   {file.codeDiffSummary}
                 </p>
               </div>
