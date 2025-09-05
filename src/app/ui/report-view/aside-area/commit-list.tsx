@@ -1,7 +1,11 @@
 import CommitBox from "@/app/ui/report-view/aside-area/commit-box";
-import mockdata from "@/mocks/data/openAi.json";
+import { CommitDetail } from "@/app/types/commit";
 
-function CommitList() {
+interface CommitListProps {
+  commits: CommitDetail[];
+}
+
+function CommitList({ commits }: CommitListProps) {
   return (
     <div className="flex flex-col">
       <h3
@@ -12,7 +16,7 @@ function CommitList() {
       </h3>
       <div className="mb-4 h-px bg-gray-200" />
       <div className="space-y-4">
-        {mockdata.commits.map((commit) => (
+        {commits.map((commit) => (
           <CommitBox
             key={commit.commitId}
             id={commit.commitId.substring(0, 7)}
