@@ -3,7 +3,7 @@ import CommitSection from "./commit/commit-section";
 
 function MainSection() {
   return (
-    <main className="ml-4 flex min-w-0 basis-[70%] flex-col overflow-y-auto">
+    <main className="flex min-w-0 flex-col space-y-6 lg:basis-[70%]">
       <SummarySection />
       <CommitSection />
     </main>

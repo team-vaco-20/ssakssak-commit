@@ -15,17 +15,18 @@ function DiagramBox({ data }: AnalysisSummaryProps) {
   };
 
   return (
-    <div className="min-h-[200px] p-2">
+    <div className="space-y-8">
       {data.map((item, index) => (
         <div key={index}>
-          <p className="mb-1 ml-2 text-lg font-bold">{item.title}</p>
-          <div className="border-[1px] border-gray-300"></div>
-          <p key={index} className="mt-2 mb-2 bg-purple-50 px-2 py-2 shadow-sm">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
+            {item.title}
+          </h3>
+          <p className="mb-4 text-sm leading-relaxed text-gray-700">
             {item.description}
           </p>
 
           {item.type === "diagram" && item.chart && (
-            <div className="mt-4">
+            <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
               <Mermaid
                 chart={item.chart}
                 title={item.title}
@@ -33,7 +34,7 @@ function DiagramBox({ data }: AnalysisSummaryProps) {
                 config={defaultMermaidConfig}
               />
               {item.caption && (
-                <p className="mt-2 text-center text-sm text-gray-600 italic">
+                <p className="mt-4 text-center text-sm text-gray-500 italic">
                   {item.caption}
                 </p>
               )}

@@ -2,28 +2,31 @@ function CommitBox({
   id,
   message,
   date,
+  commitId,
 }: {
   id: string;
   message: string;
   date: string;
+  commitId: string;
 }) {
   return (
-    <>
-      <div className="mb-3 rounded-md border border-blue-100 bg-blue-50 px-4 py-3 shadow-sm">
-        <div className="flex flex-col">
-          <div className="mr-2 mb-2 flex items-center justify-between text-sm text-gray-700">
-            <span className="font-mono text-blue-600">[{id}]</span>
-            <span className="text-xs text-gray-500">{date}</span>
-          </div>
+    <a
+      href={`#commit-${commitId}`}
+      className="mb-4 block overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow duration-200 ease-in-out hover:shadow-md"
+    >
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between border-b border-gray-100 bg-purple-50 px-4 py-2 text-sm text-gray-500">
+          <span className="font-mono text-xs text-gray-400">[{id}]</span>
+          <span className="text-xs text-gray-400">{date}</span>
+        </div>
 
-          <div className="mb-2 border-[1px] border-gray-300"></div>
-          <span className="truncate rounded-xl bg-gray-50 px-0 py-4 text-center text-xs">
+        <div className="p-4">
+          <p className="text-sm leading-snug font-medium text-gray-800">
             {message}
-          </span>
+          </p>
         </div>
       </div>
-      <div className="mb-2 border-[1px] border-gray-200"></div>
-    </>
+    </a>
   );
 }
 

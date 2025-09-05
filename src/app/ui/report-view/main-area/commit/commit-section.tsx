@@ -8,7 +8,7 @@ function CommitSection() {
   const commits = mockdata.commits;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {commits.map((commit) => {
         const analyses = commit.analyses as Analysis[];
 
@@ -19,35 +19,42 @@ function CommitSection() {
         return (
           <div
             key={commit.commitId}
-            className="mb-8 rounded-lg border bg-white p-6 shadow-sm"
+            id={`commit-${commit.commitId}`}
+            className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
           >
-            <header className="mb-4 border-b border-gray-200 pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h2 className="mb-2 text-lg font-semibold text-gray-900">
-                    💬 {commit.commitMessage}
-                  </h2>
-                  <div className="space-x-4 text-sm text-gray-600">
-                    <span>👤 {commit.author}</span>
-                    <span>
-                      🕐 {new Date(commit.commitDate).toLocaleString()}
-                    </span>
-                    <a
-                      href={commit.commitLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-100 text-blue-600 underline hover:text-blue-800"
-                    >
-                      {commit.commitId.substring(0, 7)}
-                    </a>
-                  </div>
+            <header className="bg-stone-50 px-6 py-4">
+              <div className="flex flex-col">
+                <h2 className="mb-2 text-xl font-bold text-gray-900">
+                  💬 {commit.commitMessage}
+                </h2>
+                <div className="flex items-center space-x-4 text-sm text-gray-500">
+                  <span className="flex items-center space-x-1">
+                    <span>👤</span>
+                    <span>{commit.author}</span>
+                  </span>
+                  <span className="flex items-center space-x-1">
+                    <span>🕐</span>
+                    <span>{new Date(commit.commitDate).toLocaleString()}</span>
+                  </span>
+                  <a
+                    href={commit.commitLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs text-blue-500 hover:text-blue-700"
+                  >
+                    {commit.commitId.substring(0, 7)}
+                  </a>
                 </div>
               </div>
             </header>
 
-            <Explanation data={explanation} />
-            <CodeDiff data={codeDiffs} />
-            <DiagramBox data={diagrams} />
+            <div className="p-6">
+              <div className="space-y-8">
+                <Explanation data={explanation} />
+                <CodeDiff data={codeDiffs} />
+                <DiagramBox data={diagrams} />
+              </div>
+            </div>
           </div>
         );
       })}
