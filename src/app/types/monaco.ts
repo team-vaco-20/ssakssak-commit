@@ -13,6 +13,7 @@ interface Highlight {
 }
 
 interface FileData {
+  commitId: string;
   path: string;
   code: string;
   language: string;
@@ -24,13 +25,16 @@ interface AnalysisData {
   files: FileData[];
 }
 
-interface MonacoFileViewerProps {
-  filename: string;
-  fileStatus: FileStatus;
+interface MonacoFileBaseProps {
   code: string;
-  language: string;
   highlights: Highlight[];
-  readonly?: boolean;
+  fileStatus: FileStatus;
+}
+
+interface MonacoFileViewerProps extends MonacoFileBaseProps {
+  filename: string;
+  language: string;
+  readOnly?: boolean;
 }
 
 export type {
@@ -39,4 +43,5 @@ export type {
   FileData,
   AnalysisData,
   MonacoFileViewerProps,
+  MonacoFileBaseProps,
 };

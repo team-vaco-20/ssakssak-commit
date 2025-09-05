@@ -1,5 +1,8 @@
 import * as monaco from "monaco-editor";
-import { getHighlightClassName, getHighlightColor } from "@/lib/monacoUtils";
+import {
+  getHighlightClassName,
+  getHighlightColor,
+} from "@/lib/util/monacoUtils";
 import type { FileStatus } from "@/app/types/monaco";
 
 function createHighlightDecorations({

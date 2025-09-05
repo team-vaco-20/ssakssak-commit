@@ -2,7 +2,7 @@
 
 import mockAnalysisData from "@/mocks/data/monaco.json";
 import type { AnalysisData } from "@/app/types/monaco";
-import { MonacoFileCard } from "./monaco/MonacoFileCard";
+import { MonacoFileCard } from "@/app/ui/report-view/monaco-file/MonacoFileCard";
 
 const analysisData = mockAnalysisData as AnalysisData;
 
@@ -17,8 +17,8 @@ function Monaco() {
         </div>
       ) : (
         <div className="space-y-8">
-          {analysisData.files.map((file, index) => (
-            <MonacoFileCard key={`${file.path}-${index}`} file={file} />
+          {analysisData.files.map((file) => (
+            <MonacoFileCard key={file.path} file={file} />
           ))}
         </div>
       )}

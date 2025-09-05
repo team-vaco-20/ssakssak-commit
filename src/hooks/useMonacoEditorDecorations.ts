@@ -1,17 +1,13 @@
 import { useRef, useEffect } from "react";
 import type * as monaco from "monaco-editor";
 import { createHighlightDecorations } from "@/lib/util/monacoDecorations";
-import type { FileStatus } from "@/app/types/monaco";
+import type { MonacoFileBaseProps } from "@/app/types/monaco";
 
 function useMonacoEditorDecorations({
   code,
   highlights,
   fileStatus,
-}: {
-  code: string;
-  highlights: { startLine: number; endLine: number }[];
-  fileStatus: FileStatus;
-}) {
+}: MonacoFileBaseProps) {
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const decorationsRef =
     useRef<monaco.editor.IEditorDecorationsCollection | null>(null);
