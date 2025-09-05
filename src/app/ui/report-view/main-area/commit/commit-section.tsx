@@ -5,7 +5,7 @@ import DiagramBox from "@/app/ui/report-view/main-area/commit/diagram-box";
 import Explanation from "@/app/ui/report-view/main-area/commit/explanation";
 
 function CommitSection() {
-  const commits = mockdata.result.commits;
+  const commits = mockdata.commits;
 
   return (
     <div className="space-y-8">
@@ -32,7 +32,14 @@ function CommitSection() {
                     <span>
                       🕐 {new Date(commit.commitDate).toLocaleString()}
                     </span>
-                    <span className="">{commit.commitId.substring(0, 7)}</span>
+                    <a
+                      href={commit.commitLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-100 text-blue-600 underline hover:text-blue-800"
+                    >
+                      {commit.commitId.substring(0, 7)}
+                    </a>
                   </div>
                 </div>
               </div>

@@ -8,6 +8,7 @@ interface Highlight {
 }
 
 interface CommitFile {
+  codeDiffSummary: string;
   code: string;
   language: string;
   filename: string;
@@ -31,6 +32,7 @@ interface CommitDetail {
   commitDate: string;
   commitMessage: string;
   author: string;
+  commitLink: string;
   changeSummary: string;
   commitConclusion: string;
 }
