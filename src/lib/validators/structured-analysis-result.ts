@@ -76,4 +76,16 @@ const overallAnalysisSchema = z
   })
   .strict();
 
-export { overallAnalysisSchema, commitAnalysesSchema, analyzedCommitSchema };
+const analysisResultSchema = z.object({
+  reportTitle: z.string(),
+  reportSummary: z.string(),
+  reportConclusion: z.string(),
+  commits: z.array(analyzedCommitSchema).min(1),
+});
+
+export {
+  overallAnalysisSchema,
+  commitAnalysesSchema,
+  analyzedCommitSchema,
+  analysisResultSchema,
+};

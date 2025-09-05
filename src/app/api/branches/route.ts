@@ -4,9 +4,7 @@ import { validateRepositoryUrl } from "@/lib/validators/repository-url";
 import AppError from "@/errors/app-error";
 import { BranchName } from "@/app/types/branch";
 
-const handleGetBranches = async function GET(
-  request: NextRequest,
-): Promise<NextResponse> {
+async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const repositoryUrl: string = validateRepositoryUrl(
       request.nextUrl.searchParams,
@@ -26,6 +24,6 @@ const handleGetBranches = async function GET(
       { status },
     );
   }
-};
+}
 
-export { handleGetBranches as GET };
+export { GET };
