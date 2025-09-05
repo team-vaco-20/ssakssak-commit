@@ -9,11 +9,11 @@ function CommitBox({
 }) {
   return (
     <>
-      <div className="mb-3 min-h-[40px] rounded-xl bg-blue-50 px-2 py-2 shadow-sm">
+      <div className="mb-3 rounded-md border border-blue-100 bg-blue-50 px-4 py-3 shadow-sm">
         <div className="flex flex-col">
-          <div className="flex flex-row gap-2">
-            <span className="text-sm text-black">[{id}]</span>
-            <span className="text-[11px] text-gray-500">{date}</span>
+          <div className="mr-2 mb-2 flex items-center justify-between text-sm text-gray-700">
+            <span className="font-mono text-blue-600">[{id}]</span>
+            <span className="text-xs text-gray-500">{date}</span>
           </div>
 
           <div className="mb-2 border-[1px] border-gray-300"></div>
