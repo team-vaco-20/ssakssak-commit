@@ -5,11 +5,10 @@ const sessionCallback: NonNullable<CallbacksOptions["session"]> = async ({
   token,
 }) => {
   if (session.user) {
-    session.user.name = token.userName ?? null;
+    session.user.userName = token.userName ?? null;
     session.user.githubId = token.githubId ?? null;
-    session.user.id = token.userId ?? null;
+    session.user.userId = token.userId ?? null;
   }
-  session.accessToken = token.accessToken;
   return session;
 };
 
