@@ -8,7 +8,7 @@ function CommitList() {
         📌 커밋 리스트
       </p>
       <div className="mb-4 h-px bg-gray-200" />
-      {mockdata.result.commits.map((commit) => (
+      {mockdata.commits.map((commit) => (
         <CommitBox
           key={commit.commitId}
           id={commit.commitId.substring(0, 7)}

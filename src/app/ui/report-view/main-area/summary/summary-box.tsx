@@ -8,7 +8,7 @@ function SummaryBox() {
       </p>
       <div className="mb-4 h-px bg-gray-200"></div>
       <p className="text-base leading-relaxed text-gray-700">
-        {mockdata.result.reportSummary}
+        {mockdata.reportSummary}
       </p>
     </div>
   );
