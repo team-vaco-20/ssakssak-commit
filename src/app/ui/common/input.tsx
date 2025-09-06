@@ -27,11 +27,11 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-function InputField({ id, label, placeholder }: InputFieldProps) {
+function InputField({ id, label, placeholder, name }: InputFieldProps) {
   return (
     <div className="grid w-full items-center gap-3">
       <Label htmlFor={id}>{label}</Label>
-      <Input id={id} placeholder={placeholder} />
+      <Input id={id} placeholder={placeholder} name={name} />
     </div>
   );
 }

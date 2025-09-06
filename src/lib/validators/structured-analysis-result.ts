@@ -28,6 +28,7 @@ const codeHighlightRange = z.object({
 
 const codeDiffFile = z
   .object({
+    codeDiffSummary: z.string(),
     path: z.string(),
     code: z.string(),
     language: z.string(),
@@ -58,6 +59,7 @@ const analyzedCommitSchema = z
     commitDate: z.string().datetime(),
     commitMessage: z.string(),
     author: z.string(),
+    commitLink: z.string(),
     changeSummary: z.string(),
     analyses: z.array(analysis).min(1),
     commitConclusion: z.string(),
@@ -76,4 +78,18 @@ const overallAnalysisSchema = z
   })
   .strict();
 
-export { overallAnalysisSchema, commitAnalysesSchema, analyzedCommitSchema };
+const analysisResultSchema = z.object({
+  repositoryUrl: z.string(),
+  branch: z.string(),
+  reportTitle: z.string(),
+  reportSummary: z.string(),
+  reportConclusion: z.string(),
+  commits: z.array(analyzedCommitSchema).min(1),
+});
+
+export {
+  overallAnalysisSchema,
+  commitAnalysesSchema,
+  analyzedCommitSchema,
+  analysisResultSchema,
+};

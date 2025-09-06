@@ -8,17 +8,22 @@ import { Button } from "@/app/ui/common/button";
 import RepositoryBranchSelector from "@/app/ui/main/repository-branch-selector";
 import ErrorMessage from "@/app/ui/common/error-message";
 import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
+import { useRouter } from "next/navigation";
 
 function ReportForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     try {
       setErrorMessage(null);
       const formData = new FormData(e.currentTarget);
-      const title = String(formData.get("title") || "").trim();
-      const requirements = String(formData.get("requirements") || "").trim();
+      const reportTitle = String(formData.get("reportTitle") || "").trim();
+      const repositoryOverview = String(
+        formData.get("repositoryOverview") || "",
+      ).trim();
       const repositoryUrl = String(formData.get("repositoryUrl") || "").trim();
       const branch = String(formData.get("branch") || "").trim();
 
@@ -27,33 +32,51 @@ function ReportForm() {
         return;
       }
 
-      const response = await fetch("/reports", {
+      router.push("/loading");
+
+      const response = await fetch("/api/reports", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, requirements, repositoryUrl, branch }),
+        body: JSON.stringify({
+          reportTitle,
+          repositoryOverview,
+          repositoryUrl,
+          branch,
+        }),
       });
 
+      const resultData = await response.json();
+
       if (!response.ok) {
-        const data = await response.json().catch(() => null);
-        throw new Error(data?.error?.message ?? "요청에 실패했습니다.");
+        const errorMessage = resultData.error.message ?? "요청에 실패했습니다.";
+        alert(errorMessage);
+        router.replace("/");
+        return;
       }
+
+      const { result } = resultData;
+      const id = crypto.randomUUID();
+      sessionStorage.setItem(`guest:report:${id}`, JSON.stringify(result));
+
+      router.replace(`/report-view/${id}`);
     } catch {
       setErrorMessage(SYSTEM_ERROR_MESSAGES.NETWORK);
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="mb-10 flex w-full flex-col gap-10">
       <InputField
-        id="title"
-        name={"title"}
+        id="reportTitle"
+        name={"reportTitle"}
         label={"리포트명"}
         placeholder={"생성할 리포트명을 입력해 주세요."}
       />
       <div className="grid gap-3">
-        <Label>요구사항 및 분석 가이드</Label>
+        <Label>리포지토리 개요</Label>
         <Textarea
-          name="requirements"
-          placeholder={`1. OOO을 구현하세요.\n2. OOO을 구현하세요.`}
+          name="repositoryOverview"
+          placeholder={`예 : 이 과제는 GitHub API를 활용해 저장소 브랜치와 커밋 내역을 조회하는 기능을 구현하는 과제입니다. 주된 목적은 API 연동과 비동기 처리 역량을 확인하는 것입니다.`}
         />
       </div>
 

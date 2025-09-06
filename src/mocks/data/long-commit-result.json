@@ -486,7 +486,7 @@
             "diagram": "flowchart",
             "title": "커밋 정렬 프로세스",
             "description": "이 다이어그램은 커밋 정렬 프로세스를 설명합니다.",
-            "chart": "flowchart TD\n    A[커밋 데이터 수집] --> B[정렬 기준 설정]\n    B --> C[최신 순으로 정렬]\n    C --> D[정렬된 데이터 반환",
+            "chart": "flowchart TD\n    A[커밋 데이터 수집] --> B[정렬 기준 설정]\n    B --> C[최신 순으로 정렬]\n    C --> D[정렬된 데이터 반환]",
             "caption": ""
           }
         ],

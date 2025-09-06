@@ -1,11 +1,17 @@
 import SummarySection from "./summary/summary-box";
 import CommitSection from "./commit/commit-section";
+import { CommitDetail } from "@/app/types/commit";
 
-function MainSection() {
+interface MainSectionProps {
+  reportSummary: string;
+  commits: CommitDetail[];
+}
+
+function MainSection({ reportSummary, commits }: MainSectionProps) {
   return (
-    <main className="flex min-w-0 basis-[70%] flex-col overflow-y-auto">
-      <SummarySection />
-      <CommitSection />
+    <main className="flex min-w-0 flex-col space-y-6 lg:basis-[70%]">
+      <SummarySection reportSummary={reportSummary} />
+      <CommitSection commits={commits} />
     </main>
   );
 }

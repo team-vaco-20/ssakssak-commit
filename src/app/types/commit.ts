@@ -1,20 +1,63 @@
-type CommitInfo = {
-  id: string;
-  message: string;
-};
+type FileStatus = "added" | "modified" | "deleted";
+
+type DiagramType = "sequence" | "class" | "flowchart";
+
+interface Highlight {
+  startLine: number;
+  endLine: number;
+}
 
 interface CommitFile {
+  codeDiffSummary: string;
+  code: string;
+  language: string;
   filename: string;
-  status: string;
-  patch: string | null;
+  status: FileStatus;
+  path: string;
+  highlights: Highlight[];
+}
+
+interface Analysis {
+  type: "code-diff" | "diagram" | "explanation";
+  title: string;
+  description: string;
+  files?: CommitFile[];
+  caption?: string;
+  diagram?: DiagramType;
+  chart?: string;
 }
 
 interface CommitDetail {
-  sha: string;
+  commitId: string;
+  commitDate: string;
+  commitMessage: string;
   author: string;
-  date: string;
-  message: string;
-  files: CommitFile[] | null;
+  commitLink: string;
+  changeSummary: string;
+  analyses: Analysis[];
+  commitConclusion: string;
 }
 
-export type { CommitInfo, CommitFile, CommitDetail };
+interface RequirementCheck {
+  requirement: string;
+  isSatisfied: boolean;
+}
+
+interface ReportData {
+  reportId: string;
+  reportTitle: string;
+  reportSummary: string;
+  commits: CommitDetail[];
+  reportConclusion: string;
+  requirementsCheck: RequirementCheck[];
+  repositoryUrl: string;
+  branch: string;
+}
+
+export type {
+  CommitFile,
+  Analysis,
+  CommitDetail,
+  RequirementCheck,
+  ReportData,
+};
