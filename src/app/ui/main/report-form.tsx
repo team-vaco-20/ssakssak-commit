@@ -17,10 +17,11 @@ function ReportForm() {
   const [repositoryOverview, setRepositoryOverview] = useState<string>("");
 
   useEffect(() => {
-    if (selected) {
-      setReportTitle(selected.reportTitle ?? "");
-      setRepositoryOverview(selected.repositoryOverview ?? "");
-    }
+    const syncedTitle = selected?.reportTitle ?? "";
+    const syncedOverView = selected?.repositoryOverview ?? "";
+
+    setReportTitle(syncedTitle);
+    setRepositoryOverview(syncedOverView);
   }, [selected]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {

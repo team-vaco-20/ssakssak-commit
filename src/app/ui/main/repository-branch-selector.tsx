@@ -22,9 +22,9 @@ function RepositoryBranchSelector() {
   const { selected } = useReportHistory();
 
   useEffect(() => {
-    if (selected) {
-      setRepositoryUrl(selected.repositoryUrl);
-    }
+    const syncedRepositoryUrl = selected?.repositoryUrl ?? "";
+
+    setRepositoryUrl(syncedRepositoryUrl);
   }, [selected]);
 
   const isValidRepositoryUrl = (url: string) => {
