@@ -18,7 +18,6 @@ async function DELETE(
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.log(error);
     const message = error instanceof Error ? error.message : "Unexpected Error";
     const status = error instanceof AppError ? error.status : 500;
 
