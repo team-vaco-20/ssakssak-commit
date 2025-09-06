@@ -31,15 +31,18 @@ function ReportHistoryPanel() {
     });
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (reportHistoryId: string) => {
     try {
-      const res = await fetch(`/report-histories/${id}`, { method: "DELETE" });
-      if (!res.ok) {
+      const response = await fetch(`/api/report-histories/${reportHistoryId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
         setError(DATA_ERROR_MESSAGES.DELETE);
         return;
       }
       setItems((prev) =>
-        prev.filter((history) => history.reportHistoryId !== id),
+        prev.filter((history) => history.reportHistoryId !== reportHistoryId),
       );
     } catch {
       setError(SYSTEM_ERROR_MESSAGES.NETWORK);
