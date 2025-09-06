@@ -1,21 +1,11 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authOptions from "@/lib/auth/auth-options";
 import getReportHistoryList from "@/services/report-history/get-report-history-list";
-import { AppError, UnauthorizedError } from "@/errors";
+import { AppError } from "@/errors";
+import { requireUserId } from "@/lib/auth/require-session";
 
 async function GET() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.userId) {
-    throw new UnauthorizedError({
-      message:
-        "세션이 만료되었거나 올바르지 않습니다. 로그인 후 이용해 주세요.",
-    });
-  }
-
-  const userId = session?.user.userId;
-
   try {
+    const userId = await requireUserId();
     const result = await getReportHistoryList(userId);
 
     return NextResponse.json({ result }, { status: 200 });

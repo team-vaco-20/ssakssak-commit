@@ -29,6 +29,8 @@ const AUTH_ERROR_MESSAGES = {
   INVALID_REDIRECT_URL: "허용되지 않은 redirect URL입니다.",
   INTERNAL_ERROR: "내부 오류로 인해 요청이 실패했습니다.",
   UNKNOWN: "로그인 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
+  SESSION_EXPIRED:
+    "세션이 만료되었거나 올바르지 않습니다. 로그인 후 이용해 주세요.",
 };
 
 const OPENAI_ERROR_MESSAGES = {
