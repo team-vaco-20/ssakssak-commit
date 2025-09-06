@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireUserId } from "@/lib/auth/require-session";
-import { deleteReportHistory } from "@/repositories/report-hisotry";
+import { deleteReportHistory } from "@/repositories/report-history";
 import { AppError } from "@/errors";
 
 async function DELETE(

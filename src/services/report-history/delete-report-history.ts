@@ -1,5 +1,5 @@
 import { DeleteReportHistoryParams } from "@/app/types/report-history";
-import { deleteReportHistory } from "@/repositories/report-hisotry";
+import { deleteReportHistory } from "@/repositories/report-history";
 
 const removeReportHistory = async ({
   userId,
