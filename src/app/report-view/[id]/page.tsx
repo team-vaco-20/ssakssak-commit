@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import getReport from "@/services/reports/get-report";
 import { ReportData } from "@/app/types/commit";
 
 import Header from "@/app/ui/report-view/header/header";
@@ -17,12 +16,22 @@ function ReportViewPage() {
   useEffect(() => {
     if (!reportId) return;
 
-    const data = getReport(reportId);
-    if (!data) {
+    const key = `guest:report:${reportId}`;
+    const storedData = sessionStorage.getItem(key);
+
+    if (!storedData) {
       alert("세션에서 리포트 데이터를 찾을 수 없습니다.");
       router.replace("/");
-    } else {
-      setReportData(data);
+      return;
+    }
+
+    try {
+      const parsedData = JSON.parse(storedData) as ReportData;
+      setReportData(parsedData);
+    } catch (error) {
+      console.error("세션 데이터 파싱 실패:", error);
+      alert("다시 요청해주세요");
+      router.replace("/");
     }
   }, [reportId, router]);
 
