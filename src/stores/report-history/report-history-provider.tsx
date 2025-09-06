@@ -1,11 +1,11 @@
 "use client";
 
-import { SelectedHistory } from "@/app/types/context";
+import { ReportHistory } from "@/app/types/report-history";
 import { createContext, useCallback, useMemo, useState } from "react";
 
 type ContextValue = {
-  selected: SelectedHistory;
-  setSelected: (history: SelectedHistory) => void;
+  selected: ReportHistory | null;
+  setSelected: (history: ReportHistory | null) => void;
   clearSelection: () => void;
 };
 
@@ -16,7 +16,7 @@ type ProviderProps = {
 const ReportHistoryContext = createContext<ContextValue | null>(null);
 
 function ReportHistoryProvider({ children }: ProviderProps) {
-  const [selected, setSelected] = useState<SelectedHistory>(null);
+  const [selected, setSelected] = useState<ReportHistory | null>(null);
   const clearSelection = useCallback(() => setSelected(null), []);
 
   const value = useMemo(
