@@ -29,14 +29,18 @@ function ReportForm() {
     try {
       setErrorMessage(null);
       const formData = new FormData(e.currentTarget);
-      const reportTitle = String(formData.get("reportTitle") || "").trim();
-      const repositoryOverview = String(
-        formData.get("repositoryOverview") || "",
-      ).trim();
-      const repositoryUrl = String(formData.get("repositoryUrl") || "").trim();
-      const branch = String(formData.get("branch") || "").trim();
 
-      if (!repositoryUrl || !branch) {
+      const data = {
+        reportTitle: String(formData.get("reportTitle") || "").trim(),
+        repositoryOverview: String(
+          formData.get("repositoryOverview") || "",
+        ).trim(),
+        repositoryUrl: String(formData.get("repositoryUrl") || "").trim(),
+        branch: String(formData.get("branch") || "").trim(),
+        reportHistoryId: selected?.reportHistoryId ?? null,
+      };
+
+      if (!data.repositoryUrl || !data.branch) {
         setErrorMessage("리포지토리 URL과 브랜치를 모두 선택해 주세요.");
         return;
       }
@@ -44,12 +48,7 @@ function ReportForm() {
       const response = await fetch("/reports", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          reportTitle,
-          repositoryOverview,
-          repositoryUrl,
-          branch,
-        }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
