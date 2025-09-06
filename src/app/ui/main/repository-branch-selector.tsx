@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/app/ui/common/button";
 import { Input } from "@/app/ui/common/input";
 import { Label } from "@/app/ui/common/label";
@@ -12,12 +12,20 @@ import {
 } from "@/constants/error-messages";
 import { BranchList } from "@/app/types/branch";
 import ComboboxPopover from "@/app/ui/common/combobox";
+import { useReportHistory } from "@/stores/report-history/hooks";
 
 function RepositoryBranchSelector() {
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
   const [branches, setBranches] = useState<BranchList[]>([]);
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { selected } = useReportHistory();
+
+  useEffect(() => {
+    if (selected) {
+      setRepositoryUrl(selected.repositoryUrl);
+    }
+  }, [selected]);
 
   const isValidRepositoryUrl = (url: string) => {
     return GITHUB_REPOSITORY_RULES.REPOSITORY_REGEX.test(url);
