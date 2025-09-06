@@ -1,7 +1,7 @@
-import { findRepoHistoriesByUser } from "@/repositories/report-hisotry";
+import { findReportHistoriesByUser } from "@/repositories/report-hisotry";
 
 const getReportHistoryList = async (userId: string) => {
-  const reportHistoryList = await findRepoHistoriesByUser(userId);
+  const reportHistoryList = await findReportHistoriesByUser(userId);
 
   return reportHistoryList;
 };
