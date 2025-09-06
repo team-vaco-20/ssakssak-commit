@@ -1,7 +1,7 @@
 import {
   createReportHistory,
   updateReportHistory,
-} from "@/repositories/report-hisotry";
+} from "@/repositories/report-history";
 import { SaveReportHistoryParams } from "@/app/types/report-history";
 
 const saveReportHistory = async (params: SaveReportHistoryParams) => {
@@ -9,7 +9,7 @@ const saveReportHistory = async (params: SaveReportHistoryParams) => {
     return await updateReportHistory(params);
   }
 
-  createReportHistory(params);
+  await createReportHistory(params);
 };
 
 export default saveReportHistory;
