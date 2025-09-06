@@ -16,7 +16,7 @@ async function POST(request: NextRequest): Promise<NextResponse> {
       validatedInput.branch,
     );
 
-    return NextResponse.json({ result }, { status: 200 });
+    return NextResponse.json({ result }, { status: 201 });
   } catch (error) {
     const message: string =
       error instanceof Error ? error.message : "Unexpected error";
