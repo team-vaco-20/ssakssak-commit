@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import {
   CreateReportHistoryParams,
   UpdateReportHistoryParams,
+  DeleteReportHistoryParams,
 } from "@/app/types/report-history";
 
 const findReportHistoriesByUser = async (userId: string) => {
@@ -56,4 +57,24 @@ const updateReportHistory = async ({
   });
 };
 
-export { findReportHistoriesByUser, createReportHistory, updateReportHistory };
+const deleteReportHistory = async ({
+  userId,
+  reportHistoryId,
+}: DeleteReportHistoryParams) => {
+  return await prisma.reportHistory.update({
+    where: {
+      userId: userId,
+      reportHistoryId: reportHistoryId,
+    },
+    data: {
+      isActive: false,
+    },
+  });
+};
+
+export {
+  findReportHistoriesByUser,
+  createReportHistory,
+  updateReportHistory,
+  deleteReportHistory,
+};

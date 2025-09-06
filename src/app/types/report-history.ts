@@ -15,6 +15,11 @@ type UpdateReportHistoryParams = {
   reportHistoryId: string;
 } & Partial<Omit<ReportHistoryBase, "reportHistoryId">>;
 
+type DeleteReportHistoryParams = {
+  userId: string;
+  reportHistoryId: string;
+};
+
 type SaveReportHistoryParams =
   | CreateReportHistoryParams
   | UpdateReportHistoryParams;
@@ -24,4 +29,5 @@ export type {
   CreateReportHistoryParams,
   UpdateReportHistoryParams,
   SaveReportHistoryParams,
+  DeleteReportHistoryParams,
 };
