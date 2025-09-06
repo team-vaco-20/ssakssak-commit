@@ -17,8 +17,8 @@ function CodeDiff({ data }: AnalysisSummaryProps) {
             {item.description}
           </p>
 
-          {item.files?.map((file, fileIndex) => (
-            <div key={fileIndex} className="mb-6">
+          {item.files?.map((file) => (
+            <div key={`${file.path}-${file.status}`} className="mb-6">
               <MonacoFileViewer
                 filename={file.path}
                 fileStatus={file.status}

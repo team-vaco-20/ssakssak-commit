@@ -7,8 +7,8 @@ interface AnalysisSummaryProps {
 function Explanation({ data }: AnalysisSummaryProps) {
   return (
     <div className="space-y-8">
-      {data.map((item, index) => (
-        <div key={index}>
+      {data.map((item) => (
+        <div key={item.title}>
           <h3 className="mb-2 text-lg font-semibold text-gray-900">
             요약 & 분석: {item.title}
           </h3>

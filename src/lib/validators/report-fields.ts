@@ -1,44 +1,49 @@
 import { z } from "zod";
 import BadRequestError from "@/errors/bad-request-error";
 import generateErrorMessage from "./generate-error-message";
+import { VALIDATION_ERROR_MESSAGES } from "@/constants/error-messages";
+import { GITHUB_REPOSITORY_RULES } from "@/constants/validations";
 
 const reportInputSchema = z.strictObject({
   reportTitle: z
     .string()
-    .max(20, "리포트 제목은 최대 20자까지 가능합니다.")
+    .max(20, VALIDATION_ERROR_MESSAGES.REPORT_INPUT.TITLE_MAX_LENGTH)
     .refine((val) => !val || val.trim().length > 0, {
-      message: "공백만 입력할 수 없습니다.",
+      message: VALIDATION_ERROR_MESSAGES.REPORT_INPUT.TITLE_EMPTY,
     })
     .optional()
     .default(""),
 
   repositoryOverview: z
     .string()
-    .max(1000, "리포지토리 개요는 최대 1000자까지 가능합니다.")
+    .max(
+      1000,
+      VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_OVERVIEW_MAX_LENGTH,
+    )
     .refine((val) => !val || val.trim().length > 0, {
-      message: "공백만 입력할 수 없습니다.",
+      message: VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_OVERVIEW_EMPTY,
     })
     .optional()
     .default(""),
 
   repositoryUrl: z
     .string({
-      required_error: "repositoryUrl은 필수 항목입니다.",
-      invalid_type_error: "repositoryUrl은 문자열이어야 합니다.",
+      required_error:
+        VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_URL_REQUIRED,
+      invalid_type_error:
+        VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_URL_INVALID_TYPE,
     })
     .trim()
-    .url("올바른 URL 형태가 아닙니다.")
-    .refine(
-      (url) => /^https:\/\/(www\.)?github\.com\/[\w.-]+\/[\w.-]+\/?$/.test(url),
-      {
-        message:
-          "유효한 Github 레포지토리 URL 형식이 아닙니다. 예: https://github.com/owner/repo",
-      },
-    ),
+    .url(VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_URL_INVALID_FORMAT)
+    .refine((url) => GITHUB_REPOSITORY_RULES.REPOSITORY_REGEX.test(url), {
+      message:
+        VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_URL_INVALID_GITHUB,
+    }),
 
   branch: z.string({
-    required_error: "branch는 필수 항목입니다.",
-    invalid_type_error: "branch는 문자열이어야 합니다.",
+    required_error: VALIDATION_ERROR_MESSAGES.REPORT_INPUT.BRANCH_REQUIRED,
+    invalid_type_error:
+      VALIDATION_ERROR_MESSAGES.REPORT_INPUT.BRANCH_INVALID_TYPE,
   }),
 });
 

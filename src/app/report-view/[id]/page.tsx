@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ReportData } from "@/app/types/commit";
+import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
 
 import Header from "@/app/ui/report-view/header/header";
 import MainSection from "@/app/ui/report-view/main-area/main-section";
@@ -30,12 +31,14 @@ function ReportViewPage() {
       setReportData(parsedData);
     } catch (error) {
       console.error("세션 데이터 파싱 실패:", error);
-      alert("다시 요청해주세요");
+      alert(SYSTEM_ERROR_MESSAGES.DATA_PARSE_FAILURE);
       router.replace("/");
     }
   }, [reportId, router]);
 
-  if (!reportData) return null;
+  if (!reportData) {
+    return <p>사용 가능한 데이터가 없습니다. 잠시 후 다시 시도해 주세요.</p>;
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col scroll-smooth bg-gray-50 px-[10%] font-sans break-words break-keep whitespace-normal">

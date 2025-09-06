@@ -13,9 +13,15 @@ function CommitSection({ commits }: CommitSectionProps) {
       {commits.map((commit) => {
         const analyses = commit.analyses as Analysis[];
 
-        const explanation = analyses.filter((a) => a.type === "explanation");
-        const codeDiffs = analyses.filter((a) => a.type === "code-diff");
-        const diagrams = analyses.filter((a) => a.type === "diagram");
+        const explanation = analyses.filter(
+          (analyses) => analyses.type === "explanation",
+        );
+        const codeDiffs = analyses.filter(
+          (analyses) => analyses.type === "code-diff",
+        );
+        const diagrams = analyses.filter(
+          (analyses) => analyses.type === "diagram",
+        );
 
         return (
           <div
