@@ -4,12 +4,7 @@ import parse from "html-react-parser";
 import useRenderMermaid from "@/app/ui/report-view/useRenderMermaid";
 import { MermaidProps } from "@/app/types/mermaid";
 
-export default function Mermaid({
-  chart,
-  title,
-  description,
-  config,
-}: MermaidProps) {
+function Mermaid({ chart, title, description, config }: MermaidProps) {
   const { svg, error } = useRenderMermaid(chart, config);
 
   if (error) {
@@ -26,3 +21,5 @@ export default function Mermaid({
     </main>
   );
 }
+
+export default Mermaid;

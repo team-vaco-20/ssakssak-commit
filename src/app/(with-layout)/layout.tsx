@@ -18,9 +18,7 @@ export default async function Layout({
           <SideNav isLoggedIn={isLoggedIn}></SideNav>
         </div>
 
-        <main className="flex-grow p-6 md:overflow-y-auto md:p-12">
-          {children}
-        </main>
+        <main className="flex-grow md:overflow-y-auto md:p-12">{children}</main>
       </div>
     </ReportHistoryProvider>
   );

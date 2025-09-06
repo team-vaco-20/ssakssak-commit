@@ -1,5 +1,19 @@
 const VALIDATION_ERROR_MESSAGES = {
   UNRECOGNIZED_KEYS: "허용되지 않은 파라미터가 포함되어 있습니다.",
+  REPORT_INPUT: {
+    TITLE_MAX_LENGTH: "리포트 제목은 최대 20자까지 가능합니다.",
+    TITLE_EMPTY: "공백만 입력할 수 없습니다.",
+    REPOSITORY_OVERVIEW_MAX_LENGTH:
+      "리포지토리 개요는 최대 1000자까지 가능합니다.",
+    REPOSITORY_OVERVIEW_EMPTY: "공백만 입력할 수 없습니다.",
+    REPOSITORY_URL_REQUIRED: "repositoryUrl은 필수 항목입니다.",
+    REPOSITORY_URL_INVALID_TYPE: "repositoryUrl은 문자열이어야 합니다.",
+    REPOSITORY_URL_INVALID_FORMAT: "올바른 URL 형태가 아닙니다.",
+    REPOSITORY_URL_INVALID_GITHUB:
+      "유효한 Github 레포지토리 URL 형식이 아닙니다. 예: https://github.com/owner/repo",
+    BRANCH_REQUIRED: "branch는 필수 항목입니다.",
+    BRANCH_INVALID_TYPE: "branch는 문자열이어야 합니다.",
+  },
 };
 
 const GITHUB_REPOSITORY_ERROR_MESSAGES = {
@@ -11,7 +25,6 @@ const GITHUB_REPOSITORY_ERROR_MESSAGES = {
 const SYSTEM_ERROR_MESSAGES = {
   SERVER: "서버 오류가 발생했습니다.",
   NETWORK: "네트워크 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
-  UNDEFINED: "알 수 없는 오류가 발생했습니다.",
 };
 
 const MERMAID_ERROR_MESSAGES = {
@@ -49,7 +62,7 @@ const PROVIDER_ERROR_MESSAGES = {
 
 const DATA_ERROR_MESSAGES = {
   CREATE: "생성을 실패했습니다. 잠시 후 다시 시도해 주세요.",
-  READ: "불러오기를 실패했습니다. 잠시 후 다시 시도해 주세요.",
+  READ: "데이터를 불러오는 데 실패했습니다. 다시 시도해 주세요.",
   UPDATE: "업데이트를 실패했습니다. 잠시 후 다시 시도해 주세요.",
   DELETE: "삭제를 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };
