@@ -1,9 +1,9 @@
-import NavLinks from "@/app/ui/layout/sections/nav-links";
+import NavLinks from "@/app/ui/layout/sections/nav/nav-links";
 import {
   SignInButton,
   SignOutButton,
-} from "@/app/ui/layout/sections/sign-buttons";
-import HomeLink from "@/app/ui/layout/sections/home-link";
+} from "@/app/ui/layout/sections/nav/sign-buttons";
+import HomeLink from "@/app/ui/layout/sections/nav/home-link";
 
 type Props = {
   isLoggedIn: boolean;

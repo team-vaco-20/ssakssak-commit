@@ -2,8 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { ClipboardCheckIcon } from "lucide-react";
-import NavLink from "@/app/ui/layout/items/nav-link";
-import ReportHistoryPanel from "@/app/ui/layout/items/search-section/report-history-panel";
+import NavLink from "@/app/ui/layout/sections/nav/nav-link";
+import ReportHistoryPanel from "@/app/ui/layout/sections/report-history/panel";
 
 function NavLinks() {
   const currentPath = usePathname();
