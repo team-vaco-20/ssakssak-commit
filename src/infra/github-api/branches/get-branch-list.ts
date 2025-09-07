@@ -16,7 +16,7 @@ const getGithubBranchList = async (
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
 
-  const octokit = new Octokit({ auth: accessToken });
+  const octokit = new Octokit(accessToken ? { auth: accessToken } : undefined);
   try {
     const response = await octokit.request(ENDPOINTS.BRANCH.LIST, {
       owner: owner,

@@ -19,7 +19,7 @@ const getGithubCommitDetails = async (
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
 
-  const octokit = new Octokit({ auth: accessToken });
+  const octokit = new Octokit(accessToken ? { auth: accessToken } : undefined);
 
   const commitDetails = await Promise.all(
     shaList.map(async (sha): Promise<GithubCommit | null> => {
