@@ -68,7 +68,7 @@ function ReportHistoryPanel() {
       <AlertModal
         open={!!error}
         title="삭제 실패"
-        description={error || SYSTEM_ERROR_MESSAGES.UNDEFINED}
+        description={error || SYSTEM_ERROR_MESSAGES.NETWORK}
         cancelLabel="닫기"
         onCancel={() => setError(null)}
       />
