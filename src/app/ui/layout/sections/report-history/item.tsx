@@ -5,7 +5,7 @@ import { ReportHistory } from "@/app/types/report-history";
 import { Modal } from "@/app/ui/common/Modal";
 import { Trash2 } from "lucide-react";
 
-export default function ReportHistoryItem({
+function ReportHistoryItem({
   item,
   onSelect,
   onDelete,
@@ -52,3 +52,5 @@ export default function ReportHistoryItem({
     </li>
   );
 }
+
+export default ReportHistoryItem;

@@ -21,10 +21,10 @@ function ReportForm() {
 
   useEffect(() => {
     const syncedTitle = selected?.reportTitle ?? "";
-    const syncedOverView = selected?.repositoryOverview ?? "";
+    const syncedOverview = selected?.repositoryOverview ?? "";
 
     setReportTitle(syncedTitle);
-    setRepositoryOverview(syncedOverView);
+    setRepositoryOverview(syncedOverview);
   }, [selected]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
