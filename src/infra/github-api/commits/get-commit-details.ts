@@ -5,6 +5,8 @@ import { GithubCommit } from "@/app/types/commit";
 import { GITHUB_API } from "@/constants/github-api";
 import { EXCLUDED_FILES_LIST } from "@/constants/file-filters";
 import { shouldExcludeFile } from "@/lib/file-filter";
+import { getServerSession } from "next-auth";
+import authOptions from "@/lib/auth/auth-options";
 
 type CommitDetailResponse =
   Endpoints["GET /repos/{owner}/{repo}/commits/{ref}"]["response"]["data"];
@@ -14,7 +16,10 @@ const getGithubCommitDetails = async (
   repositoryName: string,
   shaList: string[],
 ): Promise<GithubCommit[]> => {
-  const octokit = new Octokit();
+  const session = await getServerSession(authOptions);
+  const accessToken = session?.accessToken;
+
+  const octokit = new Octokit({ auth: accessToken });
 
   const commitDetails = await Promise.all(
     shaList.map(async (sha): Promise<GithubCommit | null> => {
