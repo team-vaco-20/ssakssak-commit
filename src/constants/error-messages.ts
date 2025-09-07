@@ -24,8 +24,7 @@ const GITHUB_REPOSITORY_ERROR_MESSAGES = {
 
 const SYSTEM_ERROR_MESSAGES = {
   SERVER: "서버 오류가 발생했습니다.",
-  NETWORK: "네트워크 에러가 발생했습니다.",
-  DATA_PARSE_FAILURE: "데이터를 불러오는 데 실패했습니다. 다시 시도해 주세요.",
+  NETWORK: "네트워크 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
 };
 
 const MERMAID_ERROR_MESSAGES = {
@@ -56,6 +55,18 @@ const OPENAI_ERROR_MESSAGES = {
     "모델 응답이 출력 토큰 한도(max_output_tokens)로 잘렸습니다. max_output_tokens 값을 늘리거나 배치 크기를 줄여주세요.",
 };
 
+const PROVIDER_ERROR_MESSAGES = {
+  CONTEXT_OUTSIDE_PROVIDER:
+    "이 훅은 해당 Provider 내부에서만 사용할 수 있습니다.",
+};
+
+const DATA_ERROR_MESSAGES = {
+  CREATE: "생성을 실패했습니다. 잠시 후 다시 시도해 주세요.",
+  READ: "데이터를 불러오는 데 실패했습니다. 다시 시도해 주세요.",
+  UPDATE: "업데이트를 실패했습니다. 잠시 후 다시 시도해 주세요.",
+  DELETE: "삭제를 실패했습니다. 잠시 후 다시 시도해 주세요.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
@@ -64,4 +75,6 @@ export {
   OPENAI_ERROR_MESSAGES,
   TOKEN_ERROR_MESSAGES,
   AUTH_ERROR_MESSAGES,
+  PROVIDER_ERROR_MESSAGES,
+  DATA_ERROR_MESSAGES,
 };

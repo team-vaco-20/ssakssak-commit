@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ReportData } from "@/app/types/commit";
-import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
+import { DATA_ERROR_MESSAGES } from "@/constants/error-messages";
 
 import Header from "@/app/ui/report-view/header/header";
 import MainSection from "@/app/ui/report-view/main-area/main-section";
@@ -31,7 +31,7 @@ function ReportViewPage() {
       setReportData(parsedData);
     } catch (error) {
       console.error("세션 데이터 파싱 실패:", error);
-      alert(SYSTEM_ERROR_MESSAGES.DATA_PARSE_FAILURE);
+      alert(DATA_ERROR_MESSAGES.READ);
       router.replace("/");
     }
   }, [reportId, router]);
@@ -41,7 +41,7 @@ function ReportViewPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col scroll-smooth bg-gray-50 px-[10%] font-sans break-words break-keep whitespace-normal">
+    <div className="flex min-h-screen w-full flex-col scroll-smooth px-[10%] font-sans break-words break-keep whitespace-normal">
       <div className="mt-8 mb-8 flex w-full flex-col">
         <Header
           reportTitle={reportData.reportTitle}

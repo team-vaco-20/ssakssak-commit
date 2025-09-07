@@ -45,6 +45,8 @@ const reportInputSchema = z.strictObject({
     invalid_type_error:
       VALIDATION_ERROR_MESSAGES.REPORT_INPUT.BRANCH_INVALID_TYPE,
   }),
+
+  reportHistoryId: z.string().optional(),
 });
 
 type ValidatedReportInput = z.infer<typeof reportInputSchema>;
