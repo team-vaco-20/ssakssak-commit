@@ -1,6 +1,6 @@
 "use client";
 
-import { useReportHistory } from "@/stores/report-history/hooks";
+import { useReportHistory } from "@/hooks/useVerifiedContext";
 import { useState } from "react";
 import { ReportHistory } from "@/app/types/report-history";
 import ReportHistoryList from "@/app/ui/layout/sections/report-history/list";

@@ -9,7 +9,7 @@ import RepositoryBranchSelector from "@/app/ui/main/repository-branch-selector";
 import ErrorMessage from "@/app/ui/common/error-message";
 import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
 import { useRouter } from "next/navigation";
-import { useReportHistory } from "@/stores/report-history/hooks";
+import { useReportHistory } from "@/hooks/useVerifiedContext";
 
 function ReportForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

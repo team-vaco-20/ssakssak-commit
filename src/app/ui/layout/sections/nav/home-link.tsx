@@ -1,6 +1,6 @@
 "use client";
 
-import { useReportHistory } from "@/stores/report-history/hooks";
+import { useReportHistory } from "@/hooks/useVerifiedContext";
 import Link from "next/link";
 
 function HomeLink() {

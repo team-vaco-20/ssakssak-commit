@@ -12,7 +12,7 @@ import {
 } from "@/constants/error-messages";
 import { BranchList } from "@/app/types/branch";
 import ComboboxPopover from "@/app/ui/common/combobox";
-import { useReportHistory } from "@/stores/report-history/hooks";
+import { useReportHistory } from "@/hooks/useVerifiedContext";
 
 function RepositoryBranchSelector() {
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
