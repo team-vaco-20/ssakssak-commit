@@ -45,13 +45,23 @@ interface RequirementCheck {
 
 interface ReportData {
   reportId: string;
+  owner: string;
   reportTitle: string;
   reportSummary: string;
   commits: CommitDetail[];
   reportConclusion: string;
   requirementsCheck: RequirementCheck[];
   repositoryUrl: string;
+  repositoryName: string;
   branch: string;
+}
+
+interface GithubCommit {
+  commitId: string;
+  author: string;
+  commitDate: string;
+  commitMessage: string;
+  files: CommitFile[];
 }
 
 export type {
@@ -60,4 +70,5 @@ export type {
   CommitDetail,
   RequirementCheck,
   ReportData,
+  GithubCommit,
 };

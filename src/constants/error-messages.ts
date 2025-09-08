@@ -13,6 +13,7 @@ const VALIDATION_ERROR_MESSAGES = {
       "유효한 Github 레포지토리 URL 형식이 아닙니다. 예: https://github.com/owner/repo",
     BRANCH_REQUIRED: "branch는 필수 항목입니다.",
     BRANCH_INVALID_TYPE: "branch는 문자열이어야 합니다.",
+    USER_ID_REQUIRED: "사용자 ID는 필수 항목입니다.",
   },
 };
 

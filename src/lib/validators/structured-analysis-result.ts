@@ -79,7 +79,10 @@ const overallAnalysisSchema = z
   .strict();
 
 const analysisResultSchema = z.object({
+  userId: z.string().nullable(),
   repositoryUrl: z.string(),
+  owner: z.string(),
+  repositoryName: z.string(),
   branch: z.string(),
   reportTitle: z.string(),
   reportSummary: z.string(),

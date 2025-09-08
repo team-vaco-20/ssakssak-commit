@@ -28,10 +28,17 @@ const jwtCallback: NonNullable<CallbacksOptions["jwt"]> = async ({
     const user = await findUserIdByGithubId(BigInt(githubProfile.id));
 
     if (user) {
-      resultToken.userId = user.user_id;
+      resultToken.userId = user.userId;
     }
 
+    if (token.reportHistory) {
+      resultToken.reportHistory = token.reportHistory;
+    }
     return resultToken;
+  }
+
+  if (!token.reportHistory) {
+    token.reportHistory = [];
   }
 
   if (!isAccessTokenExpired(token.accessTokenExpires)) {
