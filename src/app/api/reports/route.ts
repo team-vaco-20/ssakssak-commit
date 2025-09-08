@@ -6,7 +6,10 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth/auth-options";
 import { deleteReports, getReports } from "@/repositories/report";
 import { UnauthorizedError } from "@/errors";
-import { AUTH_ERROR_MESSAGES } from "@/constants/error-messages";
+import {
+  AUTH_ERROR_MESSAGES,
+  SYSTEM_ERROR_MESSAGES,
+} from "@/constants/error-messages";
 
 async function GET() {
   const session = await getServerSession(authOptions);
@@ -22,7 +25,7 @@ async function GET() {
     return NextResponse.json({ status: "ok", items }, { status: 200 });
   } catch (error) {
     const message: string =
-      error instanceof Error ? error.message : "Unexpected error";
+      error instanceof Error ? error.message : SYSTEM_ERROR_MESSAGES.UNEXPECTED;
     const status: number = error instanceof AppError ? error.status : 500;
 
     return NextResponse.json(
@@ -50,7 +53,7 @@ async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ result }, { status: 201 });
   } catch (error) {
     const message: string =
-      error instanceof Error ? error.message : "Unexpected error";
+      error instanceof Error ? error.message : SYSTEM_ERROR_MESSAGES.UNEXPECTED;
     const status: number = error instanceof AppError ? error.status : 500;
 
     return NextResponse.json(
@@ -79,7 +82,7 @@ async function DELETE(request: NextRequest) {
     return NextResponse.json({ status: "ok", deleted }, { status: 200 });
   } catch (error) {
     const message: string =
-      error instanceof Error ? error.message : "Unexpected Error";
+      error instanceof Error ? error.message : SYSTEM_ERROR_MESSAGES.UNEXPECTED;
     const status: number = error instanceof AppError ? error.status : 500;
     return NextResponse.json(
       {

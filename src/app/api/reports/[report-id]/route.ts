@@ -1,4 +1,7 @@
-import { AUTH_ERROR_MESSAGES } from "@/constants/error-messages";
+import {
+  AUTH_ERROR_MESSAGES,
+  SYSTEM_ERROR_MESSAGES,
+} from "@/constants/error-messages";
 import { AppError, UnauthorizedError } from "@/errors";
 import authOptions from "@/lib/auth/auth-options";
 import { getByReportId } from "@/repositories/report";
@@ -19,7 +22,7 @@ async function GET({ params }: { params: { reportId: string } }) {
     return NextResponse.json({ status: "ok", report }, { status: 200 });
   } catch (error) {
     const message: string =
-      error instanceof Error ? error.message : "Unexpected error";
+      error instanceof Error ? error.message : SYSTEM_ERROR_MESSAGES.UNEXPECTED;
     const status: number = error instanceof AppError ? error.status : 500;
 
     return NextResponse.json(
