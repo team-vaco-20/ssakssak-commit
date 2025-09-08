@@ -7,12 +7,15 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
   • 커밋이 많아도 절대 요약하지 말고, commits 배열에는 입력으로 제공된 커밋 수와 동일한 개수의 결과를 반드시 포함해야 한다.
   • 하나라도 누락되면 요구사항 불충족으로 처리된다.
   • 모든 텍스트 필드(changeSummary, analyses[].description, analyses[].caption, commitConclusion)는 완결된 문장으로 끝나야 한다.
-  • 입력에 repositoryDescription이 제공된 경우, 해당 설명은 리포지토리의 맥락을 보조적으로 참고한다.
+  • 입력에 repositoryOverview이 제공된 경우, 해당 설명은 리포지토리의 맥락을 보조적으로 참고한다.
   • repositoryDescription은 보조 정보일 뿐이며, 커밋 패치 코드 및 커밋 분석 결과보다 우선하지 않는다.
-  • repositoryDescription이 제공되지 않은 경우에는 이를 언급하거나 추측하지 않고 무시한다.
+  • repositoryOverview이 제공되지 않은 경우에는 이를 언급하거나 추측하지 않고 무시한다.
 
 <commits>
+  • commits 배열에 포함될 데이터는 반드시 존재하는 커밋에 기반해야 하며, 임의로 새로운 커밋을 생성하거나 예측할 수 없다.
+  • commits 배열에 포함되는 각 커밋의 분석 결과는 커밋의 실제 데이터에서 추출한 정보를 바탕으로 작성되어야 한다.
   • commits에는 각 커밋별 분석 결과가 commits 스키마에 맞게 작성되어야 한다.
+  • commitId에는 각 커밋의 sha 값이 들어가야 한다.
   • commitId에는 각 커밋의 sha 값이 들어가야 한다.
   • commitMessage에는 각 커밋 메시지가 들어가야 한다.
   • author에는 각 커밋의 author가 들어가야 한다.
@@ -20,6 +23,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
   • commitConclusion에는 커밋 변경사항에 대한 분석 결과의 결론이 들어가야 한다.
   • commits 배열은 시간 오름차순(과거 → 최신)으로 정렬해야 한다.
   • patch가 null이거나 변경이 없는 커밋(merge, chore, formatting 등)은 무시하지 않고 commits 배열에 포함한다. 이 경우 analyses에는 최소한의 explanation 1개만 포함하고, code-diff는 생략 가능하다.
+  • 임의로 커밋을 생성하거나 존재하지 않는 커밋의 데이터를 추가하는 것은 금지됩니다.
 
 <commits-analyses>
   • 커밋에 대한 분석 결과는 analyses 배열에 작성한다.
@@ -98,6 +102,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
 
     • 노드 ID는 알파벳·숫자만 사용
     • 화살표는 Mermaid 문법에 맞는 것만 사용 (--> , -->|텍스트| , -.-> , --o , --x)
+    • '[' 사용했으면 반드시 ']'로 닫아주어야 함
 
   2. sequenceDiagram 기본 문법
     sequenceDiagram
@@ -130,6 +135,7 @@ const COMMIT_ANALYSIS_INSTRUCTIONS = `
     • 일부 클래스만 누락하지 않는다
 
 <code-diff>
+  • codeDiffSummary: 핵심 변경사항에 대한 2줄 정도의 구체적인 설명,
   • path : 파일 경로
   • code : 핵심 변경이 포함된 스니펫
   • language : 사용된 언어

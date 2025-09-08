@@ -3,13 +3,10 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/app/ui/common/label";
 
-interface InputFieldProps {
+type InputFieldProps = Omit<React.ComponentProps<"input">, "id"> & {
   id: string;
-  name: string;
   label: string;
-  type?: string;
-  placeholder?: string;
-}
+};
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -27,11 +24,11 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-function InputField({ id, label, placeholder }: InputFieldProps) {
+function InputField({ id, label, ...props }: InputFieldProps) {
   return (
     <div className="grid w-full items-center gap-3">
       <Label htmlFor={id}>{label}</Label>
-      <Input id={id} placeholder={placeholder} />
+      <Input id={id} {...props} />
     </div>
   );
 }
