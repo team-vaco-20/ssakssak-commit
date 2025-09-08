@@ -1,11 +1,9 @@
+import { Analysis } from "./analysis";
+import { Highlight } from "./monaco";
+
 type FileStatus = "added" | "modified" | "deleted";
 
 type DiagramType = "sequence" | "class" | "flowchart";
-
-interface Highlight {
-  startLine: number;
-  endLine: number;
-}
 
 interface CommitFile {
   codeDiffSummary: string;
@@ -15,16 +13,6 @@ interface CommitFile {
   status: FileStatus;
   path: string;
   highlights: Highlight[];
-}
-
-interface Analysis {
-  type: "code-diff" | "diagram" | "explanation";
-  title: string;
-  description: string;
-  files?: CommitFile[];
-  caption?: string;
-  diagram?: DiagramType;
-  chart?: string;
 }
 
 interface CommitDetail {
@@ -38,24 +26,6 @@ interface CommitDetail {
   commitConclusion: string;
 }
 
-interface RequirementCheck {
-  requirement: string;
-  isSatisfied: boolean;
-}
-
-interface ReportData {
-  reportId: string;
-  owner: string;
-  reportTitle: string;
-  reportSummary: string;
-  commits: CommitDetail[];
-  reportConclusion: string;
-  requirementsCheck: RequirementCheck[];
-  repositoryUrl: string;
-  repositoryName: string;
-  branch: string;
-}
-
 interface GithubCommit {
   commitId: string;
   author: string;
@@ -64,11 +34,4 @@ interface GithubCommit {
   files: CommitFile[];
 }
 
-export type {
-  CommitFile,
-  Analysis,
-  CommitDetail,
-  RequirementCheck,
-  ReportData,
-  GithubCommit,
-};
+export type { CommitFile, CommitDetail, GithubCommit, DiagramType };
