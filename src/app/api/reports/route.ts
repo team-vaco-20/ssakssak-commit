@@ -4,9 +4,35 @@ import { validateReportInput } from "@/lib/validators/report-fields";
 import AppError from "@/errors/app-error";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth/auth-options";
-import { deleteReports } from "@/repositories/reports";
+import { deleteReports, getReports } from "@/repositories/report";
 import { UnauthorizedError } from "@/errors";
 import { AUTH_ERROR_MESSAGES } from "@/constants/error-messages";
+
+async function GET() {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.userId;
+
+  if (!userId) {
+    throw new UnauthorizedError({ message: AUTH_ERROR_MESSAGES.UNAUTHORIZED });
+  }
+
+  try {
+    const items = await getReports(userId);
+
+    return NextResponse.json({ status: "ok", items }, { status: 200 });
+  } catch (error) {
+    const message: string =
+      error instanceof Error ? error.message : "Unexpected error";
+    const status: number = error instanceof AppError ? error.status : 500;
+
+    return NextResponse.json(
+      {
+        error: { message, status },
+      },
+      { status },
+    );
+  }
+}
 
 async function POST(request: NextRequest): Promise<NextResponse> {
   try {
@@ -64,4 +90,4 @@ async function DELETE(request: NextRequest) {
   }
 }
 
-export { POST, DELETE };
+export { GET, POST, DELETE };
