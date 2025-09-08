@@ -2,13 +2,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type Params = {
+type NavLinkParams = {
   href: string;
   label: string;
   children: React.ReactNode;
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-function NavLink({ href, label, children, ...props }: Params) {
+function NavLink({ href, label, children, ...props }: NavLinkParams) {
   const currentPath = usePathname();
 
   return (
