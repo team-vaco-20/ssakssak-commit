@@ -8,6 +8,7 @@ import { analysisResultSchema } from "@/lib/validators/structured-analysis-resul
 type AnalysisResult = z.infer<typeof analysisResultSchema>;
 
 const createReport = async (
+  userId: string | null,
   reportTitle: string,
   repositoryOverview: string,
   repositoryUrl: string,
@@ -34,13 +35,18 @@ const createReport = async (
     commitLink: repositoryUrl.replace(/\/$/, "") + `/commit/${commit.commitId}`,
   }));
 
-  return {
+  const result = {
+    userId,
     ...commitAnalysisResults,
     reportTitle: reportTitle || commitAnalysisResults.reportTitle,
     repositoryUrl,
     branch,
+    owner,
+    repositoryName,
     commits: commitsWithLink,
   };
+
+  return result;
 };
 
 export { createReport };

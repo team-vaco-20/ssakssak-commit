@@ -1,6 +1,7 @@
 import { Octokit } from "octokit";
 import { Endpoints } from "@octokit/types";
-import { CommitDetail, CommitFile } from "@/app/types/commit";
+import { CommitFile } from "@/app/types/commit";
+import { GithubCommit } from "@/app/types/commit";
 import { GITHUB_API } from "@/constants/github-api";
 import { EXCLUDED_FILES_LIST } from "@/constants/file-filters";
 import { shouldExcludeFile } from "@/lib/file-filter";
@@ -12,11 +13,11 @@ const getGithubCommitDetails = async (
   owner: string,
   repositoryName: string,
   shaList: string[],
-): Promise<CommitDetail[]> => {
+): Promise<GithubCommit[]> => {
   const octokit = new Octokit();
 
   const commitDetails = await Promise.all(
-    shaList.map(async (sha): Promise<CommitDetail | null> => {
+    shaList.map(async (sha): Promise<GithubCommit | null> => {
       const { data: commitDetail }: { data: CommitDetailResponse } =
         await octokit.request(GITHUB_API.ENDPOINTS.COMMITS.DETAIL, {
           owner,
@@ -36,22 +37,26 @@ const getGithubCommitDetails = async (
         (file): CommitFile => ({
           filename: file.filename,
           status: file.status as CommitFile["status"],
-          patch: file.patch ?? null,
+          path: file.filename,
+          codeDiffSummary: file.patch ?? "",
+          code: "",
+          language: "",
+          highlights: [],
         }),
       );
 
       return {
-        sha,
+        commitId: sha,
         author: commitDetail.commit.author?.name || "Unknown",
-        date: commitDetail.commit.author?.date || "",
-        message: commitDetail.commit.message,
+        commitDate: commitDetail.commit.author?.date || "",
+        commitMessage: commitDetail.commit.message,
         files,
-      } as CommitDetail;
+      };
     }),
   );
 
   return commitDetails.filter(
-    (commit): commit is CommitDetail => commit !== null,
+    (commit: GithubCommit | null): commit is GithubCommit => commit !== null,
   );
 };
 
