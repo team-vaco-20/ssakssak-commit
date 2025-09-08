@@ -38,6 +38,24 @@ interface CommitDetail {
   commitConclusion: string;
 }
 
+interface RequirementCheck {
+  requirement: string;
+  isSatisfied: boolean;
+}
+
+interface ReportData {
+  reportId: string;
+  owner: string;
+  reportTitle: string;
+  reportSummary: string;
+  commits: CommitDetail[];
+  reportConclusion: string;
+  requirementsCheck: RequirementCheck[];
+  repositoryUrl: string;
+  repositoryName: string;
+  branch: string;
+}
+
 interface GithubCommit {
   commitId: string;
   author: string;
@@ -46,4 +64,11 @@ interface GithubCommit {
   files: CommitFile[];
 }
 
-export type { CommitFile, Analysis, CommitDetail, GithubCommit };
+export type {
+  CommitFile,
+  Analysis,
+  CommitDetail,
+  RequirementCheck,
+  ReportData,
+  GithubCommit,
+};
