@@ -1,8 +1,33 @@
-type ReportHistory = {
+type ReportHistoryBase = {
   reportHistoryId: string;
   reportTitle: string;
-  repositoryOverview?: string;
   repositoryUrl: string;
+  repositoryOverview?: string;
 };
 
-export type { ReportHistory };
+type ReportHistory = ReportHistoryBase;
+
+type CreateReportHistoryParams = Omit<ReportHistoryBase, "reportHistoryId"> & {
+  userId: string;
+};
+
+type UpdateReportHistoryParams = {
+  reportHistoryId: string;
+} & Partial<Omit<ReportHistoryBase, "reportHistoryId">>;
+
+type DeleteReportHistoryParams = {
+  userId: string;
+  reportHistoryId: string;
+};
+
+type SaveReportHistoryParams =
+  | CreateReportHistoryParams
+  | UpdateReportHistoryParams;
+
+export type {
+  ReportHistory,
+  CreateReportHistoryParams,
+  UpdateReportHistoryParams,
+  SaveReportHistoryParams,
+  DeleteReportHistoryParams,
+};
