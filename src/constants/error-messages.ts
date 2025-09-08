@@ -43,6 +43,7 @@ const AUTH_ERROR_MESSAGES = {
   INVALID_REDIRECT_URL: "허용되지 않은 redirect URL입니다.",
   INTERNAL_ERROR: "내부 오류로 인해 요청이 실패했습니다.",
   UNKNOWN: "로그인 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
+  UNAUTHORIZED: "로그인이 필요합니다.",
 };
 
 const OPENAI_ERROR_MESSAGES = {
