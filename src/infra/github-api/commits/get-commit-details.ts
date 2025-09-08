@@ -10,17 +10,17 @@ type CommitDetailResponse =
 
 const getGithubCommitDetails = async (
   owner: string,
-  repo: string,
-  shas: string[],
+  repositoryName: string,
+  shaList: string[],
 ): Promise<CommitDetail[]> => {
   const octokit = new Octokit();
 
   const commitDetails = await Promise.all(
-    shas.map(async (sha): Promise<CommitDetail | null> => {
+    shaList.map(async (sha): Promise<CommitDetail | null> => {
       const { data: commitDetail }: { data: CommitDetailResponse } =
         await octokit.request(GITHUB_API.ENDPOINTS.COMMITS.DETAIL, {
           owner,
-          repo,
+          repo: repositoryName,
           sha,
         });
 

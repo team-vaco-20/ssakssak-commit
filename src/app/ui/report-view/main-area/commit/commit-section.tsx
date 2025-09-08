@@ -1,31 +1,71 @@
-// ui/report-view/layout/main-area/commit-section.tsx
-
-import mockdata from "@/mocks/data/report.json";
-import KeyChanges from "@/app/ui/report-view/main-area/commit/key-changes";
-import AnalysisSummary from "@/app/ui/report-view/main-area/commit/analysis-summary";
+import { CommitDetail, Analysis } from "@/app/types/commit";
+import CodeDiff from "@/app/ui/report-view/main-area/commit/code-diff";
 import DiagramBox from "@/app/ui/report-view/main-area/commit/diagram-box";
+import Explanation from "@/app/ui/report-view/main-area/commit/explanation";
 
-function CommitSection() {
+interface CommitSectionProps {
+  commits: CommitDetail[];
+}
+
+function CommitSection({ commits }: CommitSectionProps) {
   return (
-    <section
-      aria-labelledby="details-title"
-      className="mx-auto mt-2 flex w-[95%] flex-grow flex-col rounded-[10px] border-2 border-gray-500 bg-white p-4 shadow-sm"
-    >
-      <div className="mb-3 ml-2 flex items-center justify-between">
-        <span className="text-xl font-bold">
-          선택한 커밋에 대한 요약 & 분석
-        </span>
-        <div className="ml-4 flex gap-4 text-sm text-gray-700">
-          <span>#{mockdata.mockCommit.commitId}</span>
-          <span>{mockdata.mockCommit.commitMessage}</span>
-        </div>
-      </div>
-      <div className="mb-3 border-[1px] border-gray-300"></div>
+    <div className="space-y-6">
+      {commits.map((commit) => {
+        const analyses = commit.analyses as Analysis[];
 
-      <AnalysisSummary />
-      <KeyChanges />
-      <DiagramBox />
-    </section>
+        const explanation = analyses.filter(
+          (analyses) => analyses.type === "explanation",
+        );
+        const codeDiffs = analyses.filter(
+          (analyses) => analyses.type === "code-diff",
+        );
+        const diagrams = analyses.filter(
+          (analyses) => analyses.type === "diagram",
+        );
+
+        return (
+          <div
+            key={commit.commitId}
+            id={`commit-${commit.commitId}`}
+            className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+          >
+            <header className="bg-stone-50 px-6 py-4">
+              <div className="flex flex-col">
+                <h2 className="mb-2 text-xl font-bold text-gray-900">
+                  💬 {commit.commitMessage}
+                </h2>
+                <div className="flex items-center space-x-4 text-sm text-gray-500">
+                  <span className="flex items-center space-x-1">
+                    <span>👤</span>
+                    <span>{commit.author}</span>
+                  </span>
+                  <span className="flex items-center space-x-1">
+                    <span>🕐</span>
+                    <span>{new Date(commit.commitDate).toLocaleString()}</span>
+                  </span>
+                  <a
+                    href={commit.commitLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs text-blue-500 hover:text-blue-700"
+                  >
+                    {commit.commitId.substring(0, 7)}
+                  </a>
+                </div>
+              </div>
+            </header>
+
+            <div className="p-6">
+              <div className="space-y-8">
+                <Explanation data={explanation} />
+                <CodeDiff data={codeDiffs} />
+                <DiagramBox data={diagrams} />
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

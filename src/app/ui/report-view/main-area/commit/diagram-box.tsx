@@ -1,11 +1,47 @@
-import mockdata from "@/mocks/data/report.json";
+import { Analysis } from "@/app/types/commit";
+import Mermaid from "@/app/ui/report-view/mermaid";
+import { MermaidConfig } from "mermaid";
 
-function DiagramBox() {
+interface AnalysisSummaryProps {
+  data: Analysis[];
+}
+
+function DiagramBox({ data }: AnalysisSummaryProps) {
+  const defaultMermaidConfig: MermaidConfig = {
+    startOnLoad: false,
+    securityLevel: "strict",
+    theme: "default",
+    fontFamily: "Arial, sans-serif",
+  };
+
   return (
-    <div className="min-h-[200px] rounded-[10px] border-2 border-gray-500 p-2">
-      <p className="ml-2 text-xl font-bold">다이어그램</p>
-      <div className="border-[1px] border-gray-300"></div>
-      <p className="ml-2 text-lg">{mockdata.mockDiagram.diagramDescription}</p>
+    <div className="space-y-8">
+      {data.map((item, index) => (
+        <div key={index}>
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
+            {item.title}
+          </h3>
+          <p className="mb-4 text-sm leading-relaxed text-gray-700">
+            {item.description}
+          </p>
+
+          {item.type === "diagram" && item.chart && (
+            <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+              <Mermaid
+                chart={item.chart}
+                title={item.title}
+                description={item.description}
+                config={defaultMermaidConfig}
+              />
+              {item.caption && (
+                <p className="mt-4 text-center text-sm text-gray-500 italic">
+                  {item.caption}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
