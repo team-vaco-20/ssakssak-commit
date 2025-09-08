@@ -7,6 +7,7 @@ declare module "next-auth" {
       userId?: string | null;
       githubId?: string | null;
     } & DefaultSession["user"];
+    accessToken: string | null;
   }
 }
 

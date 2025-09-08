@@ -20,11 +20,12 @@ function RepositoryBranchSelector() {
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { selected } = useReportHistory();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const syncedRepositoryUrl = selected?.repositoryUrl ?? "";
-
-    setRepositoryUrl(syncedRepositoryUrl);
+    setRepositoryUrl(selected?.repositoryUrl ?? "");
+    setBranches([]);
+    setSelectedBranch(null);
   }, [selected]);
 
   const isValidRepositoryUrl = (url: string) => {
@@ -39,6 +40,8 @@ function RepositoryBranchSelector() {
     }
 
     try {
+      setLoading(true);
+
       const response = await fetch(
         `/api/branches?repositoryUrl=${repositoryUrl}`,
       );
@@ -59,6 +62,8 @@ function RepositoryBranchSelector() {
       setBranches(branchListOption);
     } catch {
       setError(SYSTEM_ERROR_MESSAGES.NETWORK);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,15 +71,24 @@ function RepositoryBranchSelector() {
     <div className="grid w-full gap-2">
       <div className="flex items-center justify-between">
         <Label>리포지토리 URL</Label>
-        <Button onClick={handleFetchedBranches} type="button">
-          연결 및 조회
+        <Button
+          onClick={handleFetchedBranches}
+          type="button"
+          disabled={loading}
+        >
+          {loading ? "조회 중..." : "브랜치 조회"}
         </Button>
       </div>
 
       <Input
         required
         value={repositoryUrl}
-        onChange={(e) => setRepositoryUrl(e.target.value)}
+        onChange={(e) => {
+          setRepositoryUrl(e.target.value);
+          setBranches([]);
+          setSelectedBranch(null);
+          setError(null);
+        }}
         placeholder="https://github.com/{리포지토리 소유자}/{리포지토리 이름}"
       />
 
