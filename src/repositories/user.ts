@@ -7,33 +7,39 @@ type UpsertUserParams = {
   avatarUrl?: string | null;
 };
 
-const upsertUser = ({ githubId, email, name, avatarUrl }: UpsertUserParams) => {
+const upsertUser = async ({
+  githubId,
+  email,
+  name,
+  avatarUrl,
+}: UpsertUserParams) => {
   const baseData = {
-    user_email: email,
-    user_name: name,
-    is_active: true,
+    userEmail: email,
+    userName: name,
+    isActive: true,
   };
 
-  return prisma.users.upsert({
+  return await prisma.user.upsert({
     where: {
-      github_id: githubId,
+      githubId: githubId,
     },
     update: {
       ...baseData,
-      avatar_url: avatarUrl ?? undefined,
+      avatarUrl: avatarUrl ?? undefined,
     },
     create: {
       ...baseData,
-      github_id: githubId,
-      avatar_url: avatarUrl ?? null,
+      githubId: githubId,
+      avatarUrl: avatarUrl ?? null,
     },
   });
 };
 
 const findUserIdByGithubId = async (githubId: bigint) => {
-  return prisma.users.findUnique({
-    where: { github_id: githubId },
-    select: { user_id: true },
+  return prisma.user.findUnique({
+    where: { githubId: githubId },
+    select: { userId: true },
   });
 };
+
 export { upsertUser, findUserIdByGithubId };

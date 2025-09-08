@@ -28,7 +28,7 @@ const jwtCallback: NonNullable<CallbacksOptions["jwt"]> = async ({
     const user = await findUserIdByGithubId(BigInt(githubProfile.id));
 
     if (user) {
-      resultToken.userId = user.user_id;
+      resultToken.userId = user.userId;
     }
 
     return resultToken;
