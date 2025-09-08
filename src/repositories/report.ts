@@ -1,20 +1,39 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 type DeleteManyArgs = {
   userId: string;
   reportIds: string[];
 };
 
+const reportCommonFields = Prisma.validator<Prisma.ReportSelect>()({
+  reportId: true,
+  reportTitle: true,
+  repositoryName: true,
+  owner: true,
+  branch: true,
+});
+
+async function getByReportId(userId: string, reportId: string) {
+  const report = await prisma.report.findFirst({
+    where: { reportId, userId },
+    select: {
+      ...reportCommonFields,
+      reportSummary: true,
+      reportConclusion: true,
+      commits: true,
+    },
+  });
+
+  return report;
+}
+
 async function getReports(userId: string) {
   return prisma.report.findMany({
     where: { userId, isActive: true },
     orderBy: { createdAt: "desc" },
     select: {
-      reportId: true,
-      reportTitle: true,
-      repositoryName: true,
-      owner: true,
-      branch: true,
+      ...reportCommonFields,
       createdAt: true,
     },
   });
@@ -29,4 +48,4 @@ async function deleteReports({ userId, reportIds }: DeleteManyArgs) {
   return result;
 }
 
-export { getReports, deleteReports };
+export { getByReportId, getReports, deleteReports };
