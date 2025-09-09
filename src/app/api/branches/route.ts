@@ -2,7 +2,7 @@ import { getBranchList } from "@/services/branch/get-branch-list";
 import { NextRequest, NextResponse } from "next/server";
 import { validateRepositoryUrl } from "@/lib/validators/repository-url";
 import AppError from "@/errors/app-error";
-import { BranchName } from "@/app/types/branch";
+import { BranchName } from "@/types/branch";
 
 async function GET(request: NextRequest): Promise<NextResponse> {
   try {

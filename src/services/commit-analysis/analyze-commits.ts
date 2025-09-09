@@ -1,4 +1,4 @@
-import { GithubCommit } from "@/app/types/commit";
+import { GithubCommit } from "@/types/commit";
 import { TOKEN_LIMITS, REQUEST_INPUT_INTRO_MESSAGE } from "@/constants/open-ai";
 import chunkCommitsByTokens from "@/services/commit-analysis/helpers/chunk-commits-by-tokens";
 import {

@@ -10,7 +10,7 @@ import {
   GITHUB_REPOSITORY_ERROR_MESSAGES,
   SYSTEM_ERROR_MESSAGES,
 } from "@/constants/error-messages";
-import { BranchList } from "@/app/types/branch";
+import { BranchList } from "@/types/branch";
 import ComboboxPopover from "@/app/ui/common/combobox";
 import { useReportHistory } from "@/hooks/useVerifiedContext";
 

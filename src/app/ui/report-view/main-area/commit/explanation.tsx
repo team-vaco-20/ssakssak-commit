@@ -1,4 +1,4 @@
-import { Analysis } from "@/app/types/analysis";
+import { Analysis } from "@/types/analysis";
 
 interface AnalysisSummaryProps {
   data: Analysis[];
