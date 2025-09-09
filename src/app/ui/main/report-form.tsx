@@ -117,7 +117,7 @@ function ReportForm() {
           <div className="mx-auto max-w-3xl px-5 py-4">
             <Button
               type="submit"
-              className="h-12 w-full rounded-lg bg-neutral-900 text-base font-semibold text-white shadow-sm hover:bg-neutral-800 focus:ring-2 focus:ring-neutral-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              className="h-12 w-full rounded-lg bg-neutral-900 text-base font-semibold text-white shadow-sm hover:bg-neutral-600 focus:ring-2 focus:ring-neutral-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
               {isSubmitting ? "리포트 생성 요청 중..." : "리포트 생성"}
             </Button>

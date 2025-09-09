@@ -75,7 +75,7 @@ function RepositoryBranchSelector() {
           onClick={handleFetchedBranches}
           type="button"
           disabled={loading}
-          className="text-s cursor-pointer rounded-md border border-neutral-300 bg-white px-3 py-1.5 font-medium text-neutral-700 hover:bg-neutral-100 disabled:opacity-50"
+          className="rounded-md border border-neutral-300 bg-neutral-900 px-3 py-1.5 font-medium text-neutral-700 text-white hover:bg-neutral-600 disabled:opacity-50"
         >
           {loading ? "조회 중..." : "브랜치 조회"}
         </Button>
