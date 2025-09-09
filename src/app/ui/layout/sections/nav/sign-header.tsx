@@ -9,7 +9,7 @@ type Props = {
   isLoggedIn: boolean;
 };
 
-export default function SignHeader({ isLoggedIn }: Props) {
+function SignHeader({ isLoggedIn }: Props) {
   return (
     <header className="sticky top-0 z-40 border-neutral-200 bg-white/65 p-4 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-screen-lg items-center justify-between px-2 pb-4">
@@ -48,3 +48,5 @@ export default function SignHeader({ isLoggedIn }: Props) {
     </header>
   );
 }
+
+export default SignHeader;
