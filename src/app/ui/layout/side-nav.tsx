@@ -3,7 +3,6 @@ import {
   SignInButton,
   SignOutButton,
 } from "@/app/ui/layout/sections/nav/sign-buttons";
-import HomeLink from "@/app/ui/layout/sections/nav/home-link";
 
 type Props = {
   isLoggedIn: boolean;
@@ -12,8 +11,6 @@ type Props = {
 function SideNav({ isLoggedIn }: Props) {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
-      <HomeLink />
-
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-y-2 md:space-x-0">
         {isLoggedIn ? (
           <>

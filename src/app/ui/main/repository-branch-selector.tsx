@@ -68,13 +68,14 @@ function RepositoryBranchSelector() {
   };
 
   return (
-    <div className="grid w-full gap-2">
-      <div className="flex items-center justify-between">
+    <div className="grid w-full gap-4">
+      <div className="flex items-center justify-between gap-3">
         <Label>리포지토리 URL</Label>
         <Button
           onClick={handleFetchedBranches}
           type="button"
           disabled={loading}
+          className="text-s cursor-pointer rounded-md border border-neutral-300 bg-white px-3 py-1.5 font-medium text-neutral-700 hover:bg-neutral-100 disabled:opacity-50"
         >
           {loading ? "조회 중..." : "브랜치 조회"}
         </Button>
@@ -90,6 +91,7 @@ function RepositoryBranchSelector() {
           setError(null);
         }}
         placeholder="https://github.com/{리포지토리 소유자}/{리포지토리 이름}"
+        className="rounded-lg border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none"
       />
 
       {branches.length > 0 && (
