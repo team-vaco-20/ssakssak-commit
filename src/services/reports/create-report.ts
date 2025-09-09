@@ -1,5 +1,5 @@
-import { getGithubCommitList } from "@/infra/github-api/commits/get-commit-list";
-import { getGithubCommitDetails } from "@/infra/github-api/commits/get-commit-details";
+import { getGithubCommitList } from "@/infra/integrations/github/commits/get-commit-list";
+import { getGithubCommitDetails } from "@/infra/integrations/github/commits/get-commit-details";
 import parseRepositoryUrl from "@/lib/parse-repository-url";
 import getAnalysisResults from "../commit-analysis/analyze-commits";
 import { z } from "zod";

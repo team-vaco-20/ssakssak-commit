@@ -9,9 +9,9 @@ import { logger } from "@/lib/logger";
 import {
   COMMIT_ANALYSIS_INSTRUCTIONS,
   REPORT_ANALYSIS_INSTRUCTIONS,
-} from "@/infra/openai-api/instructions";
-import { structuredTextGenerator } from "@/infra/openai-api/openai-client";
-import createInputBlocks from "@/infra/openai-api/helpers/create-input-blocks";
+} from "@/infra/integrations/openai/instructions";
+import { structuredTextGenerator } from "@/infra/integrations/openai/openai-client";
+import createInputBlocks from "@/infra/integrations/openai/helpers/create-input-blocks";
 import sortMergedResultsByCommitDate from "./helpers/sort-merged-results";
 import extractCommitSummaries from "./helpers/extract-commit-summaries";
 
