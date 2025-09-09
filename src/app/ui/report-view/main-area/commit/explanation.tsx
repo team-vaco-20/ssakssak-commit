@@ -1,4 +1,4 @@
-import { Analysis } from "@/app/types/commit";
+import { Analysis } from "@/app/types/analysis";
 
 interface AnalysisSummaryProps {
   data: Analysis[];

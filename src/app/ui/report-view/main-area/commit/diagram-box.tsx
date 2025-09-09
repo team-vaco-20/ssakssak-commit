@@ -1,4 +1,4 @@
-import { Analysis } from "@/app/types/commit";
+import { Analysis } from "@/app/types/analysis";
 import Mermaid from "@/app/ui/report-view/mermaid";
 import { MermaidConfig } from "mermaid";
 
