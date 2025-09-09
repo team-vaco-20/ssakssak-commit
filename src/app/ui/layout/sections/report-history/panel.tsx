@@ -4,7 +4,7 @@ import { useReportHistory } from "@/hooks/useVerifiedContext";
 import { useState } from "react";
 import { ReportHistory } from "@/app/types/report-history";
 import ReportHistoryList from "@/app/ui/layout/sections/report-history/list";
-import historyList from "@/mocks/data/report-history-list.json";
+import historyList from "@mocks/data/report-history-list.json";
 import { AlertModal } from "@/app/ui/common/Modal";
 import {
   DATA_ERROR_MESSAGES,

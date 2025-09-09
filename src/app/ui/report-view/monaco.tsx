@@ -1,6 +1,6 @@
 "use client";
 
-import mockAnalysisData from "@/mocks/data/monaco.json";
+import mockAnalysisData from "@mocks/data/monaco.json";
 import type { AnalysisData } from "@/app/types/monaco";
 import { MonacoFileCard } from "@/app/ui/report-view/monaco-file/MonacoFileCard";
 
