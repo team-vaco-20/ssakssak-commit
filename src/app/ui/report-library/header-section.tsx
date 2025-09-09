@@ -5,7 +5,7 @@ type HeaderSectionProps = {
 
 function HeaderSection({ title, children }: HeaderSectionProps) {
   return (
-    <div className="mt-15">
+    <div>
       <p className="text-[45px] font-bold">📑 {title}</p>
       {children}
     </div>
