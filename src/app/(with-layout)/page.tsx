@@ -3,7 +3,7 @@ import LayoutHeader from "@/app/ui/layout/layout-header";
 
 function HomePage() {
   return (
-    <div className="px-[10%]">
+    <div>
       <LayoutHeader />
 
       <ReportForm />
