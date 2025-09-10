@@ -2,7 +2,7 @@
 
 import parse from "html-react-parser";
 import useRenderMermaid from "@/hooks/useRenderMermaid";
-import { MermaidProps } from "@/app/types/mermaid";
+import { MermaidProps } from "@/types/mermaid";
 
 function Mermaid({ chart, title, description, config }: MermaidProps) {
   const { svg, error } = useRenderMermaid(chart, config);
