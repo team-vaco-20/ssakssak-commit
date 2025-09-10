@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ReportData } from "@/app/types/report";
+import { ReportData } from "@/types/report";
 import { DATA_ERROR_MESSAGES } from "@/constants/error-messages";
 
 import Header from "@/app/ui/report-view/header/header";

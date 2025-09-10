@@ -87,7 +87,7 @@ function ReportForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto mb-14 flex w-full max-w-3xl flex-col gap-12 rounded-xl bg-white p-10 pt-20 break-words break-keep"
+      className="mx-auto mb-14 flex w-full max-w-3xl flex-col gap-12 rounded-xl bg-white p-10 pt-20 pb-32"
     >
       <fieldset disabled={isSubmitting} className="contents">
         <InputField
@@ -112,9 +112,17 @@ function ReportForm() {
         </div>
 
         <RepositoryBranchSelector />
+        <div className="fixed right-0 bottom-20 left-0 mx-auto max-w-3xl px-5">
+          {errorMessage && (
+            <ErrorMessage
+              className="whitespace-normal"
+              message={errorMessage}
+            />
+          )}
+        </div>
 
-        <div className="fixed right-0 bottom-15 left-0 bg-white">
-          <div className="mx-auto max-w-3xl px-5 py-4">
+        <div className="right-0 bottom-0 left-0 z-0 bg-white pt-5">
+          <div className="mx-auto max-w-3xl">
             <Button
               type="submit"
               className="h-12 w-full rounded-lg bg-neutral-900 text-base font-semibold text-white shadow-sm hover:bg-neutral-600 focus:ring-2 focus:ring-neutral-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -123,13 +131,6 @@ function ReportForm() {
             </Button>
           </div>
         </div>
-
-        {errorMessage ? (
-          <ErrorMessage
-            className="whitespace-normal"
-            message={`${errorMessage}`}
-          ></ErrorMessage>
-        ) : null}
       </fieldset>
     </form>
   );

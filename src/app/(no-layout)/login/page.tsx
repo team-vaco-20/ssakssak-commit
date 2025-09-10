@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import AuthSection from "@/app/ui/login/auth-section";
 import AuthSwitch from "@/app/ui/login/auth-switch";
 import Image from "next/image";
+import AuthSection from "@/app/ui/login/auth-section";
 
 function LoginPage() {
   const [hasAccount, setHasAccount] = useState(false);

@@ -1,4 +1,4 @@
-import { BranchName } from "@/app/types/branch";
+import { BranchName } from "@/types/branch";
 import { getGithubBranchList } from "@/infra/github-api/branches/get-branch-list";
 import parseRepositoryUrl from "@/lib/parse-repository-url";
 
