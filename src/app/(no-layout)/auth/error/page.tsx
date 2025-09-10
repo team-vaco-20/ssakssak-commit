@@ -11,7 +11,7 @@ type Props = {
   searchParams: Promise<{ code?: string }>;
 };
 
-export default async function AuthErrorPage({ searchParams }: Props) {
+async function AuthErrorPage({ searchParams }: Props) {
   const params = await searchParams;
   const code = (params.code ?? SYSTEM_ERROR_MESSAGES.NETWORK) as ErrorCode;
   const message = AUTH_ERROR_MESSAGES[code] ?? AUTH_ERROR_MESSAGES.UNKNOWN;
@@ -42,3 +42,5 @@ export default async function AuthErrorPage({ searchParams }: Props) {
     </div>
   );
 }
+
+export default AuthErrorPage;
