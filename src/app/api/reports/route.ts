@@ -2,12 +2,27 @@ import { NextRequest, NextResponse } from "next/server";
 import { createReport } from "@/services/reports/create-report";
 import { validateReportInput } from "@/lib/validators/report-fields";
 import AppError from "@/errors/app-error";
+import { checkRateLimit } from "@/services/rate-limit/check-rate-limit";
 
 async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
 
     const validatedInput = validateReportInput(body);
+
+    const rateLimitResult = await checkRateLimit();
+
+    if (!rateLimitResult.canProceed) {
+      return NextResponse.json(
+        {
+          error: {
+            message: rateLimitResult.message,
+            status: 429,
+          },
+        },
+        { status: 429 },
+      );
+    }
 
     const result = await createReport(
       validatedInput.reportTitle,

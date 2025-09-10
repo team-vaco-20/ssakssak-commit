@@ -69,6 +69,14 @@ const DATA_ERROR_MESSAGES = {
   DELETE: "삭제를 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };
 
+const RATE_LIMIT_MESSAGES = {
+  INSUFFICIENT_REQUESTS:
+    "요청횟수를 모두 사용하였습니다. 로그인하시거나 {resetTime} 이후에 다시 사용해주세요.",
+  NETWORK_ERROR:
+    "Rate Limit 정보를 확인할 수 없습니다. 네트워크를 확인해주세요.",
+  API_ERROR: "GitHub API 연결에 문제가 발생했습니다.",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
@@ -79,4 +87,5 @@ export {
   AUTH_ERROR_MESSAGES,
   PROVIDER_ERROR_MESSAGES,
   DATA_ERROR_MESSAGES,
+  RATE_LIMIT_MESSAGES,
 };
