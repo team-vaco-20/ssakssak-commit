@@ -1,19 +1,34 @@
-import { Worker } from "bullmq";
+import { Worker, Job } from "bullmq";
 import { getRedisSubscriber } from "../cache/redis-connection";
 import { logger } from "@/lib/logger";
+import { saveCompletedResult } from "./result-store";
+
+type ReportCreationJobData = {
+  reportTitle: string;
+  repositoryUrl: string;
+  branch: string;
+  repositoryOverview: string;
+  accessToken?: string;
+};
 
 const connection = getRedisSubscriber();
 
-const worker = new Worker(
+const worker = new Worker<ReportCreationJobData, unknown>(
   "reportCreation",
-  async (job) => {
+  async (job: Job<ReportCreationJobData, unknown>) => {
     logger.info(`[job ${job.id}] START -> name : ${job.name}`);
     try {
       const { createReport } = await import("@/services/reports/create-report");
       const result = await createReport({ ...job.data });
+
+      const reportKey = await saveCompletedResult(
+        connection,
+        job.id as string,
+        result,
+      );
       logger.info(`[job ${job.id}] DONE`);
 
-      return result;
+      return { reportKey };
     } catch (error) {
       logger.error(`[job ${job.id}] FAILED : ${error}`);
       throw error;
@@ -30,8 +45,12 @@ worker.on("completed", async (job) => {
   logger.info(`${job.id} has completed!`);
 });
 
-worker.on("failed", (job, err) => {
-  logger.error({ jobId: job?.id, err }, "job failed");
+worker.on("error", (error) => {
+  logger.error({ error }, "error occured!");
+});
+
+worker.on("failed", (job, error) => {
+  logger.error({ jobId: job?.id, error }, "job failed");
 });
 
 export default worker;
