@@ -3,7 +3,7 @@ import { ReportData } from "@/types/report";
 import Header from "@/app/ui/report-view/header/header";
 import MainSection from "@/app/ui/report-view/main-area/main-section";
 import AsideSection from "@/app/ui/report-view/aside-area/aside-section";
-import { getResultByShareToken } from "@/infra/messaging/result-store";
+import { getResultByReportKey } from "@/infra/messaging/result-store";
 import { getRedisClient } from "@/infra/cache/redis-connection";
 import { notFound } from "next/navigation";
 
@@ -14,7 +14,7 @@ async function ReportViewPage({
 }) {
   const { reportId } = await params;
   const redis = getRedisClient();
-  const result = await getResultByShareToken<ReportData>(redis, reportId);
+  const result = await getResultByReportKey<ReportData>(redis, reportId);
 
   if (!result) {
     notFound();
