@@ -2,10 +2,10 @@ import { AppError, NotFoundError } from "@/errors";
 import { getRedisClient } from "@/infra/cache/redis-connection";
 import { Queue } from "bullmq";
 import { NextRequest, NextResponse } from "next/server";
-import { JOB_STATUS, JOB_QUEUE } from "@/constants/job";
+import { JOB_QUEUE, JOB_PHASES, JOB_STATES } from "@/constants/report-job";
 import { JOB_ERROR_MESSAGES } from "@/constants/error-messages";
 
-const { COMPLETED, FAILED, PROCESSING, ERROR } = JOB_STATUS;
+const { PROCESSING, COMPLETED, FAILED } = JOB_STATES;
 const { JOB_ID_REQUIRED, NOT_FOUND } = JOB_ERROR_MESSAGES;
 
 async function GET(
@@ -16,8 +16,8 @@ async function GET(
 
   if (!jobId) {
     return NextResponse.json(
-      { status: 400, message: JOB_ID_REQUIRED },
-      { status: 400 },
+      { status: FAILED, message: JOB_ID_REQUIRED },
+      { status: 400, headers: { "Cache-Control": "no-store" } },
     );
   }
 
@@ -33,15 +33,16 @@ async function GET(
     }
 
     const state = await job.getState();
+    const progress = job.progress;
+
     if (state === COMPLETED) {
       const returnValue = job.returnvalue as { reportKey?: string } | null;
       if (returnValue?.reportKey) {
         return NextResponse.json(
           { status: COMPLETED, reportKey: returnValue.reportKey },
-          { status: 200 },
+          { status: 200, headers: { "Cache-Control": "no-store" } },
         );
       }
-      return NextResponse.json({ status: PROCESSING }, { status: 200 });
     }
 
     if (state === FAILED) {
@@ -49,7 +50,14 @@ async function GET(
       return NextResponse.json({ status: FAILED, reason }, { status: 200 });
     }
 
-    return NextResponse.json({ status: PROCESSING }, { status: 200 });
+    return NextResponse.json(
+      {
+        status: PROCESSING,
+        state,
+        progress: progress ?? { phase: JOB_PHASES.PENDING },
+      },
+      { status: 200, headers: { "Cache-Control": "no-store" } },
+    );
   } catch (error) {
     const message: string =
       error instanceof Error ? error.message : "Unexpected error";
@@ -57,10 +65,10 @@ async function GET(
 
     return NextResponse.json(
       {
-        status: ERROR,
+        status: 500,
         message: message,
       },
-      { status },
+      { status, headers: { "Cache-Control": "no-store" } },
     );
   }
 }

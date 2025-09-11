@@ -2,6 +2,7 @@ import { Worker, Job } from "bullmq";
 import { getRedisSubscriber } from "../cache/redis-connection";
 import { logger } from "@/lib/logger";
 import { saveCompletedResult } from "./result-store";
+import { ReportProgress } from "@/types/job-progress";
 
 type ReportCreationJobData = {
   reportTitle: string;
@@ -17,9 +18,17 @@ const worker = new Worker<ReportCreationJobData, unknown>(
   "reportCreation",
   async (job: Job<ReportCreationJobData, unknown>) => {
     logger.info(`[job ${job.id}] START -> name : ${job.name}`);
+
+    const reportProgress: ReportProgress = async (phase) => {
+      await job.updateProgress(phase);
+    };
+
     try {
       const { createReport } = await import("@/services/reports/create-report");
-      const result = await createReport({ ...job.data });
+      const result = await createReport({
+        ...job.data,
+        onProgress: reportProgress,
+      });
 
       const reportKey = await saveCompletedResult(
         connection,
@@ -27,6 +36,7 @@ const worker = new Worker<ReportCreationJobData, unknown>(
         result,
       );
       logger.info(`[job ${job.id}] DONE`);
+      await reportProgress({ phase: "completed" });
 
       return { reportKey };
     } catch (error) {

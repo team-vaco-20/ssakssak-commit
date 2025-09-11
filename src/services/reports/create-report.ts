@@ -5,6 +5,7 @@ import getAnalysisResults from "../commit-analysis/analyze-commits";
 import { z } from "zod";
 import { analysisResultSchema } from "@/lib/validators/structured-analysis-result";
 type AnalysisResult = z.infer<typeof analysisResultSchema>;
+import { ReportProgress } from "@/types/job-progress";
 
 type CreateReportParams = {
   accessToken?: string;
@@ -12,6 +13,7 @@ type CreateReportParams = {
   repositoryUrl: string;
   branch: string;
   repositoryOverview: string;
+  onProgress: ReportProgress;
 };
 
 const createReport = async ({
@@ -20,9 +22,11 @@ const createReport = async ({
   branch,
   repositoryOverview,
   accessToken,
+  onProgress,
 }: CreateReportParams): Promise<AnalysisResult> => {
   const { owner, repositoryName } = parseRepositoryUrl(repositoryUrl);
 
+  await onProgress({ phase: "collecting" });
   const commitList = await getGithubCommitList(
     owner,
     repositoryName,
@@ -38,10 +42,13 @@ const createReport = async ({
     accessToken,
   );
 
+  await onProgress({ phase: "analyzing" });
   const commitAnalysisResults = await getAnalysisResults(
     commitDetailsList,
     repositoryOverview,
   );
+
+  await onProgress({ phase: "visualizing" });
 
   const commitsWithLink = commitAnalysisResults.commits.map((commit) => ({
     ...commit,
