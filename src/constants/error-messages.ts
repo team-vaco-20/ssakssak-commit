@@ -26,6 +26,7 @@ const GITHUB_REPOSITORY_ERROR_MESSAGES = {
 const SYSTEM_ERROR_MESSAGES = {
   SERVER: "서버 오류가 발생했습니다.",
   NETWORK: "네트워크 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+  UNKNOWN: "알 수 없는 오류가 발생했습니다.",
 };
 
 const MERMAID_ERROR_MESSAGES = {
