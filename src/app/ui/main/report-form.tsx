@@ -7,18 +7,25 @@ import { Textarea } from "@/app/ui/common/textarea";
 import { Button } from "@/app/ui/common/button";
 import RepositoryBranchSelector from "@/app/ui/main/repository-branch-selector";
 import ErrorMessage from "@/app/ui/common/error-message";
-import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
+import {
+  SYSTEM_ERROR_MESSAGES,
+  VALIDATION_ERROR_MESSAGES,
+} from "@/constants/error-messages";
 import { useRouter } from "next/navigation";
 import { useReportHistory } from "@/hooks/useVerifiedContext";
+import handleApiError from "@/lib/handle-api-error";
+import { AlertModal } from "@/app/ui/common/Modal";
 
 function ReportForm() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
-
   const { selected } = useReportHistory();
   const [reportTitle, setReportTitle] = useState<string>("");
   const [repositoryOverview, setRepositoryOverview] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorText, setErrorText] = useState<string | null>(null);
+  const [badRequestMessage, setBadRequestMessage] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     const syncedTitle = selected?.reportTitle ?? "";
@@ -31,9 +38,10 @@ function ReportForm() {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+    if (badRequestMessage) return;
 
     try {
-      setErrorMessage(null);
+      setErrorText(null);
       setIsSubmitting(true);
 
       const formData = new FormData(e.currentTarget);
@@ -48,8 +56,22 @@ function ReportForm() {
         reportHistoryId: selected?.reportHistoryId ?? null,
       };
 
+      if (data.reportTitle.length > 20) {
+        setBadRequestMessage(
+          VALIDATION_ERROR_MESSAGES.REPORT_INPUT.TITLE_MAX_LENGTH,
+        );
+        return;
+      }
+
+      if (data.repositoryOverview.length > 1000) {
+        setBadRequestMessage(
+          VALIDATION_ERROR_MESSAGES.REPORT_INPUT.REPOSITORY_OVERVIEW_MAX_LENGTH,
+        );
+        return;
+      }
+
       if (!data.repositoryUrl || !data.branch) {
-        setErrorMessage("리포지토리 URL과 브랜치를 모두 선택해 주세요.");
+        setErrorText("리포지토리 URL과 브랜치를 모두 선택해 주세요.");
         setIsSubmitting(false);
         return;
       }
@@ -63,13 +85,13 @@ function ReportForm() {
       });
 
       const resultData = await response.json();
+      const status = response.status;
+      const responseError =
+        resultData?.error?.message ?? "요청에 실패했습니다.";
 
       if (!response.ok) {
-        const errorMessage = resultData.error.message ?? "요청에 실패했습니다.";
-        alert(errorMessage);
-        router.replace("/");
         setIsSubmitting(false);
-
+        handleApiError(router, status, responseError);
         return;
       }
 
@@ -79,7 +101,7 @@ function ReportForm() {
 
       router.replace(`/report-view/${id}`);
     } catch {
-      setErrorMessage(SYSTEM_ERROR_MESSAGES.NETWORK);
+      setErrorText(SYSTEM_ERROR_MESSAGES.NETWORK);
       setIsSubmitting(false);
     }
   };
@@ -90,6 +112,8 @@ function ReportForm() {
       className="mx-auto mb-14 flex w-full max-w-3xl flex-col gap-12 rounded-xl bg-white p-10 pt-20 pb-32"
     >
       <fieldset disabled={isSubmitting} className="contents">
+        <RepositoryBranchSelector />
+
         <InputField
           id="reportTitle"
           name={"reportTitle"}
@@ -111,16 +135,6 @@ function ReportForm() {
           />
         </div>
 
-        <RepositoryBranchSelector />
-        <div className="fixed right-0 bottom-20 left-0 mx-auto max-w-3xl px-5">
-          {errorMessage && (
-            <ErrorMessage
-              className="whitespace-normal"
-              message={errorMessage}
-            />
-          )}
-        </div>
-
         <div className="right-0 bottom-0 left-0 z-0 bg-white pt-5">
           <div className="mx-auto max-w-3xl">
             <Button
@@ -129,9 +143,27 @@ function ReportForm() {
             >
               {isSubmitting ? "리포트 생성 요청 중..." : "리포트 생성"}
             </Button>
+
+            {errorText && (
+              <ErrorMessage
+                className="pt-2 whitespace-normal"
+                message={errorText}
+              />
+            )}
           </div>
         </div>
       </fieldset>
+
+      <AlertModal
+        open={!!badRequestMessage}
+        title="입력을 수정해 주세요!"
+        description={badRequestMessage || SYSTEM_ERROR_MESSAGES.NETWORK}
+        cancelLabel="닫기"
+        onCancel={() => {
+          setBadRequestMessage(null);
+          setIsSubmitting(false);
+        }}
+      />
     </form>
   );
 }
