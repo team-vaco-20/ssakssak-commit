@@ -94,24 +94,25 @@ function RepositoryBranchSelector() {
         className="rounded-lg border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none"
       />
 
-      {branches.length > 0 && (
-        <ComboboxPopover
-          items={branches}
-          value={selectedBranch}
-          onValueChange={setSelectedBranch}
-        >
-          브랜치
-        </ComboboxPopover>
-      )}
+      <div className="flex h-[30px] items-center">
+        {error ? (
+          <ErrorMessage
+            className="pt-5 whitespace-pre-wrap"
+            message={String(error)}
+          />
+        ) : branches.length > 0 ? (
+          <ComboboxPopover
+            items={branches}
+            value={selectedBranch}
+            onValueChange={setSelectedBranch}
+          >
+            브랜치
+          </ComboboxPopover>
+        ) : null}
+      </div>
+
       <input type="hidden" name="repositoryUrl" value={repositoryUrl}></input>
       <input type="hidden" name="branch" value={selectedBranch ?? ""}></input>
-
-      {error ? (
-        <ErrorMessage
-          className="whitespace-pre-wrap"
-          message={`${error}`}
-        ></ErrorMessage>
-      ) : null}
     </div>
   );
 }
