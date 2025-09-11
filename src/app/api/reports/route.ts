@@ -10,19 +10,7 @@ async function POST(request: NextRequest): Promise<NextResponse> {
 
     const validatedInput = validateReportInput(body);
 
-    const rateLimitResult = await checkRateLimit();
-
-    if (!rateLimitResult.canProceed) {
-      return NextResponse.json(
-        {
-          error: {
-            message: rateLimitResult.message,
-            status: 429,
-          },
-        },
-        { status: 429 },
-      );
-    }
+    await checkRateLimit();
 
     const result = await createReport(
       validatedInput.reportTitle,

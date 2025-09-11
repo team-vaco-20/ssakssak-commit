@@ -11,19 +11,7 @@ async function GET(request: NextRequest): Promise<NextResponse> {
       request.nextUrl.searchParams,
     );
 
-    const rateLimitResult = await checkRateLimit();
-
-    if (!rateLimitResult.canProceed) {
-      return NextResponse.json(
-        {
-          error: {
-            message: rateLimitResult.message,
-            status: 429,
-          },
-        },
-        { status: 429 },
-      );
-    }
+    await checkRateLimit();
 
     const branches: BranchName[] = await getBranchList(repositoryUrl);
 
