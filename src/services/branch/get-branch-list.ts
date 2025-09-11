@@ -1,5 +1,5 @@
 import { BranchName } from "@/types/branch";
-import { getGithubBranchList } from "@/infra/github-api/branches/get-branch-list";
+import { getGithubBranchList } from "@/infra/integrations/github/branches/get-branch-list";
 import parseRepositoryUrl from "@/lib/parse-repository-url";
 
 const getBranchList = async (repositoryUrl: string): Promise<BranchName[]> => {

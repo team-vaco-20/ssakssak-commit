@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createReport } from "@/services/reports/create-report";
 import { validateReportInput } from "@/lib/validators/report-fields";
 import AppError from "@/errors/app-error";
+import { addJobs } from "@/infra/messaging/report-creation-queue";
+import getAccessToken from "@/lib/auth/get-access-token";
 
 async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
+    const validatedResult = validateReportInput(body);
+    const accessToken = await getAccessToken();
 
-    const validatedInput = validateReportInput(body);
+    const job = await addJobs({ ...validatedResult, accessToken });
 
-    const result = await createReport(
-      validatedInput.reportTitle,
-      validatedInput.repositoryOverview,
-      validatedInput.repositoryUrl,
-      validatedInput.branch,
+    return NextResponse.json(
+      { status: "queued", jobId: job.id },
+      { status: 202, headers: { Location: `/api/report-jobs/${job.id}` } },
     );
-
-    return NextResponse.json({ result }, { status: 201 });
   } catch (error) {
     const message: string =
       error instanceof Error ? error.message : "Unexpected error";

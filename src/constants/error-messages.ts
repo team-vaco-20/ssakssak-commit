@@ -71,6 +71,11 @@ const DATA_ERROR_MESSAGES = {
   DELETE: "삭제를 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };
 
+const JOB_ERROR_MESSAGES = {
+  JOB_ID_REQUIRED: "jobId 값이 필요합니다.",
+  NOT_FOUND: "해당 작업을 찾을 수 없습니다",
+};
+
 export {
   VALIDATION_ERROR_MESSAGES,
   GITHUB_REPOSITORY_ERROR_MESSAGES,
@@ -81,4 +86,5 @@ export {
   AUTH_ERROR_MESSAGES,
   PROVIDER_ERROR_MESSAGES,
   DATA_ERROR_MESSAGES,
+  JOB_ERROR_MESSAGES,
 };
