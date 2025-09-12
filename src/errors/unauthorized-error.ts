@@ -1,10 +1,10 @@
 import AppError from "./app-error";
-import { ErrorArgs } from "@/app/types/error-args";
+import { ErrorArgs } from "@/types/error-args";
 
 class UnauthorizedError extends AppError {
   constructor(args: Omit<ErrorArgs, "status">) {
     super({
-      status: 403,
+      status: 401,
       ...args,
     });
   }

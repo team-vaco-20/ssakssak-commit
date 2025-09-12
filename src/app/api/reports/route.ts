@@ -1,23 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createReport } from "@/services/reports/create-report";
 import { validateReportInput } from "@/lib/validators/report-fields";
 import AppError from "@/errors/app-error";
-import { getServerSession } from "next-auth";
-import authOptions from "@/lib/auth/auth-options";
+import { addJobs } from "@/infra/messaging/report-creation-queue";
+import getAccessToken from "@/lib/auth/get-access-token";
+import { SYSTEM_ERROR_MESSAGES } from "@/constants/error-messages";
 import { deleteReports, getReports } from "@/repositories/report";
-import { UnauthorizedError } from "@/errors";
-import {
-  AUTH_ERROR_MESSAGES,
-  SYSTEM_ERROR_MESSAGES,
-} from "@/constants/error-messages";
+import { requireUserId } from "@/lib/auth/require-session";
 
 async function GET() {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user.userId;
-
-  if (!userId) {
-    throw new UnauthorizedError({ message: AUTH_ERROR_MESSAGES.UNAUTHORIZED });
-  }
+  const userId = await requireUserId();
 
   try {
     const items = await getReports(userId);
@@ -40,17 +31,15 @@ async function GET() {
 async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
+    const validatedResult = validateReportInput(body);
+    const accessToken = await getAccessToken();
 
-    const validatedInput = validateReportInput(body);
+    const job = await addJobs({ ...validatedResult, accessToken });
 
-    const result = await createReport(
-      validatedInput.reportTitle,
-      validatedInput.repositoryOverview,
-      validatedInput.repositoryUrl,
-      validatedInput.branch,
+    return NextResponse.json(
+      { status: "queued", jobId: job.id },
+      { status: 202, headers: { Location: `/api/report-jobs/${job.id}` } },
     );
-
-    return NextResponse.json({ result }, { status: 201 });
   } catch (error) {
     const message: string =
       error instanceof Error ? error.message : SYSTEM_ERROR_MESSAGES.UNEXPECTED;
@@ -66,12 +55,7 @@ async function POST(request: NextRequest): Promise<NextResponse> {
 }
 
 async function DELETE(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user.userId;
-
-  if (!userId) {
-    throw new UnauthorizedError({ message: AUTH_ERROR_MESSAGES.UNAUTHORIZED });
-  }
+  const userId = await requireUserId();
 
   try {
     const body = await request.json();

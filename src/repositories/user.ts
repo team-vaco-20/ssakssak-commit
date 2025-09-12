@@ -7,7 +7,12 @@ type UpsertUserParams = {
   avatarUrl?: string | null;
 };
 
-const upsertUser = ({ githubId, email, name, avatarUrl }: UpsertUserParams) => {
+const upsertUser = async ({
+  githubId,
+  email,
+  name,
+  avatarUrl,
+}: UpsertUserParams) => {
   const baseData = {
     userEmail: email,
     userName: name,
@@ -36,4 +41,5 @@ const findUserIdByGithubId = async (githubId: bigint) => {
     select: { userId: true },
   });
 };
+
 export { upsertUser, findUserIdByGithubId };

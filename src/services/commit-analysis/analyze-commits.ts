@@ -1,4 +1,4 @@
-import { CommitDetail } from "@/app/types/commit";
+import { GithubCommit } from "@/types/commit";
 import { TOKEN_LIMITS, REQUEST_INPUT_INTRO_MESSAGE } from "@/constants/open-ai";
 import chunkCommitsByTokens from "@/services/commit-analysis/helpers/chunk-commits-by-tokens";
 import {
@@ -9,9 +9,9 @@ import { logger } from "@/lib/logger";
 import {
   COMMIT_ANALYSIS_INSTRUCTIONS,
   REPORT_ANALYSIS_INSTRUCTIONS,
-} from "@/infra/openai-api/instructions";
-import { structuredTextGenerator } from "@/infra/openai-api/openai-client";
-import createInputBlocks from "@/infra/openai-api/helpers/create-input-blocks";
+} from "@/infra/integrations/openai/instructions";
+import { structuredTextGenerator } from "@/infra/integrations/openai/openai-client";
+import createInputBlocks from "@/infra/integrations/openai/helpers/create-input-blocks";
 import sortMergedResultsByCommitDate from "./helpers/sort-merged-results";
 import extractCommitSummaries from "./helpers/extract-commit-summaries";
 
@@ -26,7 +26,7 @@ const { COMMIT_ANALYSIS_REQUEST, OVERALL_ANALYSIS_REQUEST } =
   REQUEST_INPUT_INTRO_MESSAGE;
 
 const getAnalysisResults = async (
-  commits: CommitDetail[],
+  commits: GithubCommit[],
   repositoryOverview: string | undefined,
 ) => {
   const commitBatches = chunkCommitsByTokens(
@@ -67,7 +67,7 @@ const getAnalysisResults = async (
 };
 
 const analyzeCommitBatches = async (
-  commitBatches: CommitDetail[][],
+  commitBatches: GithubCommit[][],
   repositoryOverview?: string,
 ) => {
   return Promise.all(
@@ -90,7 +90,7 @@ const analyzeCommitBatches = async (
 };
 
 const requestCommitAnalysis = async (
-  batch: CommitDetail[],
+  batch: GithubCommit[],
   repositoryOverview?: string,
 ) => {
   const inputContent = createInputBlocks({
