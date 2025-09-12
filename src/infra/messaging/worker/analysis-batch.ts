@@ -13,4 +13,20 @@ const analysisBatchWorker = new Worker(
   { connection, concurrency: 5 },
 );
 
+analysisBatchWorker.on("ready", () => {
+  logger.info("[analysisBatch] Worker connected to Redis and ready!");
+});
+
+analysisBatchWorker.on("completed", async (job) => {
+  logger.info(`[analysisBatch] ${job.id} has completed!`);
+});
+
+analysisBatchWorker.on("error", (error) => {
+  logger.error({ error }, "[analysisBatch] error occured!");
+});
+
+analysisBatchWorker.on("failed", (job, error) => {
+  logger.error({ jobId: job?.id, error }, "[analysisBatch] job failed");
+});
+
 export default analysisBatchWorker;
