@@ -1,8 +1,9 @@
 import { Worker, Job } from "bullmq";
-import { getRedisSubscriber } from "../cache/redis-connection";
+import { getRedisSubscriber } from "@/infra/cache/redis-connection";
 import { logger } from "@/lib/logger";
-import { saveCompletedResult } from "./result-store";
+import { saveCompletedResult } from "@/infra/messaging/result-store";
 import { ReportProgress } from "@/types/job-progress";
+import { JOB_QUEUE } from "@/constants/report-job";
 
 type ReportCreationJobData = {
   reportTitle: string;
@@ -14,10 +15,10 @@ type ReportCreationJobData = {
 
 const connection = getRedisSubscriber();
 
-const worker = new Worker<ReportCreationJobData, unknown>(
-  "reportCreation",
+const reportCreationWorker = new Worker<ReportCreationJobData, unknown>(
+  JOB_QUEUE.REPORT_CREATION,
   async (job: Job<ReportCreationJobData, unknown>) => {
-    logger.info(`[job ${job.id}] START -> name : ${job.name}`);
+    logger.info(`[report-creation-job ${job.id}] START -> name : ${job.name}`);
 
     const reportProgress: ReportProgress = async (phase) => {
       await job.updateProgress(phase);
@@ -47,20 +48,20 @@ const worker = new Worker<ReportCreationJobData, unknown>(
   { connection, concurrency: 3 },
 );
 
-worker.on("ready", () => {
+reportCreationWorker.on("ready", () => {
   logger.info("Worker connected to Redis and ready!");
 });
 
-worker.on("completed", async (job) => {
+reportCreationWorker.on("completed", async (job) => {
   logger.info(`${job.id} has completed!`);
 });
 
-worker.on("error", (error) => {
+reportCreationWorker.on("error", (error) => {
   logger.error({ error }, "error occured!");
 });
 
-worker.on("failed", (job, error) => {
+reportCreationWorker.on("failed", (job, error) => {
   logger.error({ jobId: job?.id, error }, "job failed");
 });
 
-export default worker;
+export default reportCreationWorker;

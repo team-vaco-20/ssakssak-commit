@@ -1,5 +1,6 @@
 const JOB_QUEUE = {
   REPORT_CREATION: "reportCreation",
+  ANALYSIS_BATCH: "analysisBatch",
 };
 
 const JOB_PHASES = {
