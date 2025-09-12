@@ -27,6 +27,7 @@ const SYSTEM_ERROR_MESSAGES = {
   SERVER: "서버 오류가 발생했습니다.",
   NETWORK: "네트워크 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
   UNKNOWN: "알 수 없는 오류가 발생했습니다.",
+  UNEXPECTED: "예상치 못한 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
 };
 
 const MERMAID_ERROR_MESSAGES = {
@@ -47,6 +48,7 @@ const AUTH_ERROR_MESSAGES = {
   UNKNOWN: "로그인 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
   SESSION_EXPIRED:
     "세션이 만료되었거나 올바르지 않습니다. 로그인 후 이용해 주세요.",
+  UNAUTHORIZED: "로그인이 필요합니다.",
 };
 
 const OPENAI_ERROR_MESSAGES = {
